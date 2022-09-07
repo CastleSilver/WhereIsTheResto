@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 function Test() {
   const dispatch = useDispatch();
   const number = useSelector((state: any) => state.number);
-  console.log(number);
 
   const plus = () => {
     dispatch({ type: "INCREMENT" });

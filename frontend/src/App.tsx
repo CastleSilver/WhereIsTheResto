@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import "./moduleApp.css";
 import Home from "./User_components/Home";
-import Login from "./User_components/Login";
 import Auth from "./User_components/Auth";
+import Azti from "./User_components/Azti";
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/oauth/kakao/callback" element={<Auth />} />
+          <Route path="/azti" element={<Azti />} />
         </Routes>
       </Router>
     </div>

@@ -1,6 +1,11 @@
-const loginState = {};
+const initialState = {
+  number: 5
+};
 
-function reducer(action, state = loginState) {
+function reducer(state = initialState, action) {
+  if (action.type === "INCREMENT") {
+    return { ...state, number: state.number + 1 };
+  }
   return { ...state };
 }
 

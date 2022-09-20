@@ -11,3 +11,45 @@ body {
   padding: 1rem;
   text-align: center;
 }
+
+.text-yellow-0 {
+  color: rgb(254, 192, 41);
+  font-size: 30px;
+  font-weight: bold;
+  -webkit-text-stroke: 1px green;
+  margin: 0px;
+}
+
+.text-yellow-1 {
+  color: rgb(254, 192, 41);
+  font-size: 24px;
+  font-weight: bold;
+  -webkit-text-stroke: 1px green;
+  margin: 0px;
+}
+
+.text-orange-1 {
+  color: rgb(216, 99, 69);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.text-orange-2 {
+  color: rgb(216, 99, 69);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.text-blue-1 {
+  color: rgb(77, 152, 182);
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0.1rem 0.1rem 0.1em grey;
+  text-align: left;
+}
+
+.text-blue-2 {
+  color: rgb(77, 152, 182);
+  font-size: 18px;
+  font-weight: bold;
+}

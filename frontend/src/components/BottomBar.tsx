@@ -11,6 +11,7 @@ import { orange } from "@mui/material/colors"
 
 export default function BottomBar() {
   const [clicked, setClicked] = useState(0)
+
   const bottomStyle = {
     background: "rgb(217, 217, 217)",
     padding: "8px",
@@ -36,25 +37,19 @@ export default function BottomBar() {
         }}
       >
         <Grid container display="flex" sx={bottomStyle}>
-          <Grid xs={3}>
+          <Grid xs={4}>
             <Link to="/main" onClick={() => setClicked(0)}>
               <HomeIcon sx={getIconStyle(0)} />
             </Link>
           </Grid>
-          <Grid xs={3}>
+          <Grid xs={4}>
             <Link to="/main" onClick={() => setClicked(1)}>
               <SearchIcon sx={getIconStyle(1)} />
             </Link>
           </Grid>
-          <Grid xs={3}>
-            <Link to="/main" onClick={() => setClicked(2)}>
-              <SmartToyIcon sx={getIconStyle(2)} />
-            </Link>
-            s
-          </Grid>
-          <Grid xs={3}>
-            <Link to="/dev" onClick={() => setClicked(3)}>
-              <PersonIcon sx={getIconStyle(3)} />
+          <Grid xs={4}>
+            <Link to="/dev" onClick={() => setClicked(2)}>
+              <PersonIcon sx={getIconStyle(2)} />
             </Link>
           </Grid>
         </Grid>

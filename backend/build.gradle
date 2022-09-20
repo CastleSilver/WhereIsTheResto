@@ -29,7 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
-	implementation 'com.google.code.gson:gson:2.8.7'
+	implementation 'com.google.code.gson:gson:2.8.9'
 	implementation("javax.interceptor:javax.interceptor-api:1.2.2")
 
 	compileOnly 'org.projectlombok:lombok'

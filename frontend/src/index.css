@@ -1,0 +1,13 @@
+body {
+  margin: 0 auto;
+  background-image: url("./assets/background_paper.png");
+  background-size: cover;
+  max-width: 400px;
+  padding-bottom: 71px;
+}
+
+#root {
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}

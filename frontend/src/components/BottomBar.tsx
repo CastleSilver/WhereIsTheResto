@@ -43,12 +43,12 @@ export default function BottomBar() {
             </Link>
           </Grid>
           <Grid xs={4}>
-            <Link to="/main" onClick={() => setClicked(1)}>
+            <Link to="/search" onClick={() => setClicked(1)}>
               <SearchIcon sx={getIconStyle(1)} />
             </Link>
           </Grid>
           <Grid xs={4}>
-            <Link to="/dev" onClick={() => setClicked(2)}>
+            <Link to="/my-page" onClick={() => setClicked(2)}>
               <PersonIcon sx={getIconStyle(2)} />
             </Link>
           </Grid>

@@ -11,7 +11,7 @@ export default function RstInfo() {
   return (
     <>
       <Grid container display="flex" spacing={1}>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Box
             sx={{ borderRadius: "24px", overflow: "hidden", height: "135px" }}
           >
@@ -22,9 +22,9 @@ export default function RstInfo() {
             />
           </Box>
         </Grid>
-        <Grid item xs={6} alignItems="center">
-          <p className="text-yellow-1">{rst.title}</p>
-          <p className="text-orange-2">경력: {rst.old}년</p>
+        <Grid item xs={5} alignItems="center">
+          <p className="text-yellow-0">{rst.title}</p>
+          <p className="text-orange-2">경력: {rst.old}</p>
           <p className="text-orange-2">위치: {rst.location}</p>
         </Grid>
       </Grid>

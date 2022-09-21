@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { Logo } from "../../assets/imageUrl"
 
 // MUI
-import { Grid, Box, TextField } from "@mui/material"
+import { Grid, Box } from "@mui/material"
 import BottomBar from "../../components/BottomBar"
 
 // Components
@@ -18,14 +18,7 @@ export default function MainPage() {
 
   return (
     <>
-      <TextField
-        fullWidth
-        label="어떤 음식을 드시고 싶으신가요?"
-        color="warning"
-        id="fullWidth"
-      />
-
-      <div>
+      <Box sx={{ marginY: "70px" }}>
         <p>
           <span className="text-yellow-1">{myType}</span>
           <span className="text-orange-1">인</span>
@@ -34,11 +27,13 @@ export default function MainPage() {
           <span className="text-yellow-1">User</span>
           <span className="text-orange-1">를 위한 맛집 리-스트</span>
         </p>
-      </div>
-
-      <BestCard />
-      <CaroArea />
-      <BottomBar />
+      </Box>
+      <Box sx={{ marginY: "70px" }}>
+        <BestCard />
+      </Box>
+      <Box sx={{ marginY: "70px" }}>
+        <CaroArea />
+      </Box>
     </>
   )
 }

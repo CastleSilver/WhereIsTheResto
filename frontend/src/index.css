@@ -1,9 +1,15 @@
+@font-face {
+  font-family: "BMEULJIRO";
+  src: url("./assets/BMEULJIRO.otf");
+}
+
 body {
   margin: 0 auto;
   background-image: url("./assets/background_paper.png");
   background-size: cover;
   max-width: 400px;
   padding-bottom: 71px;
+  font-family: "BMEULJIRO";
 }
 
 #root {
@@ -14,42 +20,41 @@ body {
 
 .text-yellow-0 {
   color: rgb(254, 192, 41);
-  font-size: 30px;
+  font-size: 2rem;
   font-weight: bold;
-  -webkit-text-stroke: 1px green;
-  margin: 0px;
+  -webkit-text-stroke: 0.01rem green;
+  margin: 5px;
 }
 
 .text-yellow-1 {
   color: rgb(254, 192, 41);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
-  -webkit-text-stroke: 1px green;
-  margin: 0px;
+  -webkit-text-stroke: 0.01rem green;
+  margin: 5px;
 }
 
 .text-orange-1 {
   color: rgb(216, 99, 69);
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 .text-orange-2 {
   color: rgb(216, 99, 69);
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .text-blue-1 {
   color: rgb(77, 152, 182);
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 2rem;
   text-shadow: 0.1rem 0.1rem 0.1em grey;
   text-align: left;
 }
 
 .text-blue-2 {
   color: rgb(77, 152, 182);
-  font-size: 18px;
+  font-size: 1rem;
   font-weight: bold;
 }

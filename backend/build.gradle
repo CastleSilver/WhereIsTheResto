@@ -1,6 +1,27 @@
+buildscript{
+	ext {
+		springBootVer = '2.7.3'
+		querydslVer = '5.0.0'
+		querydslPluginVer = '1.0.13'
+		springDependencyMgmtVer = '1.0.11'
+		springLoadedVer = '1.2.8'
+	}
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
+		classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
+		classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+	}
+}
+
+
 plugins {
-	id 'org.springframework.boot' version '2.7.3'
-	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'org.springframework.boot' version "${springBootVer}"
+	id 'io.spring.dependency-management' version "${springDependencyMgmtVer}.RELEASE"
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 	id 'idea'
 }
@@ -40,8 +61,28 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	// querydsl
+	compile("com.querydsl:querydsl-jpa") // querydsl
+	compile("com.querydsl:querydsl-apt") // querydsl
+	annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
+	annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
+	implementation("com.querydsl:querydsl-jpa:${querydslVer}")
+	implementation("com.querydsl:querydsl-apt:${querydslVer}")
 }
-
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+configurations {
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+	options.annotationProcessorPath = configurations.querydsl
+}
 test {
 	useJUnitPlatform()
 }

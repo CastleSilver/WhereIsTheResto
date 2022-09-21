@@ -3,7 +3,6 @@ package com.ssafy.nopo.db.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 

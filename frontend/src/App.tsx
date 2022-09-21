@@ -7,6 +7,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import StartPage from "./pages/StartPage/StartPage"
 import MainPage from "./pages/MainPage/MainPage"
 import AllComponents from "./pages/AllComponents"
+import SearchPage from "./pages/SearchPage/SearchPage"
+import MyPage from "./pages/MyPage/MyPage"
+import BottomBar from "./components/BottomBar"
 
 function App() {
   return (
@@ -14,8 +17,11 @@ function App() {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/main" element={<MainPage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/my-page" element={<MyPage />} />
         <Route path="/dev" element={<AllComponents />} />
       </Routes>
+      <BottomBar />
     </Router>
   )
 }

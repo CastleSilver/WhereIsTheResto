@@ -25,4 +25,5 @@ public class ReviewRes {
         this.regDate = regDate;
         this.nickname = nickname;
     }
+
 }

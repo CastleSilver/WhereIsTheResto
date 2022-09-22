@@ -66,12 +66,11 @@ video_df['video_description'] = video_description
 video_df['video_info_title'] = video_info_title
 video_df['video_info_location'] = video_info_location
 
+video_df.to_csv("video_list.csv", mode='w')
 # 여기까지가 김사원 세끼 서울 지역 노포 정보 불러오기
 # 아래부터는 영상에 대한 댓글 api
 
 comments = []
-
-print(video_ids[0])
 
 comment_list_response = youtube.commentThreads().list(
     videoId = video_ids[1],
@@ -139,3 +138,5 @@ response = http.request(
 print("[responseCode] " + str(response.status))
 print("[responBody]")
 print(str(response.data,"utf-8"))
+
+

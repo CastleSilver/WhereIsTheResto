@@ -31,7 +31,9 @@ module.exports = {
     ],
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "prettier/prettier": ["error", { endOfLine: "auto" }]
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "no‑unused‑expressions": "off",
+    "@typescript‑eslint/no‑unused‑expressions": ["off"]
   },
   settings: {
     "import/resolver": {

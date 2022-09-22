@@ -16,7 +16,6 @@ public class UserController {
         log.info("UserController");
 
         System.out.println("code: " + code);
-        //return "index";
     }
 
 }

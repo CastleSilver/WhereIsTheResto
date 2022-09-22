@@ -7,6 +7,8 @@ from oauth2client.tools import argparser
 from pprint import pprint
 import pandas as pd
 import re
+import requests
+from bs4 import BeautifulSoup
 
 # pip install --upgrade google-api-python-client
 # pip install --upgrade google-auth-oauthlib google-auth-httplib2
@@ -39,6 +41,7 @@ video_description = []
 video_titles = []
 video_info_title = []
 video_info_location = []
+video_info_tag = []
 
 while playlistitems_list_request:
     playlistitems_list_response = playlistitems_list_request.execute()
@@ -54,6 +57,16 @@ while playlistitems_list_request:
         video_titles.append(title)
         video_description.append(description)
         video_ids.append(video_id)
+
+        url = f'https://www.youtube.com/watch?v={video_id}'
+        html = requests.get(url)
+        soup = BeautifulSoup(html.text, 'lxml')
+        tagarray= []
+        taglist = soup.select('meta[property= "og:video:tag"]')
+
+        for tagitem in taglist:
+            tagarray.append(tagitem['content'])
+        video_info_tag.append(tagarray)
     
     playlistitems_list_request = youtube.playlistItems().list_next(
         playlistitems_list_request, playlistitems_list_response
@@ -65,8 +78,9 @@ video_df['video_id'] = video_ids
 video_df['video_description'] = video_description
 video_df['video_info_title'] = video_info_title
 video_df['video_info_location'] = video_info_location
+video_df['video_info_tag'] = video_info_tag
 
-video_df.to_csv("video_list.csv", mode='w')
+video_df.to_csv("video_list.csv", mode='w', encoding='utf8')
 # 여기까지가 김사원 세끼 서울 지역 노포 정보 불러오기
 # 아래부터는 영상에 대한 댓글 api
 
@@ -103,9 +117,13 @@ while comment_list_response:
 comment_df = pd.DataFrame(comments)
 comment_df.columns = ['comment', 'author', 'like']
 
-comment_df.to_csv("comment_list.csv", mode='w')
+comment_df.to_csv("comment_list.csv", mode='w', encoding='utf8')
 
 
+#-*- coding:utf-8 -*-
+import urllib3
+import json
+ 
 # // 언어 분석 기술 문어/구어 중 한가지만 선택해 사용
 # // 언어 분석 기술(문어)
 openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU" 
@@ -114,11 +132,8 @@ openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU_spoken"
  
 accessKey = "YOUR_ACCESS_KEY"
 analysisCode = "ANALYSIS_CODE"
-text = ""
+text = "YOUR_SENTENCE"
  
-# // 언어 분석 기술(문어)
-text += 'a'
-
 requestJson = {
     "access_key": accessKey,
     "argument": {
@@ -138,5 +153,4 @@ response = http.request(
 print("[responseCode] " + str(response.status))
 print("[responBody]")
 print(str(response.data,"utf-8"))
-
 

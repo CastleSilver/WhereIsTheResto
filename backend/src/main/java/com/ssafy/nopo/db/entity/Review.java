@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@DynamicInsert
+@DynamicUpdate
 @Entity
 @Table(name = "REVIEW")
 public class Review {
@@ -21,11 +23,12 @@ public class Review {
     private int id;
 
     @Column(length = 200, nullable = false)
-    private String comment;
+    private String content;
 
     @Column(nullable = false)
     private Double rating;
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime regdate;
 
@@ -37,11 +40,16 @@ public class Review {
     private List<ReviewImg> imgList = new ArrayList<>();
 
     @Builder
-    public Review(int id, String comment, Double rating, LocalDateTime regdate, List<ReviewImg> imgList) {
+    public Review(int id, String content, Double rating, LocalDateTime regdate, List<ReviewImg> imgList) {
         this.id = id;
-        this.comment = comment;
+        this.content = content;
         this.rating = rating;
         this.regdate = regdate;
         this.imgList = imgList;
+    }
+
+    public void update(String content, Double rating) {
+        this.content = content;
+        this.rating = rating;
     }
 }

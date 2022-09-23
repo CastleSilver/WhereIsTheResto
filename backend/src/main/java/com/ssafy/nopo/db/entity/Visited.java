@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -15,6 +12,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "VISITED")
 public class Visited {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,7 +25,8 @@ public class Visited {
     @JoinColumn(name = "resto_id")
     private OldRestaurant nopo;
 
-    public Visited(User user, OldRestaurant nopo) {
+    public Visited(int id, User user, OldRestaurant nopo) {
+        this.id = id;
         this.user = user;
         this.nopo = nopo;
     }

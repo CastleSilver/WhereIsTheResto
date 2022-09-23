@@ -37,7 +37,6 @@ public class User {
     private String profileImage;
 
     @Column(length = 5)
-    @Enumerated(EnumType.STRING)
     private String role;
 
     @Column(length = 10)

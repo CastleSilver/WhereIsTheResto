@@ -12,12 +12,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User save(User user);
     User getOne(Long userId);
-    Optional<User> findByKakaoId(String socialId);
+    //Optional<User> findBySocialId(String socialId);
     Optional<User> findByEmail(String email);
     User findByNickname(String nickname);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
 
     ArrayList<User> findByNicknameContains(String keyword);
-    Optional<User> findBySocialAndSocialId(String social, String socialId);
+    Optional<User> findBySocialId(String socialId);
 }

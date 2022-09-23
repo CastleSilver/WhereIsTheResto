@@ -325,7 +325,7 @@ public class UserServiceImpl implements UserService{
 
         String id = data.get("id").toString();
 
-        return userRepository.findByKakaoId(id);
+        return userRepository.findBySocialId(id);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.ssafy.nopo.api.response;
 
-import com.ssafy.nopo.db.entity.AZTI;
 import com.ssafy.nopo.db.entity.User;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ public class UserInfoResponse {
     private User.Gender gender;
     private int age;
     private String profileImageURL;
-    private AZTI azti;
+    private User.AZTI aztiType;
 
     public static UserInfoResponse generateUserInfoResDto(User user) {
         UserInfoResponse u = new UserInfoResponse();
@@ -21,7 +20,7 @@ public class UserInfoResponse {
         u.setGender(user.getGender());
         u.setAge(user.getAge());
         u.setProfileImageURL(user.getProfileImage());
-        u.setAzti(user.getAzti());
+        u.setAztiType(user.getAztiType());
         return u;
     }
 }

@@ -1,7 +1,7 @@
 buildscript{
 	ext {
-		springBootVer = '2.7.3'
-		querydslVer = '5.0.0'
+		springBootVer = '2.4.5'
+		querydslVer = '4.4.0'
 		querydslPluginVer = '1.0.13'
 		springDependencyMgmtVer = '1.0.11'
 		springLoadedVer = '1.2.8'
@@ -14,13 +14,14 @@ buildscript{
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
 		classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
 		classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+		classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
 	}
 }
 
 plugins {
 	id 'org.springframework.boot' version "${springBootVer}"
-	id 'io.spring.dependency-management' version "${springDependencyMgmtVer}.RELEASE"
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	//id 'io.spring.dependency-management' version "${springDependencyMgmtVer}.RELEASE"
+	//id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 	id 'idea'
 }
@@ -49,7 +50,6 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
@@ -63,6 +63,10 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+	//Spring Security
+	implementation("org.springframework.security:spring-security-oauth2-client")
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	// querydsl

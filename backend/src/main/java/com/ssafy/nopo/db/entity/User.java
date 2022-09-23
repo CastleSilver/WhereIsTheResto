@@ -19,42 +19,57 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-    //@Column(length = 13, nullable = false)
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     private String nickname;
 
     @Column(length = 30)
     private String email;
 
-    private String socialId;
-
     @Column(length = 1)
     @Enumerated(EnumType.STRING)
-    private String gender;
+    private Gender gender;
+
+    @Column(length = 3)
+    private int age;
+
+    @Column(name = "profile_image", length = 250)
+    private String profileImage;
 
     @Column(length = 5)
     @Enumerated(EnumType.STRING)
     private String role;
 
-    @Column(length = 3)
-    private int age;
+    @Column(length = 10)
+    @Enumerated(EnumType.STRING)
+    private AZTI aztiType;
 
-    @ManyToOne
-    @JoinColumn(name = "AZTI_id")
-    private AZTI azti;
+    private String socialId;
 
     private String refreshToken;
 
+//    @ManyToOne
+//    @JoinColumn(name = "AZTI_id")
+//    private AZTI azti;
+
     @Builder
-    public User(Long id, String nickname, String email, String gender, int age, AZTI azti, String role) {
+    public User(Long id, String nickname, String email, Gender gender, int age, AZTI aztiType, String role, String profileImage) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
         this.age = age;
+        this.profileImage = profileImage;
         this.role = role;
-        this.azti = azti;
+        this.aztiType = aztiType;
         this.role = role;
+    }
+
+    public static enum Gender {
+        M, F, X;
+    }
+
+    public static enum AZTI {
+        M, F, X;
     }
 }

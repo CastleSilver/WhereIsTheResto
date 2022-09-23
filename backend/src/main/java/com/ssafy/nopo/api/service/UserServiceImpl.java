@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ssafy.nopo.api.request.UpdateUserRequest;
 import com.ssafy.nopo.api.response.LoginLogResponse;
 import com.ssafy.nopo.api.response.LoginResponse;
 import com.ssafy.nopo.api.response.LoginSocialResponse;
+import com.ssafy.nopo.api.response.UserInfoResponse;
 import com.ssafy.nopo.common.auth.jwt.JwtUtil;
 import com.ssafy.nopo.db.entity.LoggedContinue;
 import com.ssafy.nopo.db.entity.LoggedIn;
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService{
                 .id((Long) data.get("id"))
                 .nickname((String) data.get("id"))
                 .email((String) data.get("email"))
-                .gender((String) data.get("gender"))
+                .gender((User.Gender) data.get("gender"))
                 .age((Integer) data.get("age"))
                 .build();
 
@@ -81,37 +83,30 @@ public class UserServiceImpl implements UserService{
         return new ObjectMapper().convertValue(loginSocialUser(user), LoginResponse.class);
     }
 
-//    @Override
-//    @Transactional
-//    public boolean updateUser(Long id, UpdateUserDto updateUserDto) {
-//        User user = userRepository.findById(id).orElse(null);
-//        if (user != null) {
-//            if (updateUserDto.getNickname() != null &&
-//                    !updateUserDto.getNickname().isEmpty() &&
-//                    !checkNicknameDuplicate(updateUserDto.getNickname())) {
-//                user.setNickname(updateUserDto.getNickname());
-//            }
-//
-//            if (updateUserDto.getAddressCode() != null) {
-//                String inputAddressCode = updateUserDto.getAddressCode();
-//                if (inputAddressCode != null && inputAddressCode.length() == 10) {
-//                    user.setSidoCode(inputAddressCode.substring(0, 2) + "00000000");
-//                    user.setGugunCode(inputAddressCode.substring(0, 5) + "00000");
-//                }
-//            }
-//            if (updateUserDto.getGender() != null && !updateUserDto.getGender().isEmpty()) {
-//                user.setGender(updateUserDto.getGender());
-//            }
-//            if (updateUserDto.getHeight() != null && updateUserDto.getHeight() != 0.0) {
-//                user.setHeight(updateUserDto.getHeight());
-//            }
-//            if (updateUserDto.getWeight() != null && updateUserDto.getWeight() != 0.0) {
-//                user.setWeight(updateUserDto.getWeight());
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
+    @Override
+    @Transactional
+    public boolean updateUser(Long id, UpdateUserRequest updateUserRequest) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            if (updateUserRequest.getNickname() != null &&
+                    !updateUserRequest.getNickname().isEmpty() &&
+                    !checkNicknameDuplicate(updateUserRequest.getNickname())) {
+                user.setNickname(updateUserRequest.getNickname());
+            }
+
+            if (updateUserRequest.getAztiType() != null) {
+                user.setAztiType(updateUserRequest.getAztiType());
+            }
+
+            if (updateUserRequest.getProfileImg() != null &&
+                    !updateUserRequest.getProfileImg().isEmpty()) {
+                user.setProfileImage(updateUserRequest.getProfileImg());
+            }
+
+            return true;
+        }
+        return false;
+    }
 
 //    @Override
 //    @Transactional
@@ -154,20 +149,18 @@ public class UserServiceImpl implements UserService{
         return user.getRefreshToken();
     }
 
-//    @Override
-//    @Transactional
-//    public boolean deleteUser(String nickname) {
-//        User user = userRepository.findByNickname(nickname);
-//        if (user != null) {
-//            user.setRole("drop");
-//            //해당 유저를 팔로우 하고 있는 레코드 삭제
-//            ArrayList<Follow> byFollowing = followRepository.findByFollowing(user);
-//            followRepository.deleteAll(byFollowing);
-//
-//            return true;
-//        }
-//        return false;
-//    }
+    @Override
+    @Transactional
+    public boolean deleteUser(Long id) {
+        User user = userRepository.findById(id).get();
+        if (user != null) {
+            //user.setRole("drop");
+            userRepository.delete(user);
+
+            return true;
+        }
+        return false;
+    }
 
     @Override
     @Transactional
@@ -183,7 +176,27 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).get();
+    }
+
+//    @Override
+//    @Transactional
+//    public UserInfoResponse getUserInfoResponse(String nickname) {
+//        User user = findByNickname(nickname);
+//        if (user != null) {
+//            return UserInfoResponse.generateUserInfoResDto(user);
+//        }
+//        return null;
+//    }
+
+    @Override
+    @Transactional
+    public UserInfoResponse getUserInfoResponse(Long id) {
+        User user = findById(id);
+        if (user != null) {
+            return UserInfoResponse.generateUserInfoResDto(user);
+        }
+        return null;
     }
 
     @Override
@@ -441,6 +454,26 @@ public class UserServiceImpl implements UserService{
         String refreshToken = getRefreshToken(nickname);
         return new LoginResponse("200", null, accessToken, refreshToken);
     }
+
+//    public Long getUserId(String token){
+//        /**
+//         * @Method Name : getUserId
+//         * @작성자 : 김민주
+//         * @Method 설명 : 토큰에서 UserId를 꺼내서 반환
+//         */
+//        Claims claims = jwtTokenProvider.getAllClaims(token);
+//        if (claims == null) {
+//            return null;
+//        }
+//
+//        try {
+//            Member member =  memberQuerydslRepository.findMemberByAuthId(claims.getSubject()).get();
+//            return member.getId();
+//
+//        } catch (NullPointerException e) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다.");
+//        }
+//    }
 
 }
 

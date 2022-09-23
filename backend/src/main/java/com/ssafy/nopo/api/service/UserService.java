@@ -1,8 +1,10 @@
 package com.ssafy.nopo.api.service;
 
+import com.ssafy.nopo.api.request.UpdateUserRequest;
 import com.ssafy.nopo.api.response.LoginLogResponse;
 import com.ssafy.nopo.api.response.LoginResponse;
 import com.ssafy.nopo.api.response.LoginSocialResponse;
+import com.ssafy.nopo.api.response.UserInfoResponse;
 import com.ssafy.nopo.db.entity.LoggedContinue;
 import com.ssafy.nopo.db.entity.User;
 
@@ -26,11 +28,13 @@ public interface UserService {
 
     boolean checkEmailDuplicate(String email);
     boolean checkNicknameDuplicate(String nickname);
+    UserInfoResponse getUserInfoResponse(Long id);
+    boolean updateUser(Long id, UpdateUserRequest updateUserRequest);
+    boolean deleteUser(Long id);
+    //UserInfoResponse getUserInfoResponse(String nickname);
     //    LoginDto loginUser(User user);
-    //    boolean updateUser(Long id, UpdateUserDto updateUserDto);
     //    void updateUser(Long id, User user);
     //    boolean updateUserPassword(long id, PasswordDto passwordDto);
-//    boolean deleteUser(String nickname);
 
     User findByNickname(String nickname);
     User findByEmail(String email);

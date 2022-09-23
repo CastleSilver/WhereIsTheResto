@@ -26,7 +26,7 @@ public class Review {
     private String content;
 
     @Column(nullable = false)
-    private Double rating;
+    private double rating;
 
     @CreatedDate
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public class Review {
     private List<ReviewImg> imgList = new ArrayList<>();
 
     @Builder
-    public Review(int id, String content, Double rating, LocalDateTime regdate, List<ReviewImg> imgList) {
+    public Review(int id, String content, double rating, LocalDateTime regdate, List<ReviewImg> imgList) {
         this.id = id;
         this.content = content;
         this.rating = rating;
@@ -48,7 +48,7 @@ public class Review {
         this.imgList = imgList;
     }
 
-    public void update(String content, Double rating) {
+    public void update(String content, double rating) {
         this.content = content;
         this.rating = rating;
     }

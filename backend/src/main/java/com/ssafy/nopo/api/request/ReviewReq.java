@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class ReviewReq {
     private int restoId;
     private String content;
-    private Double rating;
+    private double rating;
 }

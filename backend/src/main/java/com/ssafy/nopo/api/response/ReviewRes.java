@@ -9,21 +9,13 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ReviewRes {
     private int id;
     private List<String> imageUrl;
     private String content;
-    private Double rating;
+    private double rating;
     private String regDate;
     private String nickname;
-
-    public ReviewRes(int id, List<String> imageUrl, String content, Double rating, String regDate, String nickname) {
-        this.id = id;
-        this.imageUrl = imageUrl;
-        this.content = content;
-        this.rating = rating;
-        this.regDate = regDate;
-        this.nickname = nickname;
-    }
 
 }

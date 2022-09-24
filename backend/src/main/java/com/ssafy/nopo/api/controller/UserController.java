@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @AllArgsConstructor
 @Slf4j
@@ -23,8 +25,14 @@ public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
 
+    @GetMapping("/test")
+    public String test(HttpServletRequest request){
+        return "test success";
+    }
+
+
     @GetMapping
-    public ResponseEntity<?> getUserInfo(@RequestParam(required = false) Long userId) {
+    public ResponseEntity<?> getUserInfo(@RequestParam(required = false) String userId) {
         UserInfoResponse userInfoResponse = userService.getUserInfoResponse(userId);
         if (userInfoResponse != null) {
             return ResponseEntity.ok().body(userInfoResponse);

@@ -52,7 +52,7 @@ public class JwtUtilImpl implements JwtUtil {
         String jwt = Jwts.builder()
                 .setHeader(headers)
                 .setClaims(payloads)
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))      // 만료시간
                 .setSubject("user")
                 .signWith(SignatureAlgorithm.HS256, generateKey())
                 .compact();
@@ -107,6 +107,7 @@ public class JwtUtilImpl implements JwtUtil {
         return jwt;
     }
 
+    // Key 생성
     private byte[] generateKey() {
         byte[] key = null;
         try {

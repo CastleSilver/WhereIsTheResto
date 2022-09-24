@@ -25,7 +25,7 @@ public class QLoggedContinue extends EntityPathBase<LoggedContinue> {
 
     public final DatePath<java.time.LocalDate> recentDate = createDate("recentDate", java.time.LocalDate.class);
 
-    public final NumberPath<Long> userId = createNumber("userId", Long.class);
+    public final StringPath userId = createString("userId");
 
     public QLoggedContinue(String variable) {
         super(LoggedContinue.class, forVariable(variable));

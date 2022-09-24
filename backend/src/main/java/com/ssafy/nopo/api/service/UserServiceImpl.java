@@ -1,14 +1,12 @@
 package com.ssafy.nopo.api.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ssafy.nopo.api.request.UpdateUserRequest;
-import com.ssafy.nopo.api.response.LoginLogResponse;
-import com.ssafy.nopo.api.response.LoginResponse;
-import com.ssafy.nopo.api.response.LoginSocialResponse;
-import com.ssafy.nopo.api.response.UserInfoResponse;
+import com.ssafy.nopo.api.response.*;
 import com.ssafy.nopo.common.auth.jwt.JwtUtil;
 import com.ssafy.nopo.db.entity.LoggedContinue;
 import com.ssafy.nopo.db.entity.LoggedIn;
@@ -16,15 +14,25 @@ import com.ssafy.nopo.db.entity.User;
 import com.ssafy.nopo.db.repository.LoggedContinueRepository;
 import com.ssafy.nopo.db.repository.LoggedInRepository;
 import com.ssafy.nopo.db.repository.UserRepository;
+import com.ssafy.nopo.exception.LoginException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -36,33 +44,43 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-//import com.ssafy.nopo.common.util.JwtTokenProvider;
-
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final LoggedContinueRepository loggedContinueRepository;
     private final LoggedInRepository loggedInRepository;
-//    private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
     private String kakaoClientId = "4451e1614fc6653da21821b099437e5a";
-    private String kakaoRedirectUri = "http://localhost:3000/oauth/kakao/callback";
+    private String kakaoRedirectUri = "http://localhost:5173/oauth/kakao/callback";
+
+    @Override
+    public User login(String id) {
+        Optional<User> user = userRepository.findById(id);
+
+        if (!user.isPresent()) {
+            throw new LoginException("존재하지 않는 유저입니다.");
+        }
+        else {
+            return user.get();
+        }
+    }
 
     /** 카카오 유저 우리 DB에 저장. 회원가입 -> 로그인 */
     @Override
     public LoginSocialResponse registerSocialUser(Map<String, Object> data) {
 
         User user = User.builder()
-                .id((Long) data.get("id"))
+                .id((String) data.get("id"))
                 .nickname((String) data.get("id"))
                 .email((String) data.get("email"))
-                .gender((User.Gender) data.get("gender"))
-                .age((Integer) data.get("age"))
+                //.profileImage((String)data.get("profileImage"))
+                .gender((String) data.get("gender"))
                 .build();
 
         userRepository.save(user);
@@ -85,7 +103,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public boolean updateUser(Long id, UpdateUserRequest updateUserRequest) {
+    public boolean updateUser(String id, UpdateUserRequest updateUserRequest) {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             if (updateUserRequest.getNickname() != null &&
@@ -108,32 +126,6 @@ public class UserServiceImpl implements UserService{
         return false;
     }
 
-//    @Override
-//    @Transactional
-//    public void updateUser(Long id, User reqDto) {
-//        User user = userRepository.getOne(id);
-//        System.out.println("여기여기 : " + user.getId());
-//        if (reqDto.getPassword() != null) {
-//            user.setPassword(reqDto.getPassword());
-//        }
-//        if (reqDto.getSidoCode() != null) {
-//            user.setSidoCode(reqDto.getSidoCode());
-//        }
-//        if (reqDto.getGugunCode() != null) {
-//            user.setGugunCode(reqDto.getGugunCode());
-//        }
-//        if (reqDto.getGender() != null) {
-//            user.setGender(reqDto.getGender());
-//        }
-//        if (reqDto.getHeight() != 0) {
-//            user.setHeight(reqDto.getHeight());
-//        }
-//        if (reqDto.getWeight() != 0) {
-//            user.setWeight(reqDto.getWeight());
-//        }
-//
-//    }
-
     @Override
     @Transactional
     public void saveRefreshToken(String nickname, String refreshToken) {
@@ -151,7 +143,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(String  id) {
         User user = userRepository.findById(id).get();
         if (user != null) {
             //user.setRole("drop");
@@ -175,23 +167,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(String id) {
         return userRepository.findById(id).get();
     }
 
-//    @Override
-//    @Transactional
-//    public UserInfoResponse getUserInfoResponse(String nickname) {
-//        User user = findByNickname(nickname);
-//        if (user != null) {
-//            return UserInfoResponse.generateUserInfoResDto(user);
-//        }
-//        return null;
-//    }
-
     @Override
     @Transactional
-    public UserInfoResponse getUserInfoResponse(Long id) {
+    public UserInfoResponse getUserInfoResponse(String id) {
         User user = findById(id);
         if (user != null) {
             return UserInfoResponse.generateUserInfoResDto(user);
@@ -214,8 +196,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public String getSocialAccessToken(String authorize_code) {
         String token = "";
-        //String access_Token = "";
-        //String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
         System.out.println("kakao Client Id : " + kakaoClientId);
@@ -279,7 +259,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public Map<String, Object> getUserInfo(String access_token) {
-        String host = "https://kapi.kakao.com/v2/user/me";
+        String host = "https://kapi.kakao.com/v2/user/me";      // 카카오의 유저 정보 받아오는 url
         Map<String, Object> result = new HashMap<>();
 
         try {
@@ -325,7 +305,7 @@ public class UserServiceImpl implements UserService{
 
         String id = data.get("id").toString();
 
-        return userRepository.findBySocialId(id);
+        return userRepository.findById(id);
     }
 
     @Override
@@ -339,7 +319,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void setLoginData(Long userId) {
+    public void setLoginData(String userId) {
         LocalDate today = LocalDate.now();
         LoggedContinue loggedContinue = loggedContinueRepository.findByUserId(userId);
         if (loggedContinue == null) {
@@ -359,20 +339,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public LoggedContinue getLoginData(Long userId) {
+    public LoggedContinue getLoginData(String userId) {
         return loggedContinueRepository.findByUserId(userId);
     }
-
-//    @Override
-//    @Transactional
-//    public boolean updateUserPassword(long id, PasswordDto passwordDto) {
-//        User user = userRepository.getOne(id);
-//        if (user != null) {
-//            user.setPassword(passwordEncoder.encode(passwordDto.getPassword()));
-//            return true;
-//        }
-//        return false;
-//    }
 
 //    //TODO security Role 체크하여 drop인 유저는 제외 로직 추가 필요
 //    @Override
@@ -415,7 +384,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public void setLoggedInData(long userId) {
+    public void setLoggedInData(String userId) {
         User user = findById(userId);
         if (user != null) {
             LoggedIn loggedIn = new LoggedIn();
@@ -426,24 +395,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public ArrayList<LoginLogResponse> getLoginLog(long userId) {
+    public ArrayList<LoginLogResponse> getLoginLog(String userId) {
         return loggedInRepository.getLoginLog(userId);
     }
 
     @Override
-    public ArrayList<String> getLoginDateLog(long userId) {
+    public ArrayList<String> getLoginDateLog(String userId) {
         return loggedInRepository.getLoginDateLog(userId);
     }
 
-
-//    @Override
-//    public Authentication getAuthentication(User user) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return authentication;
-//    }
 
     @Override
     public LoginResponse getCurrentUserLoginDto(String headerAuth, String nickname) {
@@ -455,25 +415,54 @@ public class UserServiceImpl implements UserService{
         return new LoginResponse("200", null, accessToken, refreshToken);
     }
 
-//    public Long getUserId(String token){
-//        /**
-//         * @Method Name : getUserId
-//         * @작성자 : 김민주
-//         * @Method 설명 : 토큰에서 UserId를 꺼내서 반환
-//         */
-//        Claims claims = jwtTokenProvider.getAllClaims(token);
-//        if (claims == null) {
-//            return null;
-//        }
-//
-//        try {
-//            Member member =  memberQuerydslRepository.findMemberByAuthId(claims.getSubject()).get();
-//            return member.getId();
-//
-//        } catch (NullPointerException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "존재하지 않는 회원입니다.");
-//        }
-//    }
+    @Override
+    public Authentication getAuthentication(User user) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getEmail(), null)
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return authentication;
+    }
+
+    @Override
+    @Transactional
+    public OAuthTokenDto getAccessTokenKakao(String code) {
+        System.out.println("UserServiceImpl.getAccessTokenKakao() 시작");
+        RestTemplate restTemplate = new RestTemplate(); // 통신에 좋은 객체인 RestTemplate이라고 한다..
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        //Http 헤더
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", kakaoClientId);
+        params.add("redirect_uri", kakaoRedirectUri);
+        params.add("code", code);
+        params.add("client_secret", "vCiFAO1F3QiMUYfXmR1pddgTcLYFkMFN");
+        //Http 바디가 될 부분
+
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+        //Http 헤더와 파라미터 저장
+
+        ResponseEntity<String> accessTokenResponse = restTemplate.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class);
+        // 응답 값이 JSON 형식이므로 String 형식의 객체만 받는다.
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthTokenDto oauthToken = null;
+        try {
+            oauthToken = objectMapper.readValue(accessTokenResponse.getBody(), OAuthTokenDto.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return oauthToken;
+    }
 
 }
 

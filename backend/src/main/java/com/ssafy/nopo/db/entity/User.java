@@ -1,24 +1,21 @@
 package com.ssafy.nopo.db.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Getter
 @Table(name = "User")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @Data
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @Setter (AccessLevel.NONE)
+    private String id;
 
     @Column(length = 30, nullable = false, unique = true)
     private String nickname;
@@ -26,24 +23,23 @@ public class User {
     @Column(length = 30)
     private String email;
 
-    @Column(length = 1)
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    private String gender;
 
-    @Column(length = 3)
-    private int age;
+//    @Column(length = 3)
+//    private int age;
 
     @Column(name = "profile_image", length = 250)
     private String profileImage;
 
     @Column(length = 5)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
     private AZTI aztiType;
 
-    private String socialId;
+    //private String socialId;
 
     private String refreshToken;
 
@@ -52,23 +48,25 @@ public class User {
 //    private AZTI azti;
 
     @Builder
-    public User(Long id, String nickname, String email, Gender gender, int age, AZTI aztiType, String role, String profileImage) {
+    public User(String id, String nickname, String email, String gender, AZTI aztiType, Role role, String profileImage) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
-        this.age = age;
         this.profileImage = profileImage;
         this.role = role;
         this.aztiType = aztiType;
-        this.role = role;
     }
 
-    public static enum Gender {
-        M, F, X;
-    }
+//    public static enum Gender {
+//        M, F, X;
+//    }
 
-    public static enum AZTI {
-        M, F, X;
-    }
+//    public static enum AZTI {
+//        M, F, X;
+//    }
+//
+//    public static enum Role {
+//        USER;
+//    }
 }

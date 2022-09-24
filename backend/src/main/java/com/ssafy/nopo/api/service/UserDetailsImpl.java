@@ -1,5 +1,6 @@
 package com.ssafy.nopo.api.service;
 
+import com.ssafy.nopo.db.entity.AZTI;
 import com.ssafy.nopo.db.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,20 +12,18 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {       // 실제 로그인에 사용할 클래스
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String nickname;
     private String email;
-    private User.Gender gender;
-    private int age;
-    private User.AZTI aztiType;
+    private String gender;
+    private AZTI aztiType;
     private Collection<? extends GrantedAuthority> authorities;     // 권한
 
-    public UserDetailsImpl(Long id, String nickname, String email, User.Gender gender, int age, User.AZTI aztiType) {
+    public UserDetailsImpl(String id, String nickname, String email, String gender, AZTI aztiType) {
         this.id = id;
         this.nickname = nickname;
         this.email = email;
         this.gender = gender;
-        this.age = age;
         this.aztiType = aztiType;
     }
 
@@ -35,7 +34,6 @@ public class UserDetailsImpl implements UserDetails {       // 실제 로그인�
                 user.getNickname(),
                 user.getEmail(),
                 user.getGender(),
-                user.getAge(),
                 user.getAztiType()
         );
     }
@@ -45,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {       // 실제 로그인�
         return this.authorities;
     }
 
-    public Long id(){ return this.id; }
+    public String id(){ return this.id; }
 
     @Override
     public String getPassword() {
@@ -61,15 +59,11 @@ public class UserDetailsImpl implements UserDetails {       // 실제 로그인�
         return nickname;
     }
 
-    public User.Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public User.AZTI getAztiType() {
+    public AZTI getAztiType() {
         return aztiType;
     }
 
@@ -100,7 +94,6 @@ public class UserDetailsImpl implements UserDetails {       // 실제 로그인�
                 ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
-                ", age=" + age +
                 ", azti=" + aztiType +
                 ", authorities=" + authorities +
                 '}';

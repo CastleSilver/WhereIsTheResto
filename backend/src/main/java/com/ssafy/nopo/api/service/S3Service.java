@@ -6,6 +6,9 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.*;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.ssafy.nopo.common.exception.CustomException;
+import com.ssafy.nopo.common.exception.ErrorCode;
+import com.ssafy.nopo.db.entity.ReviewImg;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -47,10 +52,20 @@ public class S3Service {
             url = defaultUrl + saveFileName;
             // 파일 삭제
             file.delete();
-        } catch (StringIndexOutOfBoundsException e) {
-            url = null;
+        } catch (IOException e) {
+            throw new CustomException(ErrorCode.IMAGE_UPLOAD_ERROR);
         }
         return url;
+    }
+
+    public List<String> uploadImges(List<MultipartFile> multipartFile) throws IOException {
+        List<String> imgUrlList = new ArrayList<>();
+
+        // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
+        for (MultipartFile file : multipartFile) {
+            imgUrlList.add(upload(file));
+        }
+        return imgUrlList;
     }
 
     private static String getUuid() {
@@ -81,4 +96,11 @@ public class S3Service {
         }
     }
 
+    public void deleteAll(List<ReviewImg> imgList) {
+        try {
+            imgList.forEach(i -> delete(i.getUrl()));
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
+    }
 }

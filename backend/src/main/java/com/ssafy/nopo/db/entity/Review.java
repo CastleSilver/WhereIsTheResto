@@ -32,19 +32,25 @@ public class Review {
     @Column(nullable = false)
     private LocalDateTime regdate;
 
-    // 회원 추가해야함
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    // 노포 추가해야함
+    @ManyToOne
+    @JoinColumn(name = "resto_id")
+    private OldRestaurant resto;
 
     @OneToMany(mappedBy = "review")
     private List<ReviewImg> imgList = new ArrayList<>();
 
     @Builder
-    public Review(int id, String content, double rating, LocalDateTime regdate, List<ReviewImg> imgList) {
+    public Review(int id, String content, double rating, LocalDateTime regdate, User user, OldRestaurant resto, List<ReviewImg> imgList) {
         this.id = id;
         this.content = content;
         this.rating = rating;
         this.regdate = regdate;
+        this.user = user;
+        this.resto = resto;
         this.imgList = imgList;
     }
 

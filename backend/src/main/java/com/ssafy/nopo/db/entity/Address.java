@@ -1,5 +1,6 @@
 package com.ssafy.nopo.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -22,4 +23,11 @@ public class Address {
 
     @Column(length = 10)
     private String dong;
+
+    @Builder
+    public Address(int id, Gu gu, String dong) {
+        this.id = id;
+        this.gu = gu;
+        this.dong = dong;
+    }
 }

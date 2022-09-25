@@ -11,7 +11,7 @@ import com.ssafy.nopo.db.entity.User;
 import com.ssafy.nopo.db.repository.LoggedContinueRepository;
 import com.ssafy.nopo.db.repository.LoggedInRepository;
 import com.ssafy.nopo.db.repository.UserRepository;
-import com.ssafy.nopo.exception.LoginException;
+import com.ssafy.nopo.common.exception.LoginException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;

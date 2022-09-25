@@ -1,7 +1,7 @@
 package com.ssafy.nopo.common.auth.jwt;
 
 import com.ssafy.nopo.db.entity.Role;
-import com.ssafy.nopo.exception.TokenValidFailedException;
+import com.ssafy.nopo.common.exception.TokenValidFailedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

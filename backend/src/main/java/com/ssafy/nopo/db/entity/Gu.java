@@ -12,9 +12,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "gu")
 public class Gu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false, length = 10)
     private String gu;
 }

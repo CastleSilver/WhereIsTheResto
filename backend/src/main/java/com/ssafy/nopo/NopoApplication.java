@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NopoApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(NopoApplication.class, args);
+		System.out.println("main");
 	}
 
 }

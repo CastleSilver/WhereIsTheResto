@@ -37,7 +37,7 @@ public interface UserService {
 
     User findByNickname(String nickname);
     User findByEmail(String email);
-    User findById(String id);
+    Optional<User> findById(String id);
 
     void setLoginData(String userId);
     LoggedContinue getLoginData(String userId);

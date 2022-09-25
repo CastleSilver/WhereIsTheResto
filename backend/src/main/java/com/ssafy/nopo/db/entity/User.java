@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Table(name = "User")
@@ -25,9 +27,6 @@ public class User {
 
     private String gender;
 
-//    @Column(length = 3)
-//    private int age;
-
     @Column(name = "profile_image", length = 250)
     private String profileImage;
 
@@ -39,13 +38,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private AZTI aztiType;
 
-    //private String socialId;
-
     private String refreshToken;
 
-//    @ManyToOne
-//    @JoinColumn(name = "AZTI_id")
-//    private AZTI azti;
+    @OneToMany(mappedBy = "user")
+    private List<Liked> likedList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Visited> visitedList = new ArrayList<>();
 
     @Builder
     public User(String id, String nickname, String email, String gender, AZTI aztiType, Role role, String profileImage) {
@@ -58,15 +57,4 @@ public class User {
         this.aztiType = aztiType;
     }
 
-//    public static enum Gender {
-//        M, F, X;
-//    }
-
-//    public static enum AZTI {
-//        M, F, X;
-//    }
-//
-//    public static enum Role {
-//        USER;
-//    }
 }

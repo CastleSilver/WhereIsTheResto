@@ -167,16 +167,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findById(String id) {
-        return userRepository.findById(id).get();
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
     @Override
     @Transactional
     public UserInfoResponse getUserInfoResponse(String id) {
-        User user = findById(id);
-        if (user != null) {
-            return UserInfoResponse.generateUserInfoResDto(user);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return UserInfoResponse.generateUserInfoResDto(user.get());
         }
         return null;
     }
@@ -385,10 +385,10 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void setLoggedInData(String userId) {
-        User user = findById(userId);
-        if (user != null) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
             LoggedIn loggedIn = new LoggedIn();
-            loggedIn.setUser(user);
+            loggedIn.setUser(user.get());
             loggedIn.setDate(LocalDateTime.now());
             loggedInRepository.save(loggedIn);
         }

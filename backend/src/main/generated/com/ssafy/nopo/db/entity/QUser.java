@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -27,6 +28,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath id = createString("id");
 
+    public final ListPath<Liked, QLiked> likedList = this.<Liked, QLiked>createList("likedList", Liked.class, QLiked.class, PathInits.DIRECT2);
+
     public final StringPath nickname = createString("nickname");
 
     public final StringPath profileImage = createString("profileImage");
@@ -34,6 +37,8 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath refreshToken = createString("refreshToken");
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
+
+    public final ListPath<Visited, QVisited> visitedList = this.<Visited, QVisited>createList("visitedList", Visited.class, QVisited.class, PathInits.DIRECT2);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

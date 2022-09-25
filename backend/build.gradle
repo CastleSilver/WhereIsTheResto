@@ -1,7 +1,8 @@
 import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript{
 	ext {
-		springBootVer = '2.7.3'
+		springBootVer = '2.7.1'
 		querydslVer = '5.0.0'
 		querydslPluginVer = '1.0.13'
 		springDependencyMgmtVer = '1.0.11'
@@ -15,9 +16,9 @@ buildscript{
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
 		classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
 		classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+		//classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
 	}
 }
-
 
 plugins {
 	id 'org.springframework.boot' version "${springBootVer}"
@@ -54,9 +55,9 @@ processResources {
 		project.properties.findAll().each {
 			prop ->
 				if (prop.value != null) {
-					filter(ReplaceTokens, tokens: [ (prop.key): String.valueOf(prop.value)])
-					filter(ReplaceTokens, tokens: [ ('project.' + prop.key): String.valueOf(prop.value)])
-					filter(ReplaceTokens, tokens: [ ('project.ext.' + prop.key): String.valueOf(prop.value)])
+					filter(ReplaceTokens, tokens: [(prop.key): String.valueOf(prop.value)])
+					filter(ReplaceTokens, tokens: [('project.' + prop.key): String.valueOf(prop.value)])
+					filter(ReplaceTokens, tokens: [('project.ext.' + prop.key): String.valueOf(prop.value)])
 				}
 		}
 	}
@@ -64,19 +65,28 @@ processResources {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	implementation 'com.google.code.gson:gson:2.8.9'
+	implementation("javax.interceptor:javax.interceptor-api:1.2.2")
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+	//Spring Security
+	implementation("org.springframework.security:spring-security-oauth2-client")
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
 	//aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
@@ -91,8 +101,24 @@ dependencies {
 	annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
 	implementation("com.querydsl:querydsl-jpa")
 	implementation("com.querydsl:querydsl-apt")
+	//jwt
+	implementation("com.auth0:java-jwt:3.10.3")		// oauth0
+	//implementation("io.jsonwebtoken:jjwt:0.9.1") 	// okta
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+	//implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
+
+	// Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	//implementation('io.springfox:springfox-swagger2:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-spring-webflux:3.0.0-SNAPSHOT')
+	//implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
 
 }
+
 test {
 	useJUnitPlatform()
 }
@@ -122,33 +148,4 @@ configure("querydslProjects") {
 		delete file('src/main/generated')
 	}
 }
-//def querydslDir = "$buildDir/generated/querydsl"
-//
-//querydsl {
-//	library = "com.querydsl:querydsl-apt"
-//	jpa = true
-//	querydslSourcesDir = querydslDir
-//}
-//task generateQueryDSL(type: JavaCompile, group: 'build') {
-//	source = sourceSets.main.java
-//	classpath = configurations.compile
-//	options.compilerArgs = [
-//			"-proc:only",
-//			"-processor", "com.querydsl.apt.jpa.JPAAnnotationProcessor"
-//	]
-//	destinationDir = file('./src/main/generated')
-//}
-////sourceSets {
-////	main {
-////		java {
-////			srcDirs = ['src/main/java', querydslDir]
-////		}
-////	}
-////}
-//configurations {
-//	querydsl.extendsFrom compileClasspath
-//}
-//compileQuerydsl {
-//	options.annotationProcessorPath = configurations.querydsl
-//}
 

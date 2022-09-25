@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class NopoApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(NopoApplication.class, args);
+		System.out.println("main");
 	}
 
 }

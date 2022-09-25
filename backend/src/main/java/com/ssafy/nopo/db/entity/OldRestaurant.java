@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "old_restaurant")
 public class OldRestaurant {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -52,6 +55,12 @@ public class OldRestaurant {
     @ManyToOne
     @JoinColumn(name = "addr_id")
     private Address dong;
+
+    @OneToMany(mappedBy = "resto")
+    private List<Visited> visitedList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resto")
+    private List<Liked> likedList = new ArrayList<>();
 }
 
 enum Grade {

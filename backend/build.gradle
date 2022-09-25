@@ -66,8 +66,10 @@ processResources {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -98,11 +100,12 @@ dependencies {
 	//implementation 'org.jetbrains:annotations:15.0'
 
 	//jwt
-	implementation("com.auth0:java-jwt:3.10.3")
-	//implementation("io.jsonwebtoken:jjwt-api:0.11.2")
-	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
-	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
-	implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
+	implementation("com.auth0:java-jwt:3.10.3")		// oauth0
+	//implementation("io.jsonwebtoken:jjwt:0.9.1") 	// okta
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+	//implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
 
 	//aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
@@ -110,6 +113,14 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.2.6.RELEASE")
 	implementation("com.amazonaws:aws-java-sdk-core:1.12.275")
 	implementation("com.amazonaws:aws-java-sdk-s3:1.12.267")
+
+	// Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	//implementation('io.springfox:springfox-swagger2:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-spring-webflux:3.0.0-SNAPSHOT')
+	//implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
 
 }
 

@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(()-> new UsernameNotFoundException(email + "의 이메일을 가진유저가 없습니다"));
 
         UserDetailsImpl result = UserDetailsImpl.build(user);
-        result.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(user.getRole())));
+        result.setAuthorities(Arrays.asList(new SimpleGrantedAuthority(user.getRole().toString())));
 
         return result;
     }

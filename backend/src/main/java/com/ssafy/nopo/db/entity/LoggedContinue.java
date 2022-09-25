@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class LoggedContinue {
 
     @Id
-    private Long userId;
+    private String userId;
 
     private int consecutively;
     private int maxConsecutively;

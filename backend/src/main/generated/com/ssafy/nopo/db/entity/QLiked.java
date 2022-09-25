@@ -24,7 +24,7 @@ public class QLiked extends EntityPathBase<Liked> {
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
-    public final QOldRestaurant nopo;
+    public final QOldRestaurant resto;
 
     public final QUser user;
 
@@ -46,7 +46,7 @@ public class QLiked extends EntityPathBase<Liked> {
 
     public QLiked(Class<? extends Liked> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.nopo = inits.isInitialized("nopo") ? new QOldRestaurant(forProperty("nopo")) : null;
+        this.resto = inits.isInitialized("resto") ? new QOldRestaurant(forProperty("resto")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 

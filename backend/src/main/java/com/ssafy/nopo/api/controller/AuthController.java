@@ -1,51 +1,59 @@
 package com.ssafy.nopo.api.controller;
 
-import com.ssafy.nopo.api.service.UserServiceImpl;
+import com.ssafy.nopo.api.request.AuthRequest;
+import com.ssafy.nopo.api.response.AuthResponse;
+import com.ssafy.nopo.api.service.JwtService;
+import com.ssafy.nopo.api.service.KakaoAuthService;
+import com.ssafy.nopo.api.service.UserService;
 import com.ssafy.nopo.db.entity.User;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
-@AllArgsConstructor
 @Slf4j
 @RequestMapping(value = "/oauth")
-@Validated
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
 
-    private UserServiceImpl userService;
+    private final UserService userService;
+    private final KakaoAuthService kakaoAuthService;
+    private final JwtService jwtService;
 
-    @ResponseBody
-    @GetMapping(value = "/login/kakao")
-    public ResponseEntity<?> kakaoLogin(@RequestParam(required = false) String code) throws Exception {
+    @PostMapping(value = "/login/kakao")
+    public Map kakaoLogin(@RequestParam("code") String code) throws Exception {
         /**
-         *  소셜 로그인
+         *  Kakao 소셜 로그인
+         *  카카오 인가코드를 받아서 AccessToken으로 사용자 정보 받아 저장하고 회원가입 및 로그인 처리 -> 자체 JWT 토큰 발급
          */
-        log.info("AuthController");
-        System.out.println("code: " + code);
+        System.out.println("login");
+        AuthRequest authRequest = new AuthRequest(userService.getAccessTokenKakao(code).getAccess_token());
+        System.out.println("###accessToken: "+ authRequest.getAccessToken());
 
-        String access_token = userService.getSocialAccessToken(code);
-        System.out.println("###access_token### : " + access_token);
+        AuthResponse authResponse = kakaoAuthService.login(authRequest);
+        String userId = authResponse.getId();
+        boolean isNewMember = authResponse.getIsNewMember();
 
-        // Access Token에 해당하는 회원정보 있다면 JWT 토큰 만들고 Response
-        Map<String, Object> data = userService.getUserInfo(access_token);   // access token으로 사용자 정보 받아오기
-        Optional<User> userOpt = userService.socialLogin(data);  // 사용자의 KakaoId로 DB 조회
+        System.out.println("DB에 존재하는 유저인지 확인");
+        User loginUser = userService.login(userId);
 
-        // 유저가 DB에 있다면
-        if(userOpt.isPresent()) {
-            User user = userOpt.get();
-            // access-token 및 refresh-token 발급하고 응답
-            return ResponseEntity.ok().body(userService.loginSocialUser(user));
-        } else {
-            // 유저가 DB에 없다면 (새로운 유저) 회원가입.
-            // 발급받은 사용자 정보 기반으로 유저 저장하고 임시 access 토큰 및 refresh 토큰 발급
-            return ResponseEntity.ok().body(userService.registerSocialUser(data));
+        if (loginUser == null) {
+            throw new LoginException("로그인에서 심각한 오류가 발생했습니다. 재가입 요망");
         }
 
+        System.out.println("jwt 토큰 생성");
+        String token = jwtService.create("userId", loginUser.getId(), "access-token");
+
+        Map map = new HashMap();
+        map.put("access-token", token);
+        map.put("userId", loginUser.getId());
+        map.put("isNewMember", isNewMember);
+
+        return map;
     }
 }

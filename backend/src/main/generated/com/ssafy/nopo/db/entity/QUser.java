@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -19,15 +20,15 @@ public class QUser extends EntityPathBase<User> {
 
     public static final QUser user = new QUser("user");
 
-    public final NumberPath<Integer> age = createNumber("age", Integer.class);
-
-    public final EnumPath<User.AZTI> aztiType = createEnum("aztiType", User.AZTI.class);
+    public final EnumPath<AZTI> aztiType = createEnum("aztiType", AZTI.class);
 
     public final StringPath email = createString("email");
 
-    public final EnumPath<User.Gender> gender = createEnum("gender", User.Gender.class);
+    public final StringPath gender = createString("gender");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final StringPath id = createString("id");
+
+    public final ListPath<Liked, QLiked> likedList = this.<Liked, QLiked>createList("likedList", Liked.class, QLiked.class, PathInits.DIRECT2);
 
     public final StringPath nickname = createString("nickname");
 
@@ -35,9 +36,9 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath refreshToken = createString("refreshToken");
 
-    public final StringPath role = createString("role");
+    public final EnumPath<Role> role = createEnum("role", Role.class);
 
-    public final StringPath socialId = createString("socialId");
+    public final ListPath<Visited, QVisited> visitedList = this.<Visited, QVisited>createList("visitedList", Visited.class, QVisited.class, PathInits.DIRECT2);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

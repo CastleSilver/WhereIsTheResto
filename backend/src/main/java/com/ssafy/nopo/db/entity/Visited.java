@@ -1,5 +1,6 @@
 package com.ssafy.nopo.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
@@ -23,11 +24,12 @@ public class Visited {
 
     @ManyToOne
     @JoinColumn(name = "resto_id")
-    private OldRestaurant nopo;
+    private OldRestaurant resto;
 
-    public Visited(int id, User user, OldRestaurant nopo) {
+    @Builder
+    public Visited(int id, User user, OldRestaurant resto) {
         this.id = id;
         this.user = user;
-        this.nopo = nopo;
+        this.resto = resto;
     }
 }

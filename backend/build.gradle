@@ -1,6 +1,8 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 buildscript{
 	ext {
-		springBootVer = '2.7.3'
+		springBootVer = '2.7.1'
 		querydslVer = '5.0.0'
 		querydslPluginVer = '1.0.13'
 		springDependencyMgmtVer = '1.0.11'
@@ -14,14 +16,14 @@ buildscript{
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
 		classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
 		classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
+		//classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
 	}
 }
-
 
 plugins {
 	id 'org.springframework.boot' version "${springBootVer}"
 	id 'io.spring.dependency-management' version "${springDependencyMgmtVer}.RELEASE"
-	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	//id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 	id 'idea'
 }
@@ -45,22 +47,49 @@ repositories {
 	maven { url "https://build.shibboleth.net/nexus/content/repositories/releases" }
 }
 
+processResources {
+	with copySpec {
+		from "src/main/resources"
+		include "**/application*.yml"
+		include "**/application*.yaml"
+		include "**/application*.properties"
+		project.properties.findAll().each {
+			prop ->
+				if (prop.value != null) {
+					filter(ReplaceTokens, tokens: [(prop.key): String.valueOf(prop.value)])
+					filter(ReplaceTokens, tokens: [('project.' + prop.key): String.valueOf(prop.value)])
+					filter(ReplaceTokens, tokens: [('project.ext.' + prop.key): String.valueOf(prop.value)])
+				}
+		}
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	implementation 'com.google.code.gson:gson:2.8.9'
+	implementation("javax.interceptor:javax.interceptor-api:1.2.2")
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
+	//Spring Security
+	implementation("org.springframework.security:spring-security-oauth2-client")
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
+
 	// querydsl
 	compile("com.querydsl:querydsl-jpa") // querydsl
 	compile("com.querydsl:querydsl-apt") // querydsl
@@ -68,22 +97,74 @@ dependencies {
 	annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
 	implementation("com.querydsl:querydsl-jpa:${querydslVer}")
 	implementation("com.querydsl:querydsl-apt:${querydslVer}")
+	//implementation 'org.jetbrains:annotations:15.0'
+
+	//jwt
+	implementation("com.auth0:java-jwt:3.10.3")		// oauth0
+	//implementation("io.jsonwebtoken:jjwt:0.9.1") 	// okta
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
+	//implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
+
+	//aws
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-aws-context:2.2.6.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.2.6.RELEASE")
+	implementation("com.amazonaws:aws-java-sdk-core:1.12.275")
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.267")
+
+	// Swagger
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	//implementation('io.springfox:springfox-swagger2:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-swagger-ui:3.0.0-SNAPSHOT')
+	//implementation('io.springfox:springfox-spring-webflux:3.0.0-SNAPSHOT')
+	//implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+
 }
-def querydslDir = "$buildDir/generated/querydsl"
-querydsl {
-	jpa = true
-	querydslSourcesDir = querydslDir
-}
-sourceSets {
-	main.java.srcDir querydslDir
-}
-configurations {
-	querydsl.extendsFrom compileClasspath
-}
-compileQuerydsl {
-	options.annotationProcessorPath = configurations.querydsl
-}
+
+//def querydslDir = "$buildDir/generated/querydsl"
+//querydsl {
+//	jpa = true
+//	querydslSourcesDir = querydslDir
+//}
+//sourceSets {
+//	main.java.srcDir querydslDir
+//}
+//configurations {
+//	querydsl.extendsFrom compileClasspath
+//}
+//compileQuerydsl {
+//	options.annotationProcessorPath = configurations.querydsl
+//}
 test {
 	useJUnitPlatform()
+}
+
+configure("querydslProjects") {
+	apply plugin: "io.spring.dependency-management"
+
+	dependencies {
+		compile("com.querydsl:querydsl-core")
+		compile("com.querydsl:querydsl-jpa")
+
+		annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa") // querydsl JPAAnnotationProcessor 사용 지정
+		annotationProcessor("jakarta.persistence:jakarta.persistence-api") // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
+		annotationProcessor("jakarta.annotation:jakarta.annotation-api") // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+	}
+
+	// clean 태스크와 cleanGeneatedDir 태스크 중 취향에 따라서 선택하세요.
+	/** clean 태스크 실행시 QClass 삭제 */
+	clean {
+		delete file('src/main/generated') // 인텔리제이 Annotation processor 생성물 생성위치
+	}
+
+	/**
+	 * 인텔리제이 Annotation processor 에 생성되는 'src/main/generated' 디렉터리 삭제
+	 */
+	task cleanGeneatedDir(type: Delete) { // 인텔리제이 annotation processor 가 생성한 Q클래스가 clean 태스크로 삭제되는 게 불편하다면 둘 중에 하나를 선택
+		delete file('src/main/generated')
+	}
 }
 

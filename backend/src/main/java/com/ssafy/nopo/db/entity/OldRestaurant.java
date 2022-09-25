@@ -1,5 +1,6 @@
 package com.ssafy.nopo.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -56,13 +57,38 @@ public class OldRestaurant {
     @JoinColumn(name = "addr_id")
     private Address dong;
 
+    @OneToOne
+    @JoinColumn(name = "ele_id")
+    private Element element;
+
+    @OneToMany(mappedBy = "resto")
+    private List<Review> reviewList = new ArrayList<>();
+
     @OneToMany(mappedBy = "resto")
     private List<Visited> visitedList = new ArrayList<>();
 
     @OneToMany(mappedBy = "resto")
     private List<Liked> likedList = new ArrayList<>();
+
+    @Builder
+    public OldRestaurant(int id, String year, String thumbnail, String address, String restoName, String sectors, double locationX, double locationY, String phoneNumber, String menu1, String menu2, Grade grade, Address dong, Element element, List<Review> reviewList, List<Visited> visitedList, List<Liked> likedList) {
+        this.id = id;
+        this.year = year;
+        this.thumbnail = thumbnail;
+        this.address = address;
+        this.restoName = restoName;
+        this.sectors = sectors;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.phoneNumber = phoneNumber;
+        this.menu1 = menu1;
+        this.menu2 = menu2;
+        this.grade = grade;
+        this.dong = dong;
+        this.element = element;
+        this.reviewList = reviewList;
+        this.visitedList = visitedList;
+        this.likedList = likedList;
+    }
 }
 
-enum Grade {
-    노포, 찐노포, 최강노포
-}

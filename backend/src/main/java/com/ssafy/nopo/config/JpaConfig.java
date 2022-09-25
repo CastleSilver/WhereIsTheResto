@@ -63,4 +63,3 @@ public class JpaConfig {
                 .registerModule(new Jdk8Module());
     }
 }
-

@@ -1,0 +1,7 @@
+pipinstall
+webdriver-manager          3.8.3
+selenium                   4.4.3
+beautifulsoup4             4.11.1
+PyAutoGUI                  0.9.53
+openpyxl
+reqeuests

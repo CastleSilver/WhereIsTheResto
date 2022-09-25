@@ -37,11 +37,10 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<?> getUser() {
-//        if (!jwtService.isValidUser())
-//            throw new InvalidApproachException("사용자 인증 실패");
-//
-//        String currentUid = jwtService.getUserId();
-        String currentUid = "2437234140";   // test 용
+        if (!jwtService.isValidUser())
+            throw new InvalidApproachException("사용자 인증 실패");
+
+        String currentUid = jwtService.getUserId();
 
         UserInfoResponse userInfoResponse = userService.getUserInfoResponse(currentUid);
         if (userInfoResponse != null) {

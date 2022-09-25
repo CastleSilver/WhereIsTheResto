@@ -40,7 +40,7 @@ public class KakaoAuthService {
             isNewUser = true;
         }
 
-        return AuthResponse.builder() // /auth/kakao와 /auth/google의 응답의 body로 AccessToken(AppToken)을 보내주기위해 builder 사용
+        return AuthResponse.builder() // /auth/kakao의 응답의 body로 AccessToken(AppToken)을 보내주기위해 builder 사용
                 .id(id)
                 .isNewMember(isNewUser)
                 .build();

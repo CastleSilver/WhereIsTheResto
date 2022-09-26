@@ -9,7 +9,7 @@ import com.ssafy.nopo.api.service.UserDetailsImpl;
 import com.ssafy.nopo.api.service.UserService;
 import com.ssafy.nopo.common.auth.jwt.JwtUtil;
 import com.ssafy.nopo.db.entity.User;
-import com.ssafy.nopo.exception.InvalidApproachException;
+import com.ssafy.nopo.common.exception.InvalidApproachException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,7 @@ import com.ssafy.nopo.api.request.LikedRequest;
 import com.ssafy.nopo.api.response.BaseResponseEntity;
 import com.ssafy.nopo.api.service.JwtService;
 import com.ssafy.nopo.api.service.LikedService;
-import com.ssafy.nopo.exception.InvalidApproachException;
+import com.ssafy.nopo.common.exception.InvalidApproachException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

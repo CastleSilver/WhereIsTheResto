@@ -23,4 +23,9 @@ public class LikedQuerydslRepository {
         jpaQueryFactory.delete(qLiked)
                 .where(qLiked.user.id.eq(userId).and(qLiked.resto.id.eq(restoId))).execute();
     }
+
+    public int countRestoId(int restoId) {
+        return jpaQueryFactory.selectFrom(qLiked)
+                .where(qLiked.resto.id.eq(restoId)).fetch().size();
+    }
 }

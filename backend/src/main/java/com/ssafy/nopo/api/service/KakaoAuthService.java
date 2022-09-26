@@ -2,7 +2,7 @@ package com.ssafy.nopo.api.service;
 
 import com.ssafy.nopo.api.request.AuthRequest;
 import com.ssafy.nopo.api.response.AuthResponse;
-import com.ssafy.nopo.client.ClientKakao;
+import com.ssafy.nopo.common.auth.client.ClientKakao;
 import com.ssafy.nopo.common.auth.jwt.AuthToken;
 import com.ssafy.nopo.common.auth.jwt.AuthTokenProvider;
 import com.ssafy.nopo.db.entity.User;

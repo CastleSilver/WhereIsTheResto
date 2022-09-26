@@ -1,6 +1,6 @@
 package com.ssafy.nopo.api.service;
 
-import com.ssafy.nopo.exception.UnauthorizedException;
+import com.ssafy.nopo.common.exception.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

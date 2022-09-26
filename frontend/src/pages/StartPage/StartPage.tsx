@@ -20,8 +20,12 @@ export default function StartPage() {
   const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
+  const pageStyle= {
+    height: "100vh"
+  }
+
   return (
-    <>
+    <Box sx={pageStyle}>
       {/* 상단 오렌지색 수평선 */}
       <Box sx={topAreaStyle}></Box>
 
@@ -39,6 +43,6 @@ export default function StartPage() {
           <img src={kakaoBtn} alt="logo" width="50%" />
         </a>
       </Grid>
-    </>
-  );
+    </Box>
+  )
 }

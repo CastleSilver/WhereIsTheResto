@@ -23,6 +23,7 @@ export default function RestoDetail() {
     <Box sx={{ pt: "10vw", px: "5vw" }}>
       {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
       <RestoInfo />
+
       {/* 지도 */}
       <Map />
       {/* 사용자 리-뷰 => 유저의 프로필 사진, 이름, 리뷰 내용, 평점*/}

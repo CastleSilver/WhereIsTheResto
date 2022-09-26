@@ -1,13 +1,11 @@
 import React from "react"
-import Map1 from "./Map1"
-import Map2 from "./Map2"
+import Api from "./Api"
 
 export default function NeedConfirm() {
   return (
     <>
-      <Map1 />
+      <Api />
       <hr />
-      <Map2 />
     </>
   )
 }

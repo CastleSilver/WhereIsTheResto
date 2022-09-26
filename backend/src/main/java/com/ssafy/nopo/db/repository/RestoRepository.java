@@ -11,5 +11,5 @@ import java.util.List;
 
 @Repository
 public interface RestoRepository extends JpaRepository<OldRestaurant, Integer> {
-    List<OldRestaurant> findAllByGrade(String grade);
+    List<OldRestaurant> findAllByGrade(Grade grade);
 }

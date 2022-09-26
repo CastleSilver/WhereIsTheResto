@@ -70,15 +70,16 @@ public class JwtService {
 
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
-        String jwt = request.getHeader("access-token");
-
+        String jwt = request.getHeader("Authorization");
+        jwt = jwt.replaceAll("Bearer ", "");
         return isUsable(jwt);
     }
 
     public Map<String, Object> getData() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
-        String jwt = request.getHeader("access-token");
+        String jwt = request.getHeader("Authorization");
+        jwt = jwt.replaceAll("Bearer ", "");
         Jws<Claims> claims = null;
 
         try {

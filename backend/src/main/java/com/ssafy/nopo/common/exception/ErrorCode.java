@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     //resto
     NOT_FOUND_RESTO_INFO(HttpStatus.BAD_REQUEST, "400", "해당 가게가 존재하지 않습니다"),
+    RESTO_LiST_GET_ERROR(HttpStatus.BAD_REQUEST, "400", "가게 리스트 조회 중 오류가 발생했습니다"),
 
     //review
     REVIEW_UPDATE_WRONG_ACCESS(HttpStatus.BAD_REQUEST, "400", "본인의 리뷰만 수정할 수 있습니다"),
@@ -33,8 +34,8 @@ public enum ErrorCode {
     REFRESH_TOKEN_REISSUE_WRONG_INPUT(HttpStatus.BAD_REQUEST, "400", "userId, accessToken, refreshToken을 입력해주세요"),
 
     // 로그인
-    LOGIN_NOT_FOUND_ID(HttpStatus.NOT_FOUND, "404", "해당 아이디를 찾을 수 없습니다"),
-    NOT_FOUND_USER_INFO(HttpStatus.NOT_FOUND, "404", "해당 유저가 존재하지 않습니다");
+    LOGIN_NOT_FOUND_ID(HttpStatus.NOT_FOUND, "400", "해당 아이디를 찾을 수 없습니다"),
+    NOT_FOUND_USER_INFO(HttpStatus.NOT_FOUND, "400", "해당 유저가 존재하지 않습니다");
 
 
     private final HttpStatus status;

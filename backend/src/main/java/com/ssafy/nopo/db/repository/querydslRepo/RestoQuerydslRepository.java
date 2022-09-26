@@ -16,13 +16,11 @@ import java.util.List;
 public class RestoQuerydslRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-    private final LikedQuerydslRepository likedQuerydslRepository;
-    static Calendar now = Calendar.getInstance();
     QOldRestaurant resto = QOldRestaurant.oldRestaurant;
     QLiked liked = QLiked.liked;
 
-//    public List<OldRestaurant> orderByLiked(){
-//        return jpaQueryFactory.select(resto).from(resto.likedList, liked).
-//                orderBy(jpaQueryFactory.select(liked).where(liked.resto.id.eq(resto.id)).fetch().size()).fetch();
-//    }
+    public List<OldRestaurant> orderByLiked(){
+        return jpaQueryFactory.select(resto).from(resto, liked).
+                orderBy(resto.likedList.size().intValue().desc()).fetch();
+    }
 }

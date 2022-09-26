@@ -9,6 +9,7 @@ import com.ssafy.nopo.db.entity.Grade;
 import com.ssafy.nopo.db.entity.OldRestaurant;
 import com.ssafy.nopo.db.repository.RestoRepository;
 import com.ssafy.nopo.db.repository.ReviewRepository;
+import com.ssafy.nopo.db.repository.querydslRepo.RestoQuerydslRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RestoServiceImpl implements RestoService{
     private final RestoRepository restoRepository;
+    private final RestoQuerydslRepository restoQuerydslRepository;
     private final ReviewRepository reviewRepository;
     static Calendar now = Calendar.getInstance();
     @Override
@@ -42,20 +44,27 @@ public class RestoServiceImpl implements RestoService{
 
     @Override
     public RestoListRes getRestoLists() {
-        return null;
+        return new RestoListRes(findAllByRestoGrade(), orderByLikedCnt());
     }
 
     @Override
     public List<RestoRes> findAllByRestoGrade() {
-        return restoRepository.findAllByGrade(Grade.최강노포)
+        List<RestoRes> restoResList = restoRepository.findAllByGrade(Grade.최강노포)
                 .stream()
                 .map(RestoRes::new)
                 .collect(Collectors.toList());
+        if(restoResList.isEmpty()) throw new CustomException(ErrorCode.RESTO_LiST_GET_ERROR);
+        return restoResList;
     }
 
     @Override
     public List<RestoRes> orderByLikedCnt() {
-        return null;
+        List<RestoRes> restoResList = restoQuerydslRepository.orderByLiked()
+                .stream()
+                .map(RestoRes::new)
+                .collect(Collectors.toList());
+        if(restoResList.isEmpty()) throw new CustomException(ErrorCode.RESTO_LiST_GET_ERROR);
+        return restoResList;
     }
 
     @Override

@@ -7,6 +7,7 @@ import sangsa from "./sangsa.png"
 import banner from "./banner.png"
 // import userAlt from "./user_alt_img.png"
 import userAlt from "./a.png"
+import startImage from "./startImg01.png"
 
 export function BackPaper() {
   return <img src={backgroundPaper} width="100%" />
@@ -34,4 +35,8 @@ export function Sangsa() {
 
 export function Banner() {
   return <img src={banner} width="100%" />
+}
+
+export function StartImg() {
+  return <img src={startImage} width="100%" />
 }

@@ -13,7 +13,7 @@ const style = {
   left: 0,
   backgroundColor: "rgb(255 249 243)",
   height: "40px",
-  zIndex: 1,
+  zIndex: 2,
 }
 
 const btnStyle = {

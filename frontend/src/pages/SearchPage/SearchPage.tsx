@@ -1,4 +1,5 @@
-/* global kakao*/
+/* global kakao */
+
 import React, { useState, useEffect } from "react"
 const kakao = (window as any).kakao
 

@@ -1,14 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import PaperBackground from "./PaperBackground"
 import { Box, Grid } from "@mui/material"
-//   {
-//     id: 0,
-//     restoName: "만선옥",
-//     address: "연신내",
-//     content:
-//       "이 집에서 파는 모든 메뉴가 맛있어요... 진짜 안 가보셨다면 꼭 가보세요!",
-//     rating: 4,
-//   },
 
 interface revType {
   review: {
@@ -21,56 +13,42 @@ interface revType {
   }
 }
 
-const imgAreaStyle = {
-  overflow: "hidden",
-  width: "40vw",
-  height: "40vw",
-  position: "relative",
-}
-
-const imgStyle = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-}
-
 export default function Review({ review }: revType) {
+  const [toggle, setToggle] = useState(1)
+
   return (
     <div>
       <PaperBackground>
-        <Grid container wrap="" display="flex">
-          <Grid item>
-            <Box sx={imgAreaStyle}>
-              <Box sx={imgStyle}>
-                <img
-                  src={`${review.imageUrl}`}
-                  width="100%"
-                  height="100%"
-                  object-fit="contain"
-                />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            container
-            display="flex"
-            direction="column"
-            justifyContent="center"
-            sx={{ p: "8px" }}
-          >
-            <span className="title-text-md" style={{ textAlign: "center" }}>
-              {review.restoName}
-            </span>
-            <span style={{ color: "orange", fontSize: "24px" }}>
-              {"★".repeat(review.rating)}
-              {"☆".repeat(5 - review.rating)}
-            </span>
-            <span>{review.content}</span>
-          </Grid>
-        </Grid>
+        <Box sx={{}}>이름</Box>
+        <Box>
+          <button>수정</button>
+          <button>삭제</button>
+        </Box>
+        <Box>
+          <p>IMAGE</p>
+        </Box>
+        {toggle === 1 && (
+          <Box>
+            <button
+              onClick={() => {
+                setToggle(0)
+              }}
+            >
+              더 보기asdf
+            </button>
+          </Box>
+        )}
+        {toggle === 0 && (
+          <Box>
+            <button
+              onClick={() => {
+                setToggle(1)
+              }}
+            >
+              접기asdf
+            </button>
+          </Box>
+        )}
       </PaperBackground>
     </div>
   )

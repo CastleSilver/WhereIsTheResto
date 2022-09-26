@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { userProfile } from "../CommonComp/index"
 import { Box, Grid } from "@mui/material"
 
@@ -14,8 +14,13 @@ const myPageStyle = {
 }
 
 export default function MyPage() {
-  const [contentNum, setContentNum] = useState(0)
+  const [contentNum, setContentNum] = useState(
+    () => Number(window.localStorage.getItem("conNum")) || 0
+  )
 
+  useEffect(() => {
+    window.localStorage.setItem("conNum", String(contentNum))
+  }, [contentNum, setContentNum])
   return (
     <>
       <Box sx={myPageStyle}>

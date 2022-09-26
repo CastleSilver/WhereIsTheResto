@@ -1,4 +1,4 @@
-package com.ssafy.nopo.exception;
+package com.ssafy.nopo.common.exception;
 
 public class TokenValidFailedException extends RuntimeException {
 

@@ -1,8 +1,9 @@
 package com.ssafy.nopo.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,47 +11,84 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@DynamicInsert
+@DynamicUpdate
 @Entity
-@Table(name = "OLD_RESTAURANT")
+@Table(name = "old_restaurant")
 public class OldRestaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "rest_age", length = 4)
-    private String restoAge;    // 인허가등록 년도
+    @Column(nullable = false, length = 4)
+    private String year;
 
-    private String thumbnail;   // 식당 사진 썸네일
+    @Column(length = 200)
+    private String thumbnail;
 
-    private String address;     // 지번 주소
+    @Column(nullable = false, length = 300)
+    private String address;
 
-    private String restoName;   // 식당 이름
+    @Column(name = "resto_name", nullable = false, length = 100)
+    private String restoName;
 
-    private String sectors;     // 업종
+    @Column(nullable = false, length = 10)
+    private String sectors;
 
-    private double locationX;   // 좌표정보 X
+    @Column(name = "location_x")
+    private double locationX;
 
-    private double locationY;   // 좌표정보 Y
+    @Column(name = "location_y")
+    private double locationY;
 
-    private String phoneNumber; // 가게 전화번호
+    @Column(name = "phone_number", length = 50)
+    private String phoneNumber;
 
-    private String menu1;       // 대표 메뉴1
+    @Column(length = 50)
+    private String menu1;
 
-    private String menu2;       // 대표 메뉴2
+    @Column(length = 50)
+    private String menu2;
 
-    private int terrace;        // 야외좌석 유무
+    @Column(length = 10)
+    private Grade grade;
 
-    private String grade;       // 노포 등급
+    @ManyToOne
+    @JoinColumn(name = "addr_id")
+    private Address dong;
 
-    @OneToMany(mappedBy = "")
+    @OneToOne
+    @JoinColumn(name = "ele_id")
+    private Element element;
+
+    @OneToMany(mappedBy = "resto")
+    private List<Review> reviewList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resto")
     private List<Visited> visitedList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "")
+    @OneToMany(mappedBy = "resto")
     private List<Liked> likedList = new ArrayList<>();
 
-
-
-
+    @Builder
+    public OldRestaurant(int id, String year, String thumbnail, String address, String restoName, String sectors, double locationX, double locationY, String phoneNumber, String menu1, String menu2, Grade grade, Address dong, Element element, List<Review> reviewList, List<Visited> visitedList, List<Liked> likedList) {
+        this.id = id;
+        this.year = year;
+        this.thumbnail = thumbnail;
+        this.address = address;
+        this.restoName = restoName;
+        this.sectors = sectors;
+        this.locationX = locationX;
+        this.locationY = locationY;
+        this.phoneNumber = phoneNumber;
+        this.menu1 = menu1;
+        this.menu2 = menu2;
+        this.grade = grade;
+        this.dong = dong;
+        this.element = element;
+        this.reviewList = reviewList;
+        this.visitedList = visitedList;
+        this.likedList = likedList;
+    }
 }
+

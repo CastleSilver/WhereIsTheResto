@@ -1,4 +1,4 @@
-package com.ssafy.nopo.client;
+package com.ssafy.nopo.common.auth.client;
 
 import com.ssafy.nopo.db.entity.User;
 

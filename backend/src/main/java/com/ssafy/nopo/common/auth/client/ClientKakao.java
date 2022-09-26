@@ -1,10 +1,10 @@
-package com.ssafy.nopo.client;
+package com.ssafy.nopo.common.auth.client;
 
 import com.ssafy.nopo.api.response.KakaoUserResponse;
 import com.ssafy.nopo.db.entity.AZTI;
 import com.ssafy.nopo.db.entity.Role;
 import com.ssafy.nopo.db.entity.User;
-import com.ssafy.nopo.exception.TokenValidFailedException;
+import com.ssafy.nopo.common.exception.TokenValidFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

@@ -23,7 +23,6 @@ buildscript{
 plugins {
 	id 'org.springframework.boot' version "${springBootVer}"
 	id 'io.spring.dependency-management' version "${springDependencyMgmtVer}.RELEASE"
-	//id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 	id 'java'
 	id 'idea'
 }
@@ -89,16 +88,19 @@ dependencies {
 	implementation("org.springframework.security:spring-security-oauth2-client")
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
-
+	//aws
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-aws-context:2.2.6.RELEASE")
+	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.2.6.RELEASE")
+	implementation("com.amazonaws:aws-java-sdk-core:1.12.275")
+	implementation("com.amazonaws:aws-java-sdk-s3:1.12.267")
 	// querydsl
 	compile("com.querydsl:querydsl-jpa") // querydsl
 	compile("com.querydsl:querydsl-apt") // querydsl
 	annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
 	annotationProcessor("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final")
-	implementation("com.querydsl:querydsl-jpa:${querydslVer}")
-	implementation("com.querydsl:querydsl-apt:${querydslVer}")
-	//implementation 'org.jetbrains:annotations:15.0'
-
+	implementation("com.querydsl:querydsl-jpa")
+	implementation("com.querydsl:querydsl-apt")
 	//jwt
 	implementation("com.auth0:java-jwt:3.10.3")		// oauth0
 	//implementation("io.jsonwebtoken:jjwt:0.9.1") 	// okta
@@ -106,13 +108,6 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.2")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	//implementation group: 'io.jsonwebtoken', name:'jjwt', version:'0.9.1'
-
-	//aws
-	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
-	implementation("org.springframework.cloud:spring-cloud-aws-context:2.2.6.RELEASE")
-	implementation("org.springframework.cloud:spring-cloud-aws-autoconfigure:2.2.6.RELEASE")
-	implementation("com.amazonaws:aws-java-sdk-core:1.12.275")
-	implementation("com.amazonaws:aws-java-sdk-s3:1.12.267")
 
 	// Swagger
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
@@ -124,20 +119,6 @@ dependencies {
 
 }
 
-//def querydslDir = "$buildDir/generated/querydsl"
-//querydsl {
-//	jpa = true
-//	querydslSourcesDir = querydslDir
-//}
-//sourceSets {
-//	main.java.srcDir querydslDir
-//}
-//configurations {
-//	querydsl.extendsFrom compileClasspath
-//}
-//compileQuerydsl {
-//	options.annotationProcessorPath = configurations.querydsl
-//}
 test {
 	useJUnitPlatform()
 }

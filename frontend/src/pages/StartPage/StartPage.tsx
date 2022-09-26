@@ -16,8 +16,12 @@ export default function StartPage() {
     borderBottom: "2px solid rgb(216, 99, 69)",
   }
 
+  const pageStyle= {
+    height: "100vh"
+  }
+
   return (
-    <>
+    <Box sx={pageStyle}>
       {/* 상단 오렌지색 수평선 */}
       <Box sx={topAreaStyle}></Box>
 
@@ -35,6 +39,6 @@ export default function StartPage() {
           <img src={kakaoBtn} alt="logo" width="50%" />
         </Link>
       </Grid>
-    </>
+    </Box>
   )
 }

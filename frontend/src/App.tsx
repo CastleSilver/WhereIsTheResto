@@ -11,6 +11,7 @@ import DetailPage from "./pages/DetailPage/RestoDetail";
 // Components
 import { bottomBar } from "./pages/pageIndex";
 import Auth from "./pages/StartPage/Components/Auth";
+import Azti from "./pages/UserComponents/Azti";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -26,6 +27,7 @@ function App() {
           <Route path="/restos/:restoId" element={<DetailPage />} />
           <Route path="/need-confirm" element={<NeedConfirm />} />
           <Route path="/oauth/kakao/callback" element={<Auth />} />
+          <Route path="/azti" element={<Azti />} />
         </Routes>
         {bottomBar()}
       </Router>

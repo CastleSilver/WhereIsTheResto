@@ -1,5 +1,5 @@
 // Images
-import mainLogo from "../../assets/main_logo.png";
+import mainLogo from "../../assets/Logo.png";
 import feZero from "../../assets/feZero.jpg";
 import kakaoBtn from "../../assets/kakao_login_btn.png";
 

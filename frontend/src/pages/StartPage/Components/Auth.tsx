@@ -10,20 +10,21 @@ function Auth() {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
   // axios 로 백엔드 전송 및 받아와햐 하는데
-  axios({
-    method: "get",
-    url: `http://localhost:8080/api/oauth/login/kakao/${code}`,
-  })
-    .then((res) => {
-      console.log(res);
-      navigate("/main");
-    })
-    .catch((err) => {
-      console.log(err);
-      navigate("/");
-    });
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.post(
+          `http://localhost:8080/api/oauth/login/kakao?code=${code}`
+        );
+        console.log(res.data);
+        navigate("/main");
+      } catch (e) {
+        navigate("/");
+      }
+    })();
+  }, []);
+
   // 인가코드
-  console.log(code);
 
   return null;
 }

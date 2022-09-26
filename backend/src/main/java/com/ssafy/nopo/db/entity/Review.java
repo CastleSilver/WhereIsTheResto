@@ -3,9 +3,11 @@ package com.ssafy.nopo.db.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,8 +16,8 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@DynamicUpdate
 @Entity
+@DynamicUpdate
 @Table(name = "REVIEW")
 public class Review {
     @Id
@@ -28,7 +30,6 @@ public class Review {
     @Column(nullable = false)
     private double rating;
 
-    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime regdate;
 

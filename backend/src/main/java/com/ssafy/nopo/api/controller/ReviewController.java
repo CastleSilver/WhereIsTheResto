@@ -55,7 +55,7 @@ public class ReviewController {
         }
         log.info("리뷰 등록");
         List<String> imgUrlList = new ArrayList<>();
-        if (!multipartFiles.isEmpty()) {
+        if (multipartFiles != null) {
             imgUrlList = s3Service.uploadImges(multipartFiles);
         }
         reviewService.createReview(reviewReq, imgUrlList, userId);

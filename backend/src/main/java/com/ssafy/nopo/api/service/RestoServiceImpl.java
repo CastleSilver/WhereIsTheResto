@@ -49,7 +49,7 @@ public class RestoServiceImpl implements RestoService{
 
     @Override
     public List<RestoRes> findAllByRestoGrade() {
-        List<RestoRes> restoResList = restoRepository.findAllByGrade(String.valueOf(Grade.최강노포))
+        List<RestoRes> restoResList = restoRepository.findAllByGrade(Grade.THIRTY)
                 .stream()
                 .map(RestoRes::new)
                 .collect(Collectors.toList());

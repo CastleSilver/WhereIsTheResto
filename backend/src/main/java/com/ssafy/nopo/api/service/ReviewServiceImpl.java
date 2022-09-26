@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,7 @@ public class ReviewServiceImpl implements ReviewService{
                 .rating(reviewReq.getRating())
                 .user(user)
                 .resto(resto)
+                .regdate(LocalDateTime.now())
                 .build();
         reviewRepository.save(review);
 
@@ -76,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService{
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REVIEW_INFO));
         if(!review.getUser().getId().equals(userId))
             throw new CustomException(ErrorCode.REVIEW_UPDATE_WRONG_ACCESS);
-        review.update(review.getContent(), review.getRating());
+        review.update(reviewReq.getContent(), reviewReq.getRating());
     }
 
     @Transactional
@@ -85,7 +87,12 @@ public class ReviewServiceImpl implements ReviewService{
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REVIEW_INFO));
         if(!review.getUser().getId().equals(userId))
             throw new CustomException(ErrorCode.REVIEW_DELETE_WRONG_ACCESS);
-        reviewRepository.deleteById(reviewId);
-        s3Service.deleteAll(review.getImgList());
+        try {
+            s3Service.deleteAll(review.getImgList());
+        } catch (NullPointerException e){
+          e.printStackTrace();
+        } finally {
+            reviewRepository.deleteById(reviewId);
+        }
     }
 }

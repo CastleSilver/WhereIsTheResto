@@ -18,14 +18,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState("1")
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth)
   const pathName = window.location.pathname
-
-  useEffect(() => {
-    window.addEventListener("resize", console.log("asd"))
+  window.addEventListener("resize", () => {
+    setBrowserWidth(window.innerWidth)
   })
 
   return (
     <>
-      {window.innerWidth > 400 && <BlockPage />}
+      {browserWidth > 500 && <BlockPage />}
       <Router>
         <Routes>
           <Route path="/" element={startPage()} />
@@ -37,7 +36,7 @@ function App() {
           <Route path="/oauth/kakao/callback" element={<Auth />} />
           <Route path="/azti" element={<Azti />} />
         </Routes>
-        {pathName !== "/" && bottomBar()}
+        {pathName !== "/" && browserWidth < 500 && bottomBar()}
       </Router>
     </>
   )

@@ -2,7 +2,7 @@ import { Box } from "@mui/system"
 import React from "react"
 
 const boxStyle = {
-  position: "absolute",
+  position: "fixed",
   width: "100vw",
   height: "100vh",
   left: 0,
@@ -10,6 +10,7 @@ const boxStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  zIndex: 1,
 }
 
 export default function blockPage() {

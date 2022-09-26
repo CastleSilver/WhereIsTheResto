@@ -51,6 +51,7 @@ public class OldRestaurant {
     private String menu2;
 
     @Column(length = 10)
+    @Enumerated(EnumType.STRING)
     private Grade grade;
 
     @ManyToOne

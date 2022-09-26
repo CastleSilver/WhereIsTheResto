@@ -30,7 +30,7 @@ public class RestoServiceImpl implements RestoService{
     public RestoRes findByRestoId(int restoId) {
         OldRestaurant resto = restoRepository.findById(restoId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RESTO_INFO));
         int age = now.get(Calendar.YEAR) - Integer.parseInt(resto.getYear());
-        List<ReviewRes> reviewList = reviewRepository.findAllByRestoId(resto)
+        List<ReviewRes> reviewList = reviewRepository.findAllByRestoId(resto.getId())
                                     .stream()
                                     .map(ReviewRes::new)
                                     .collect(Collectors.toList());
@@ -49,7 +49,7 @@ public class RestoServiceImpl implements RestoService{
 
     @Override
     public List<RestoRes> findAllByRestoGrade() {
-        List<RestoRes> restoResList = restoRepository.findAllByGrade(Grade.최강노포)
+        List<RestoRes> restoResList = restoRepository.findAllByGrade(String.valueOf(Grade.최강노포))
                 .stream()
                 .map(RestoRes::new)
                 .collect(Collectors.toList());

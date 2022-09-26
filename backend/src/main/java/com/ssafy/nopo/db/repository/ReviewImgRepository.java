@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ReviewImgRepository extends JpaRepository<ReviewImg, Integer> {
-    List<ReviewImg> findAllByReviewId(Review reviewId);
+    List<ReviewImg> findAllByReviewId(int reviewId);
 
 }

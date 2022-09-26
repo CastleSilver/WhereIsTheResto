@@ -35,7 +35,7 @@ public class ReviewServiceImpl implements ReviewService{
                 () -> new CustomException(ErrorCode.NOT_FOUND_USER_INFO));
         OldRestaurant resto = restoRepository.findById(reviewReq.getRestoId()).orElseThrow(
                 () -> new CustomException(ErrorCode.NOT_FOUND_RESTO_INFO));
-        if(reviewRepository.findByRestoIdAndUserId(resto, user).isPresent())
+        if(reviewRepository.findByRestoIdAndUserId(resto.getId(), user.getId()).isPresent())
             throw new CustomException(ErrorCode.ALREADY_POST_REVIEW_ERROR);
         Review review = Review.builder()
                 .content(reviewReq.getContent())
@@ -61,7 +61,7 @@ public class ReviewServiceImpl implements ReviewService{
         Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REVIEW_INFO));
 
         // 이미지 목록 불러오기
-        List<String> imageUrl = imgRepository.findAllByReviewId(review)
+        List<String> imageUrl = imgRepository.findAllByReviewId(review.getId())
                                 .stream()
                                 .map(ReviewImg::getUrl)
                                 .collect(Collectors.toList());

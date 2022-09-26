@@ -12,6 +12,7 @@ import com.ssafy.nopo.common.exception.InvalidApproachException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +32,10 @@ public class ReviewController {
     private final JwtService jwtService;
     private final S3Service s3Service;
 
-    @PostMapping
+    @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE },
+                produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> createReview(HttpServletRequest request,
-                                          @RequestPart List<MultipartFile> multipartFiles,
+                                          @RequestPart(required = false) List<MultipartFile> multipartFiles,
                                           @RequestPart ReviewReq reviewReq) throws IOException {
         /**
          * @Method Name : createReview

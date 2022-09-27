@@ -6,3 +6,5 @@ pip install PyAutoGUI
 pip install openpyxl
 pip install reqeuests
 pip install kiwipiepy
+pip install soynlp
+pip install py-aiohanspell

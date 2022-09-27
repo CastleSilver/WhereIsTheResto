@@ -71,7 +71,7 @@ for i in range(len(locations)):
         except:
             restro_star = 0
         
-        if restro_star < 10:
+        if restro_star < 3:
             continue
         try:
             restro_menus = soup.find('ul', attrs={"class": "list Restaurant_MenuList"}).findAll('li')

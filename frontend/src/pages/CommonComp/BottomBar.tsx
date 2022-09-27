@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Grid, Box } from "@mui/material"
 import { Link } from "react-router-dom"
 
@@ -8,7 +8,7 @@ const Links = ["/main", "/search", "/my-page"]
 // 기본 스타일
 const style = {
   position: "fixed",
-  width: "100vw",
+  width: "100%",
   bottom: 0,
   left: 0,
   backgroundColor: "rgb(255 249 243)",
@@ -30,7 +30,12 @@ const selected = {
 }
 
 export default function Bottombar() {
-  const [pageNum, setPageNum] = useState(0)
+  const [pageNum, setPageNum] =
+    useState(() => Number(window.localStorage.getItem("myPageNum"))) || 0
+
+  useEffect(() => {
+    window.localStorage.setItem("myPageNum", String(pageNum))
+  }, [pageNum, setPageNum])
 
   return (
     <Grid container display="flex" sx={style}>

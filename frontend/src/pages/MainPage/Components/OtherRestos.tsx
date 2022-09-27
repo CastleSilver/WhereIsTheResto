@@ -18,7 +18,14 @@ export default function OtherRestos() {
       <p className="title-text-lg" style={{ textAlign: "left" }}>
         여기도 참으로 맛있는데!
       </p>
-      <Carousel cols={2} rows={1} gap={2} loop>
+      <Carousel
+        cols={2}
+        rows={1}
+        gap={10}
+        loop
+        hideArrow={true}
+        style={{ margin: 0 }}
+      >
         <Carousel.Item>
           <RestoInfo resto={resto} />
         </Carousel.Item>

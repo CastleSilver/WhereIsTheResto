@@ -60,6 +60,7 @@ export default function StartPage() {
             <img src={kakaoBtn} alt="logo" width="100%" />
           </a>
         </Box>
+        <Link to="/main">개발용 MAIN 창으로</Link>
       </Grid>
     </Box>
   )

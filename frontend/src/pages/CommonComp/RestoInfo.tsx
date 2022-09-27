@@ -2,7 +2,9 @@ import React from "react"
 import PaperBackground from "../../pages/CommonComp/PaperBackground"
 import LocalDiningIcon from "@mui/icons-material/LocalDining"
 import PinDropIcon from "@mui/icons-material/PinDrop"
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled"
 import { Box, Grid } from "@mui/material"
+import { Link } from "react-router-dom"
 
 const resto = {
   id: 0,
@@ -11,105 +13,129 @@ const resto = {
   menu1: "노가리",
   menu2: "팥빙수",
   rating: 4,
-  imageUrl: "https://t1.daumcdn.net/cfile/tistory/99843E4F5B2F94582F",
+  imageUrl:
+    "https://blog.kakaocdn.net/dn/1udE5/btq66utR1gh/Dff4S5fRbKKqVigtrykWiK/img.jpg",
 }
 
-const imgAreaStyle = {
-  overflow: "hidden",
-  width: "35vw",
-  height: "35vw",
+const recArea = {
   position: "relative",
+  width: "49.5vw",
+  height: "35vw",
+  borderRadius: "15px",
+  overflow: "hidden",
 }
 
-const imgStyle = {
+const imgStyle: {} = {
   position: "absolute",
   top: 0,
   left: 0,
   width: "100%",
   height: "100%",
+  objectFit: "cover",
 }
 
-const contentStyle = {
-  display: "flex",
-  justifyContent: "start",
-  marginTop: "8px",
+const titleStyle = {
+  fontFamily: "BMEULJIRO",
+  fontSize: "8vw",
+  textAlign: "left",
+  marginBottom: "6px",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  color: "rgb(216 99 69)",
 }
 
 const ratingStyle = {
-  position: "absolute",
-  zIndex: 1,
-  color: "white",
-  bottom: "10px",
-  right: "10px",
-  fontSize: "24px",
-  backgroundColor: "rgba(0, 0, 0, 0.8)",
+  fontSize: "6vw",
+  textAlign: "left",
+  marginTop: "auto",
+  marginBottom: "6px",
+  color: "#E3B574",
 }
 
-const textLen = resto.restoName.length
-const titlePx = Math.ceil(140 / textLen)
+const contentStyle: {} = {
+  fontFamily: "Chosun",
+  fontWeight: "bold",
+  color: "black",
+  margin: "0",
+  fontSize: "4.5vw",
+  textAlign: "left",
+}
+
+const iconStyle = {
+  width: "6.4vw",
+  height: "6.4vw",
+  paddingRight: "2.5vw",
+}
+
+const linkStyle: {} = {
+  textDecoration: "none",
+}
 
 export default function RestoInfo1() {
   return (
     <div>
-      <PaperBackground>
-        <Grid container display="flex">
-          <Grid item>
-            <Box sx={imgAreaStyle}>
-              <Box sx={imgStyle}>
-                <img
-                  src={`${resto.imageUrl}`}
-                  width="100%"
-                  height="100%"
-                  object-fit="contain"
-                />
-              </Box>
-            </Box>
-          </Grid>
-          {/* 여기서부터 음식점 이름, 내용 등의 정보 */}
-          <Grid
-            item
-            container
-            display="flex"
-            direction="column"
-            xs={6}
-            justifyContent="center"
-            alignItems="start"
-            sx={{
-              p: "8px",
-              marginLeft: "4px",
-              borderLeft: "solid 4px orange",
-              paddingLeft: "16px",
-            }}
-          >
-            <span
-              className="title-text-md "
-              style={{ fontFamily: "Chosun", fontWeight: "bold" }}
+      <Link to={`/restos/${resto.id}`} style={linkStyle}>
+        <PaperBackground>
+          <Grid sx={{ padding: "18px" }}>
+            {/* 제목, 별점 */}
+            <Grid
+              container
+              sx={{
+                // borderBottom: "solid 4px rgba(0, 0, 0, 0.3)",
+                marginBottom: "4.5vw",
+              }}
             >
-              <span style={{ fontSize: `${titlePx}px` }}>
-                {resto.restoName}
-              </span>
-            </span>
-            <span className="content-text-md" style={contentStyle}>
-              <PinDropIcon />
-              {resto.address}
-            </span>
-            <span className="content-text-md" style={contentStyle}>
-              <LocalDiningIcon />
-              <Box
-                sx={{
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                  whiteSpace: "nowrap",
-                  width: "41%",
-                }}
+              <Grid item xs={9.2} sx={titleStyle}>
+                <span>{resto.restoName} asdfasdfasdfasdfasdf</span>
+              </Grid>
+              <Grid item xs={2.8} sx={ratingStyle}>
+                <span>★ {resto.rating.toFixed(1)}</span>
+              </Grid>
+            </Grid>
+
+            {/* 이미지, 기타 정보들 */}
+            <Grid container>
+              <Grid item xs={5.5} sx={recArea}>
+                <img src={resto.imageUrl} style={imgStyle} />
+              </Grid>
+              <Grid
+                item
+                xs={6.5}
+                container
+                direction="column"
+                justifyContent={"space-evenly"}
+                alignContent={"start"}
+                sx={{ paddingLeft: "10px" }}
               >
-                {resto.menu1}, {resto.menu2}, {resto.menu2}, {resto.menu2},{" "}
-                {resto.menu2}
-              </Box>
-            </span>
+                <Grid container sx={contentStyle}>
+                  <AccessTimeFilledIcon sx={iconStyle} />
+                  20년
+                </Grid>
+
+                <Grid container sx={contentStyle}>
+                  <PinDropIcon sx={iconStyle} />
+                  {resto.address}
+                </Grid>
+
+                <Grid container sx={contentStyle}>
+                  <LocalDiningIcon sx={iconStyle} />
+                  <Box
+                    sx={{
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      width: "70%",
+                    }}
+                  >
+                    {resto.menu1}, {resto.menu2}, asdfasdfasfasdf
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </PaperBackground>
+        </PaperBackground>
+      </Link>
     </div>
   )
 }

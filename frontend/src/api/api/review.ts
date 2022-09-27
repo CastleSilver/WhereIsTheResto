@@ -12,6 +12,7 @@ const review = {
     }
     const req = setRequest(reqData)
     const res = await axios(req)
+    return res
   },
 
   get: async (reviewId: number) => {
@@ -21,6 +22,7 @@ const review = {
     }
     const req = setRequest(reqData)
     const res = await axios(req)
+    return res
   },
 
   delete: async (reviewId: number) => {
@@ -29,6 +31,7 @@ const review = {
       method: "DELETE",
     })
     const res = await axios(req)
+    return res
   },
 
   update: async (data: reviewUpdateType) => {
@@ -38,6 +41,7 @@ const review = {
       data,
     })
     const res = await axios(req)
+    return res
   },
 }
 

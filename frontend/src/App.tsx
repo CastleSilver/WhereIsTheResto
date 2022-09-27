@@ -1,5 +1,4 @@
 import "./App.css"
-
 // Router
 import {
   BrowserRouter as Router,
@@ -42,7 +41,7 @@ function App() {
           <Route path="/oauth/kakao/callback" element={<Auth />} />
           <Route path="/azti" element={<Azti />} />
         </Routes>
-        {nowpPath !== "/" && bottomBar()}
+        {browserWidth <= 450 && bottomBar()}
       </Router>
     </>
   )

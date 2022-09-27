@@ -12,6 +12,7 @@ const user = {
     }
     const req = setRequest(reqData)
     const res = await axios(req)
+    return { data: { msg: "AXIOS USER GET OKAY" } }
   },
 
   delete: async () => {

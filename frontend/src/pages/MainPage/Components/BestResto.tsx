@@ -17,7 +17,7 @@ export default function BestResto() {
       <p className="title-text-lg" style={{ textAlign: "left" }}>
         남바-원!
       </p>
-      <RestoInfo resto={resto} />
+      <RestoInfo />
     </Box>
   )
 }

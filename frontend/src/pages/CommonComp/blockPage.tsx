@@ -13,11 +13,16 @@ const boxStyle = {
   zIndex: 1,
 }
 
+const fontStyle = {
+  fontSize: "18px",
+}
 export default function blockPage() {
   return (
     <Box sx={boxStyle}>
-      <p>PC 환경은 지원하지 않습니다!</p>
-      <p>모바일 환경 혹은 작은 크기의 브라우저로 접속해주세요</p>
+      <p style={fontStyle}>PC 환경은 지원하지 않습니다!</p>
+      <p style={fontStyle}>
+        모바일 혹은 개발자 도구로 모바일 환경을 구축해주세요!
+      </p>
     </Box>
   )
 }

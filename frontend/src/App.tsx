@@ -1,7 +1,12 @@
 import "./App.css"
 
 // Router
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  createBrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom"
 import { useEffect, useState } from "react"
 
 // Pages
@@ -17,14 +22,15 @@ import BlockPage from "./pages/CommonComp/blockPage"
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState("1")
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth)
-  const pathName = window.location.pathname
+  const [nowpPath, setNowPath] = useState(window.location.pathname)
+
   window.addEventListener("resize", () => {
     setBrowserWidth(window.innerWidth)
   })
 
   return (
     <>
-      {browserWidth > 500 && <BlockPage />}
+      {browserWidth > 450 && <BlockPage />}
       <Router>
         <Routes>
           <Route path="/" element={startPage()} />
@@ -36,7 +42,7 @@ function App() {
           <Route path="/oauth/kakao/callback" element={<Auth />} />
           <Route path="/azti" element={<Azti />} />
         </Routes>
-        {pathName !== "/" && browserWidth < 500 && bottomBar()}
+        {nowpPath !== "/" && bottomBar()}
       </Router>
     </>
   )

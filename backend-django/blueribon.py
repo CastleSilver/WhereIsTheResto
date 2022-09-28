@@ -43,7 +43,7 @@ location_y = []
 resto_age = []
 sectors = []
 
-driver.get("https://www.bluer.co.kr/search?tabMode=single&searchMode=ribbonType&ribbonType=&feature=")
+driver.get("https://www.bluer.co.kr/search?tabMode=single&searchMode=ribbonType&&location=서울특별시&ribbonType=&feature=")
 driver.implicitly_wait(10)
 
 
@@ -67,7 +67,7 @@ while True:
             point = button.get_attribute("data-lp")
             click_point = driver.find_element(By.XPATH, f"//*[@id='page-selection']/ul/li[{i+2}]/a").click()
             break
-    time.sleep(5)
+    time.sleep(2)
     if last_point == point:
         break
 

@@ -65,9 +65,12 @@ while True:
             print(i)
             print(button.get_attribute("class"))
             point = button.get_attribute("data-lp")
-            click_point = driver.find_element(By.XPATH, f"//*[@id='page-selection']/ul/li[{i+2}]/a").click()
+            try:
+                click_point = driver.find_element(By.XPATH, f"//*[@id='page-selection']/ul/li[{i+2}]/a").click()
+            except:
+                pass
             break
-    time.sleep(2)
+    time.sleep(1)
     if last_point == point:
         break
 

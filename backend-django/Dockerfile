@@ -1,6 +1,6 @@
 FROM python:3.9.10    
 WORKDIR /var/jenkins_home/workspace/nopo/backend-django  
-COPY requirements.txt ./ 
+COPY requirement.txt ./ 
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt

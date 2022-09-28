@@ -29,23 +29,8 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 import pandas as pd
 import csv
 
-name = []
-hours = []
-menu = []
-menu1 = []
-menu2 = []
-tag = []
-address = []
-number = []
-thumbnail = []
-location_x = []
-location_y = []
-resto_age = []
-sectors = []
-
-driver.get("https://www.bluer.co.kr/search?tabMode=single&searchMode=ribbonType&&location=서울특별시&ribbonType=&feature=")
+driver.get("https://www.bluer.co.kr/search?tabMode=single&searchMode=ribbonType&location=서울특별시&ribbonType=&feature=")
 driver.implicitly_wait(10)
-
 
 restro_data_id_list = []
 last_point = driver.find_element(By.XPATH, "//*[@id='page-selection']/ul/li[11]").get_attribute("data-lp")
@@ -70,7 +55,9 @@ while True:
             except:
                 pass
             break
+
     time.sleep(1)
+
     if last_point == point:
         break
 

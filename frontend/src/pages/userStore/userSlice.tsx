@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit"
 
+// interface
+export interface UserState {
+    userId : string,
+    userToken : string,
+}
 
 export interface AztiState {
+    userId : string,
     cost_effective : string,
     mood : string,
     place : string,
@@ -30,8 +36,16 @@ export interface AztiTypeState {
     dry_none_cost_effective_insider_coke : string
 }
 
+// state
+
+const userState : UserState = {
+    userId : '',
+    userToken : '',
+}
+
 
 const initialState : AztiState = {
+    userId : '',
     cost_effective : '',
     mood : '',
     place : '',
@@ -79,12 +93,27 @@ const koreanAztiType = {
     mnic : '감성 호탕 인싸 술린이',
     dnic : '현실 호탕 인싸 술린이'
 }
+export const userStateSlice = createSlice({
+    name : 'userStateSlice',
+    initialState : userState,
+    reducers : {
+        userLogin : (state = userState , action:PayloadAction<any>) => {
+            console.log('here')
+            return {...state}
+        }
+    }
+})
 
 
 export const userSlice = createSlice({
     name : 'userSlice',
-    initialState,
+    initialState, 
     reducers: {
+        userLogin : ( state , action:PayloadAction<any>) => {
+            return {...state,
+                userId : action.payload.userId
+            }
+        },
         userinfo: (state=initialState , action:PayloadAction<any>) => {
             const search_user = action.payload.mood+'_'+ action.payload.cost_effective+'_'+action.payload.place+'_'+action.payload.drinking
             for ( let i = 0 ; i < 17 ; i ++) {
@@ -112,6 +141,7 @@ export const userSlice = createSlice({
     }
 })
 
-export const { userinfo } = userSlice.actions
+export const { userinfo , userLogin } = userSlice.actions
+// export const { userLogin }  = userStateSlice.actions
 
 export default userSlice.reducer

@@ -68,3 +68,98 @@ print(restro_data_id_list)
 ##3. https://www.bluer.co.kr/restaurants/28167
 
 # #1주소에서 data-id 값을 추출해서 리스트화 하고 #3에 값을 넣어가면서 원하는 데이터 추출하는 과정
+name = []
+# hours = []
+# menu = []
+menu1 = []
+menu2 = []
+tag = []
+address = []
+number = []
+thumbnail = []
+location_x = []
+location_y = []
+resto_age = []
+sectors = []
+
+for restro_code in restro_data_id_list:
+    blue_url = f"https://www.bluer.co.kr/restaurants/{restro_code}"
+    page = requests.get(blue_url)
+    soup = bs(page.text, "lxml")
+
+    restro_sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
+    restro_name = soup.find('div', attrs={"class": "header-title"}).find('h1')
+    restro_name.find('small').decompose()
+    restro_name = name.get_text()
+    restro_number = soup.find('dl', attrs={"class": "dl-horizontal"}).find('a', attrs={"class": "link"}).get_text()
+    restro_address = soup.find('dl', attrs={"class": "dl-horizontal"}).findAll('dd')[1].get_text()
+    restro_tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
+    restro_tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+    restro_tag = {}
+    restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+    menu_list = restro_menu.split(',')
+    restro_menu1 = menu_list[0].split('(')[0].strip()
+    restro_menu2 = menu_list[1].split('(')[0].strip()
+
+    def get_location(address):
+        url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
+        # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+        # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+        headers = {"Authorization": "KakaoAK dca00a6145957259d9c0b9b788ecb425"}
+        api_json = json.loads(str(requests.get(url,headers=headers).text))
+        try:
+            address = api_json['documents'][0]['address']
+            crd = {"lat": str(address['y']), "lng": str(address['x'])}
+        except:
+            crd = {"lat": 'not found', "lng": 'not found'}
+        return crd
+
+    crd = get_location(restro_address)
+
+    restro_location_y = crd["lat"]
+    restro_location_x = crd["lng"]
+
+
+    for i in range(4):
+        key = retro_tag_key[i].get_text()
+        value = retro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
+        retro_tag[key] = value
+    try:
+        restro_age = restro_tag['개업일(연)']
+    except:
+        restro_age = ''
+    
+    try:
+        restro_tag_str = restro_tag['특징']
+    except:
+        restro_tag_str = ""
+    
+    restro_limit_age = int(restro_age)
+    if restro_limit_age > 2010:
+        continue
+    name.append(restro_name)
+    menu1.append(restro_menu1)
+    menu2.append(restro_menu2)
+    tag.append(resto_tag_str)
+    address.append(restro_address)
+    number.append(restro_number)
+    thumbnail.append('')
+    location_x.append(restro_location_x)
+    location_y.append(restro_location_y)
+    resto_age.append(restro_age)
+    sectors.append(restro_sectors)
+
+blue_restro_df = pd.DataFrame()
+blue_restro_df['resto_name'] = name
+blue_restro_df['menu1'] = menu1
+blue_restro_df['menu2'] = menu2
+blue_restro_df['tag'] = tag
+blue_restro_df['address'] = address
+blue_restro_df['phone_number'] = number
+blue_restro_df['thumbnail'] = thumbnail
+blue_restro_df['location_x'] = location_x
+blue_restro_df['location_y'] = location_y
+blue_restro_df['resto_age'] = resto_age
+blue_restro_df['sectors'] = sectors
+
+blue_restro_df.to_csv("blue_restro_df.csv", mode='w', encoding='utf8')

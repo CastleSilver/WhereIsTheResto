@@ -15,7 +15,7 @@ import NeedConfirm from "./needConfirm/NeedConfirm"
 import DetailPage from "./pages/DetailPage/RestoDetail"
 // Components
 import { bottomBar } from "./pages/pageIndex"
-import Auth from "./pages/StartPage/Components/Auth"
+import Auth from "./pages/UserComponents/Auth"
 import Azti from "./pages/UserComponents/Azti"
 import BlockPage from "./pages/CommonComp/blockPage"
 import ReviewForm from "./Form/ReviewForm"

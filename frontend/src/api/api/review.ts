@@ -12,6 +12,7 @@ const review = {
     }
     const req = setRequest(reqData)
     const res = await axios(req)
+    console.log(res)
     return res
   },
 

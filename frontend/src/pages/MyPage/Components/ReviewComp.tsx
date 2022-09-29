@@ -17,7 +17,6 @@ const backArea = {
 }
 
 const imgFrame = {
-  marginTop: "20px",
   width: "80vw",
   height: "65vw",
   position: "relative",
@@ -61,9 +60,9 @@ export default function ReviewComp({ review }: any) {
 
   useEffect(() => {
     if (toggle) {
-      setToggleMsg("▶  리뷰 사진 보기")
+      setToggleMsg("▶  리뷰 내용 보기")
     } else {
-      setToggleMsg("▽  리뷰 사진 접기")
+      setToggleMsg("▽  리뷰 내용 접기")
     }
   }, [toggle, setToggleMsg])
 
@@ -77,7 +76,7 @@ export default function ReviewComp({ review }: any) {
             justifyContent={"space-between"}
             sx={{ marginBottom: "18px" }}
           >
-            <Box sx={titleText}>가게 이름</Box>
+            <Box sx={titleText}>{review.restoName}</Box>
             <Button
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -100,14 +99,8 @@ export default function ReviewComp({ review }: any) {
               <MenuItem onClick={handleClose}>리뷰 수정</MenuItem>
             </Menu>
           </Grid>
-          <Grid item sx={contentArea} className="kill-scroll">
-            <Grid direction="column" justifyContent="center">
-              <Box>{review.content}</Box>
-              <Box>{review.content}</Box>
-              <Box>{review.content}</Box>
-              <Box>{review.content}</Box>
-              <Box>{review.content}</Box>
-            </Grid>
+          <Grid item sx={imgFrame}>
+            <img src={review.imageUrl} style={imgArea} />
           </Grid>
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>
@@ -115,8 +108,14 @@ export default function ReviewComp({ review }: any) {
             </Button>
           </Grid>
           {toggle !== true && (
-            <Grid item sx={imgFrame}>
-              <img src={review.imageUrl} style={imgArea} />
+            <Grid item sx={contentArea} className="kill-scroll">
+              <Grid direction="column" justifyContent="center">
+                <Box>{review.content}</Box>
+                <Box>{review.content}</Box>
+                <Box>{review.content}</Box>
+                <Box>{review.content}</Box>
+                <Box>{review.content}</Box>
+              </Grid>
             </Grid>
           )}
         </Grid>

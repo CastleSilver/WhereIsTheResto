@@ -3,13 +3,15 @@ import { Box, Grid } from "@mui/material"
 import RestoInfo from "../../CommonComp/RestoInfo"
 import { Banner as BannerImg } from "../../../assets/imageUrl"
 import Carousel from "better-react-carousel"
+import RoofB from "../../../assets/roofB.png"
 
 const backgroundArea = {
   width: "100%",
   marginBottom: "40px",
   position: "relative",
-  backgroundColor: "rgb(103 122 129)",
-  paddingTop: "191.72px",
+  // backgroundColor: "rgb(103 122 129)",
+  // paddingTop: "191.72px",
+  paddingTop: "292.8px",
 }
 
 const imgStyle = {
@@ -37,11 +39,12 @@ export default function Banner() {
     <>
       <Box sx={backgroundArea}>
         <Box sx={imgStyle}>
-          <BannerImg />
+          {/* <BannerImg /> */}
+          <img src={RoofB} width="100%" />
         </Box>
-        <Box sx={aztiStyle}>
+        {/* <Box sx={aztiStyle}>
           <span>감성 촉촉 노력형인 아재인데 MZ세대인 아재</span>
-        </Box>
+        </Box> */}
       </Box>
     </>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useLocation, useParams } from "react-router-dom"
 import { Box } from "@mui/material"
 import RestoArea from "./Components/RestoArea"
 import Reviews from "./Components/Reviews"
@@ -12,14 +12,10 @@ export default function RestoDetail() {
   const [restoInfo, setRestoInfo] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const { restoId } = useParams()
-
-  // const getResto = async () => {
-  //   const newRestoInfo = await restoAPI.get(Number(restoId))
-  //   setRestoInfo(newRestoInfo)
-  //   setIsLoading(false)
-  // }
-
-  // getResto()
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <Box sx={{ px: "5vw" }}>

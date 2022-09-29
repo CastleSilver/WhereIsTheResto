@@ -1,5 +1,5 @@
 import { Grid, Box, Button } from "@mui/material"
-
+import { Link } from "react-router-dom"
 import React from "react"
 import Review from "./Review"
 const titleArera = {
@@ -23,9 +23,11 @@ export default function Reviews() {
       <Box sx={titleArera}>
         <Grid container justifyContent={"space-between"}>
           <span>| 사용자 리-뷰</span>
-          <Button color="warning" variant="contained" sx={btnStyle}>
-            작성
-          </Button>
+          <Link to="/review/write">
+            <Button color="warning" variant="contained" sx={btnStyle}>
+              작성
+            </Button>
+          </Link>
         </Grid>
       </Box>
       <Review />

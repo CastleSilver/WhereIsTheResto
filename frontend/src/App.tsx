@@ -2,9 +2,9 @@ import "./App.css"
 // Router
 import {
   BrowserRouter as Router,
-  createBrowserRouter,
   Route,
   Routes,
+  useParams,
 } from "react-router-dom"
 import { useEffect, useState } from "react"
 
@@ -17,14 +17,19 @@ import { bottomBar } from "./pages/pageIndex"
 import Auth from "./pages/StartPage/Components/Auth"
 import Azti from "./pages/UserComponents/Azti"
 import BlockPage from "./pages/CommonComp/blockPage"
+import ReviewForm from "./Form/ReviewForm"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState("1")
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth)
-  const [nowpPath, setNowPath] = useState(window.location.pathname)
+  const [nowPath, setNowPath] = useState("")
 
   window.addEventListener("resize", () => {
     setBrowserWidth(window.innerWidth)
+  })
+
+  window.addEventListener("popstate", () => {
+    setNowPath(document.location.pathname)
   })
 
   return (
@@ -39,6 +44,7 @@ function App() {
           <Route path="/restos/:restoId" element={<DetailPage />} />
           <Route path="/need-confirm" element={<NeedConfirm />} />
           <Route path="/oauth/kakao/callback" element={<Auth />} />
+          <Route path="/review/write" element={<ReviewForm />} />
           <Route path="/azti" element={<Azti />} />
         </Routes>
         {browserWidth <= 450 && bottomBar()}

@@ -121,9 +121,9 @@ for restro_code in restro_data_id_list:
 
 
     for i in range(4):
-        key = retro_tag_key[i].get_text()
-        value = retro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
-        retro_tag[key] = value
+        key = restro_tag_key[i].get_text()
+        value = restro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
+        restro_tag[key] = value
     try:
         restro_age = restro_tag['개업일(연)']
     except:
@@ -140,7 +140,7 @@ for restro_code in restro_data_id_list:
     name.append(restro_name)
     menu1.append(restro_menu1)
     menu2.append(restro_menu2)
-    tag.append(resto_tag_str)
+    tag.append(restro_tag_str)
     address.append(restro_address)
     number.append(restro_number)
     thumbnail.append('')

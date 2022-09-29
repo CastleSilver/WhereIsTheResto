@@ -67,19 +67,78 @@ import re
 # print(thumnail)
 
 # 인허가날짜 및 업종 가져오기
-import csv
+# import csv
  
-f = open('restdata.csv', 'r', encoding='utf-8')
-rdr = csv.reader(f)
-# 0 : 인허가 날짜
-# 4 : 지번 주소
-# 7 : 사업자명(레스토랑 이름)
-# 11: 업종
-restro_age = 'notf'
-restro_sectors = 'notf'
-for line in rdr:
-    restro_name = line[7]
-    restro_age = line[0][:4]
-    restro_sectors = line[11]
-    print(restro_name, restro_age, restro_sectors)
-f.close()
+# f = open('restdata.csv', 'r', encoding='utf-8')
+# rdr = csv.reader(f)
+# # 0 : 인허가 날짜
+# # 4 : 지번 주소
+# # 7 : 사업자명(레스토랑 이름)
+# # 11: 업종
+# restro_age = 'notf'
+# restro_sectors = 'notf'
+# for line in rdr:
+#     restro_name = line[7]
+#     restro_age = line[0][:4]
+#     restro_sectors = line[11]
+#     print(restro_name, restro_age, restro_sectors)
+# f.close()
+import pprint 
+import requests, json
+from bs4 import BeautifulSoup as bs
+restro_code = '28167'
+
+blue_url = f"https://www.bluer.co.kr/restaurants/{restro_code}"
+page = requests.get(blue_url)
+soup = bs(page.text, "lxml")
+
+sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
+name = soup.find('div', attrs={"class": "header-title"}).find('h1')
+name.find('small').decompose()
+name = name.get_text()
+number = soup.find('dl', attrs={"class": "dl-horizontal"}).find('a', attrs={"class": "link"}).get_text()
+restro_address = soup.find('dl', attrs={"class": "dl-horizontal"}).findAll('dd')[1].get_text()
+tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
+tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+tag = {}
+restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+menu_list = restro_menu.split(',')
+restro_menu1 = menu_list[0].split('(')[0].strip()
+restro_menu2 = menu_list[1].split('(')[0].strip()
+for i in range(4):
+    key = tag_key[i].get_text()
+    value = tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
+    tag[key] = value
+
+restro_age = tag['개업일(연)'].split('년')[0]
+
+def get_location(address):
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
+    # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+    # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+    headers = {"Authorization": "KakaoAK dca00a6145957259d9c0b9b788ecb425"}
+    api_json = json.loads(str(requests.get(url,headers=headers).text))
+    try:
+        address = api_json['documents'][0]['address']
+        crd = {"lat": str(address['y']), "lng": str(address['x'])}
+    except:
+        crd = {"lat": 'not found', "lng": 'not found'}
+    return crd
+
+crd = get_location(restro_address)
+
+restro_location_y = crd["lat"]
+restro_location_x = crd["lng"]
+
+print(sectors)
+print(name)
+print(number)
+print(tag['특징'])
+print(restro_address)
+# print(len(sectors), len(name), len(number))
+print(restro_menu1)
+print(restro_menu2)
+print(restro_age)
+print(restro_location_x)
+print(restro_location_y)
+

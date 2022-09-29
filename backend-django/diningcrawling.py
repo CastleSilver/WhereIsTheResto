@@ -1,5 +1,5 @@
 # Beautifulsoup
-import requests
+import requests, json
 from bs4 import BeautifulSoup as bs
 
 # 셀레니움 기본 설정
@@ -27,13 +27,22 @@ service = Service(executable_path=ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 import pandas as pd
+import csv
+
 
 name = []
 hours = []
 menu = []
+menu1 = []
+menu2 = []
 tag = []
-location = []
+address = []
 number = []
+thumbnail = []
+location_x = []
+location_y = []
+resto_age = []
+sectors = []
 
 # 주소 이동
 locations = ["종로구", "중구", "용산구", "성동구", "광진구", "동대문구", '중랑구', '성북구', '강북구', '도봉구', '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구', '관악구', '서초구', '강남구', '송파구', '강동구']
@@ -71,22 +80,58 @@ for i in range(len(locations)):
         except:
             restro_star = 0
         
-        if restro_star < 10:
+        if restro_star < 3:
             continue
         try:
             restro_menus = soup.find('ul', attrs={"class": "list Restaurant_MenuList"}).findAll('li')
         except:
             restro_menus = ''
         
+        # try:
+        #     restro_hours = soup.find('div', attrs={"class": "busi-hours short"}).find('p', attrs={"class": "r-txt"}).get_text()
+        # except:
+        #     restro_hours = ''
+
         try:
-            restro_hours = soup.find('div', attrs={"class": "busi-hours short"}).find('p', attrs={"class": "r-txt"}).get_text()
+            restro_thumbnail = soup.find('li', attrs={"class": "bimg btn-gallery-open"}).find('img').get('src')
         except:
-            restro_hours = ''
-        
+            restro_thumbnail = ""
+
         restro_name = soup.find('div', attrs={"class": "tit-point"}).get_text()
         restro_artis = soup.find('ul', attrs={"class": "app-arti"}).findAll('p', {"class": "icon"})
-        restro_location = soup.find('div', attrs={"class" : "s-list basic-info"}).find("li", {"class": "locat"}).get_text()
+        restro_address = soup.find('div', attrs={"class" : "s-list basic-info"}).find("li", {"class": "locat"}).get_text()
         restro_number = soup.find('li', attrs={"class": "tel"}).get_text()
+
+        def get_location(address):
+            url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + address
+            # 'KaKaoAK '는 그대로 두시고 개인키만 지우고 입력해 주세요.
+            # ex) KakaoAK 6af8d4826f0e56c54bc794fa8a294
+            headers = {"Authorization": "KakaoAK dca00a6145957259d9c0b9b788ecb425"}
+            api_json = json.loads(str(requests.get(url,headers=headers).text))
+            try:
+                address = api_json['documents'][0]['address']
+                crd = {"lat": str(address['y']), "lng": str(address['x'])}
+            except:
+                crd = {"lat": 'not found', "lng": 'not found'}
+            return crd
+
+        crd = get_location(restro_address)
+
+        restro_location_y = crd["lat"]
+        restro_location_x = crd["lng"]
+
+        f = open('restdata.csv', 'r', encoding='utf-8')
+        rdr = csv.reader(f)
+        # 0 : 인허가 날짜
+        # 4 : 지번 주소
+        # 7 : 사업자명(레스토랑 이름)
+        # 11: 업종
+        restro_age = 'notf'
+        restro_sectors = 'notf'
+        for line in rdr:
+            if restro_name == line[7]:
+                restro_age = line[0][:4]
+                restro_sectors = line[11]
 
         restro_tag_dic = {}
         restro_menu_dic = {}
@@ -102,27 +147,57 @@ for i in range(len(locations)):
             value = restro_menu.find("p", attrs={"class": "r-txt Restaurant_MenuPrice"}).get_text()
             restro_menu_dic[key] = value
 
+        try:
+            restro_menu1 = list(restro_menu_dic.keys())[0]
+        except:
+            retsro_menu1 = ""
+
+        try:
+            restro_menu2 = list(restro_menu_dic.keys())[1]
+        except:
+            restro_menu2 = ""
         print("--------------------------------------------------------------------------")
         print(f"레스토랑 이름: {restro_name}")
-        print(f"레스토랑 이용시간: {restro_hours}")
+        # print(f"레스토랑 이용시간: {restro_hours}")
         print(f"레스토랑 메뉴: {restro_menu_dic}")
+        print(f"레스토랑 대표메뉴: {restro_menu1}, {restro_menu2}")
         print(f"레스토랑 태그: {restro_tag_dic}")
-        print(f"레스토랑 장소: {restro_location}")
+        print(f"레스토랑 장소: {restro_address}")
         print(f"레스토랑 번호: {restro_number}")
+        print(f"레스토랑 사진: {restro_thumbnail}")
+        print(f"레스토랑 x좌표: {restro_location_x}")
+        print(f"레스토랑 y좌표: {restro_location_y}")
+        print(f"레스토랑 인허가: {restro_age}")
+        print(f"레스토랑 업종: {restro_sectors}")
+        
 
         name.append(restro_name)
-        hours.append(restro_hours)
-        menu.append(restro_menu_dic)
+        # hours.append(restro_hours)
+        # menu.append(restro_menu_dic)
+        menu1.append(restro_menu1)
+        menu2.append(restro_menu2)
         tag.append(restro_tag_dic)
-        location.append(restro_location)
+        address.append(restro_address)
         number.append(restro_number)
+        thumbnail.append(restro_thumbnail)
+        location_x.append(restro_location_x)
+        location_y.append(restro_location_y)
+        resto_age.append(restro_age)
+        sectors.append(restro_sectors)
 
 restro_df = pd.DataFrame()
-restro_df['name'] = name
-restro_df['hours'] = hours
-restro_df['menu'] = menu
+restro_df['resto_name'] = name
+# restro_df['hours'] = hours
+# restro_df['menu'] = menu
+restro_df['menu1'] = menu1
+restro_df['menu2'] = menu2
 restro_df['tag'] = tag
-restro_df['location'] = location
-restro_df['number'] = number
+restro_df['address'] = address
+restro_df['phone_number'] = number
+restro_df['thumbnail'] = thumbnail
+restro_df['location_x'] = location_x
+restro_df['location_y'] = location_y
+restro_df['resto_age'] = resto_age
+restro_df['sectors'] = sectors
 
 restro_df.to_csv("restro_list.csv", mode='w', encoding='utf8')

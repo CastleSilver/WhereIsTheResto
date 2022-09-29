@@ -39,5 +39,5 @@ const restos = [
 ]
 
 export default function MyLike() {
-  return <RestoInfo resto={restos[0]} />
+  return <RestoInfo />
 }

@@ -37,7 +37,6 @@ playlistitems_list_request = youtube.playlistItems().list(
 )
 
 video_ids = []
-video_description = []
 video_titles = []
 video_info_title = []
 video_info_location = []
@@ -55,7 +54,6 @@ while playlistitems_list_request:
         video_info_title.append(info[1])
         video_info_location.append(info[2])
         video_titles.append(title)
-        video_description.append(description)
         video_ids.append(video_id)
 
         url = f'https://www.youtube.com/watch?v={video_id}'
@@ -75,7 +73,6 @@ while playlistitems_list_request:
 video_df = pd.DataFrame()
 video_df['video_title'] = video_titles
 video_df['video_id'] = video_ids
-video_df['video_description'] = video_description
 video_df['video_info_title'] = video_info_title
 video_df['video_info_location'] = video_info_location
 video_df['video_info_tag'] = video_info_tag

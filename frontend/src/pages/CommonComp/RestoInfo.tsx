@@ -75,7 +75,7 @@ const linkStyle: {} = {
 export default function RestoInfo1() {
   return (
     <div>
-      <Link to={`/restos/${resto.id}`} style={linkStyle}>
+      <Link to={`/restos/${1}`} style={linkStyle}>
         <PaperBackground>
           <Grid sx={{ padding: "18px" }}>
             {/* 제목, 별점 */}

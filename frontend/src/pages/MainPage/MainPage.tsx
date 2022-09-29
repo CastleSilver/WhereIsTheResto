@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import Banner from "./Components/Banner"
 import BestResto from "./Components/BestResto"
 import OtherRestos from "./Components/OtherRestos"
@@ -8,23 +8,24 @@ import { useLocation } from "react-router-dom"
 
 export default function MainPage() {
   const { pathname } = useLocation()
+  const [show, setShow] = useState(false)
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShow(true)
+    }, 2000)
+  }, [show])
+
   return (
     <Box>
       <Banner />
+      <Box sx={{ height: "200px" }}></Box>
       <BestResto />
       <OtherRestos />
-      <h1>유튜브 [다른 영상]</h1>
-      <iframe
-        width="90%"
-        height="315"
-        src="https://www.youtube.com/embed/e6GddcnNmxY"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      ></iframe>
     </Box>
   )
 }

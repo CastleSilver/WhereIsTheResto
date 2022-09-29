@@ -1,4 +1,4 @@
-import { setRequest, axios } from "../settings"
+import { setRequest, myAxios } from "../settings"
 import { reviewCreateType, reviewUpdateType } from "../reqType"
 
 const REVIEW = "/review"
@@ -11,7 +11,7 @@ const review = {
       data: data,
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
     console.log(res)
     return res
   },
@@ -22,7 +22,7 @@ const review = {
       method: "GET",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
     return res
   },
 
@@ -31,7 +31,7 @@ const review = {
       uri: REVIEW + `/${reviewId}`,
       method: "DELETE",
     })
-    const res = await axios(req)
+    const res = await myAxios(req)
     return res
   },
 
@@ -41,7 +41,7 @@ const review = {
       method: "PATCH",
       data,
     })
-    const res = await axios(req)
+    const res = await myAxios(req)
     return res
   },
 }

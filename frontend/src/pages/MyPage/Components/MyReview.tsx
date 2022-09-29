@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import Review from "../../CommonComp/Review"
+import ReviewComp from "./ReviewComp"
 import { Box } from "@mui/material"
 
 const reviews = [
@@ -37,8 +38,8 @@ export default function MyReview() {
     <div>
       {reviews.map((review) => {
         return (
-          <Box sx={{ marginBottom: "15px" }} key={review.id}>
-            <Review review={review} />
+          <Box sx={{ marginBottom: "30px" }} key={review.id}>
+            <ReviewComp review={review} />
           </Box>
         )
       })}

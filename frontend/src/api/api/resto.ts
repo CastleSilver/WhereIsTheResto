@@ -1,5 +1,4 @@
 import { setRequest, myAxios } from "../settings"
-import { restoResType } from "../resType"
 
 const RESTO = "/resto"
 
@@ -10,12 +9,7 @@ const resto = {
       method: "GET",
     }
     const req = setRequest(reqData)
-    let res: restoResType
-    try {
-      res = await myAxios(req)
-    } catch (error: any) {
-      res = error
-    }
+    const res = await myAxios(req)
     return res
   },
 }

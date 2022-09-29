@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit"
 import userReducer from "./userSlice"
 import restoReducer from "./restoSlice"
+import userInfoSlice from "./userInfoSlice"
 
 export const store = configureStore({
   reducer: {
     userazti: userReducer,
     resto: restoReducer,
+    userInfo: userInfoSlice,
   },
 })
 

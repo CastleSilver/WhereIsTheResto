@@ -16,11 +16,21 @@ export interface reqType {
   header?: any
 }
 
-// user api 요청 request 타입
+// user user user user
 export interface userUpdateType {
   nickname?: string
   aztiType?: string
   profileImg?: string
+}
+
+export interface userInfoType {
+  nickname: string
+  email: string
+  gender: string
+  profileImageURL: string
+  aztiType: string
+  like: {}[]
+  review: {}[]
 }
 
 // review api 요청 request 타입

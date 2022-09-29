@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react"
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, Button } from "@mui/material"
 
 // MyPage 전용 Components
 import TopArea from "./Components/TopArea"
 import MyContents from "./Components/MyContents"
 import MyReview from "./Components/MyReview"
 import RestoList from "./Components/RestoList"
-import { useLocation } from "react-router-dom"
 import LoadingPaper from "../CommonComp/LoadingPaper"
+import { useAppSelector, useAppDispatch } from "../userStore/hooks"
+import {
+  selectUserInfo,
+  getUserAsync,
+  updateUserAsync,
+  deleteUserAsync,
+} from "../userStore/userInfoSlice"
+import { selectUser } from "../userStore/userSlice"
 
 const myPageStyle = {
   paddingTop: "30px",
@@ -15,31 +22,31 @@ const myPageStyle = {
 }
 
 export default function MyPage() {
-  const [loading, setLoading] = useState(true)
-  const [myData, setMyData] = useState({})
-  const [userId, setUserId] = useState(1)
+  const userAZTI = useAppSelector(selectUser)
+  const userInfo = useAppSelector(selectUserInfo)
+  const dispatch = useAppDispatch()
 
   const [contentNum, setContentNum] = useState(
     () => Number(window.localStorage.getItem("conNum")) || 0
   )
-  const { pathname } = useLocation()
+
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [pathname])
+    dispatch(getUserAsync(Number(userAZTI.userId)))
+  }, [dispatch])
 
   useEffect(() => {
     window.localStorage.setItem("conNum", String(contentNum))
   }, [contentNum, setContentNum])
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  })
   return (
     <>
-      {loading && <LoadingPaper />}
-      {!loading && (
+      {userInfo === undefined && (
+        <>
+          <LoadingPaper />
+        </>
+      )}
+      {userInfo !== undefined && (
         <Box sx={myPageStyle}>
           <TopArea />
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />

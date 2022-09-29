@@ -2,7 +2,10 @@ import { Grid, Box, Button } from "@mui/material"
 import { Link } from "react-router-dom"
 import React from "react"
 import Review from "./Review"
-const titleArera = {
+import { useAppSelector } from "../../userStore/hooks"
+import { selectResto } from "../../userStore/restoSlice"
+import { unstable_extendSxProp } from "@mui/system"
+const titleArea = {
   fontFamily: "BMEULJIRO",
   fontSize: "36px",
   color: "rgb(2 49 119)",
@@ -18,19 +21,18 @@ const btnStyle = {
 }
 
 export default function Reviews() {
+  const reviews = useAppSelector(selectResto)?.review
+
   return (
     <>
-      <Box sx={titleArera}>
-        <Grid container justifyContent={"space-between"}>
-          <span>| 사용자 리-뷰</span>
-          <Link to="/review/write">
-            <Button color="warning" variant="contained" sx={btnStyle}>
-              작성
-            </Button>
-          </Link>
-        </Grid>
-      </Box>
-      <Review />
+      {reviews === undefined && <div>로딩 중</div>}
+      {reviews !== undefined && (
+        <>
+          <Box sx={titleArea}>| 리-뷰</Box>
+          {Object.keys(reviews).length === 0 && <div>리뷰가 없습니다</div>}
+          {Object.keys(reviews).length !== 0 && <div>리뷰가 있어용</div>}
+        </>
+      )}
     </>
   )
 }

@@ -15,13 +15,14 @@ export default function TopArea() {
             display="flex"
             spacing={3}
             sx={{ px: "25px", paddingTop: "25px" }}
+            justifyContent="space-between"
           >
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               {userProfile()}
             </Grid>
             <Grid
               item
-              xs={8}
+              xs={6}
               container
               display="flex"
               alignItems="center"

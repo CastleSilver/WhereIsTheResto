@@ -21,7 +21,7 @@ export default function MyContents({ contentNum, setContentNum }: propTypes) {
                 variant={contentNum === index ? "contained" : "outlined"}
                 onClick={() => setContentNum(index)}
               >
-                <span style={{ fontFamily: "BMEULJIRO", fontSize: "20px" }}>
+                <span style={{ fontFamily: "BMEULJIRO", fontSize: "4.6vw" }}>
                   {btn}
                 </span>
               </Button>

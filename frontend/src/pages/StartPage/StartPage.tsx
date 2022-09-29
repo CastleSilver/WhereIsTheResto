@@ -39,7 +39,6 @@ export default function StartPage() {
 
   return (
     <Box sx={pageStyle}>
-      {/* 상단 오렌지색 수평선 */}
       {/* 로고, 캐릭터, 카카오 로그인 영역 */}
       <Grid
         container
@@ -56,6 +55,7 @@ export default function StartPage() {
         <Grid item sx={kakaoStyle}>
           <a href={KAKAO_AUTH_URL}>
             <img src={kakaoBtn} alt="logo" width="100%" />
+            {/* 이 부분 떄문에 에러가 발생하는데, 배포 하면 지울 부분이라 괜찮을 듯! */}
             <Link to="/main">개발용 MAIN 창으로</Link>
           </a>
         </Grid>

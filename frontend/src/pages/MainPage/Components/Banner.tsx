@@ -4,48 +4,33 @@ import RestoInfo from "../../CommonComp/RestoInfo"
 import { Banner as BannerImg } from "../../../assets/imageUrl"
 import Carousel from "better-react-carousel"
 import RoofB from "../../../assets/roofB.png"
+import RoofL from "../../../assets/roofL.png"
 
-const backgroundArea = {
-  width: "100%",
-  marginBottom: "40px",
-  position: "relative",
-  // backgroundColor: "rgb(103 122 129)",
-  // paddingTop: "191.72px",
-  paddingTop: "292.8px",
-}
+import styled, { keyframes } from "styled-components"
+import { slideInLeft, slideInRight } from "react-animations"
 
-const imgStyle = {
-  position: "absolute",
-  top: 0,
-}
+const sideRightAnimation = keyframes`${slideInRight}`
+const sideLeftAnimation = keyframes`${slideInLeft}`
 
-const aztiStyle = {
-  position: "absolute",
-  top: "35%",
-  left: "25%",
-  width: "67%",
-  height: "50%",
-  whiteSpace: "normal",
-  wordBreak: "normal",
-  overflow: "hidden",
-  display: "flex",
-  alignItems: "center",
-  fontSize: "7vw",
-  color: "rgba(255, 255, 255, 0.9)",
-}
+const SideRight = styled.div`
+  animation: 1s ${sideRightAnimation};
+  position: relative;
+  top: 5%;
+  z-index: 10;
+`
+
+const BackgroundArea = styled.div`
+  overflow: hidden;
+  position: absolute;
+`
+
 export default function Banner() {
   const [AZTI, setAZTI] = useState("감성 촉촉 아재")
   return (
-    <>
-      <Box sx={backgroundArea}>
-        <Box sx={imgStyle}>
-          {/* <BannerImg /> */}
-          <img src={RoofB} width="100%" />
-        </Box>
-        {/* <Box sx={aztiStyle}>
-          <span>감성 촉촉 노력형인 아재인데 MZ세대인 아재</span>
-        </Box> */}
-      </Box>
-    </>
+    <BackgroundArea>
+      <SideRight>
+        <img src={RoofB} width="100%" />
+      </SideRight>
+    </BackgroundArea>
   )
 }

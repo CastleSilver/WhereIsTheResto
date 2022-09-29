@@ -1,4 +1,4 @@
-import { setRequest, axios } from "../settings"
+import { setRequest, myAxios } from "../settings"
 
 const LIKE = "/like"
 
@@ -9,7 +9,7 @@ const like = {
       method: "POST",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
   },
 
   undo: async (restoId: number) => {
@@ -18,7 +18,7 @@ const like = {
       method: "DELETE",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
   },
 }
 

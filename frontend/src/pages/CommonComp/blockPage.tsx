@@ -10,11 +10,11 @@ const boxStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  zIndex: 1,
+  zIndex: "20",
 }
 
 const fontStyle = {
-  fontSize: "18px",
+  fontSize: "4vw",
 }
 export default function blockPage() {
   return (

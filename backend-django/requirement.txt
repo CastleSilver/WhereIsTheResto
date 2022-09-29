@@ -1,8 +1,0 @@
-pip install
-pip install webdriver-manager
-pip install selenium
-pip install beautifulsoup4
-pip install PyAutoGUI
-pip install openpyxl
-pip install reqeuests
-pip install kiwipiepy

@@ -27,19 +27,19 @@ export default function OtherRestos() {
         style={{ margin: 0 }}
       >
         <Carousel.Item>
-          <RestoInfo resto={resto} />
+          <RestoInfo />
         </Carousel.Item>
         <Carousel.Item>
-          <RestoInfo resto={resto} />
+          <RestoInfo />
         </Carousel.Item>
         <Carousel.Item>
-          <RestoInfo resto={resto} />
+          <RestoInfo />
         </Carousel.Item>
         <Carousel.Item>
-          <RestoInfo resto={resto} />
+          <RestoInfo />
         </Carousel.Item>
         <Carousel.Item>
-          <RestoInfo resto={resto} />
+          <RestoInfo />
         </Carousel.Item>
       </Carousel>
     </Box>

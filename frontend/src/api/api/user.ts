@@ -44,7 +44,7 @@ const user = {
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)
-    return { data: temp }
+    return temp
   },
 
   delete: async () => {
@@ -64,6 +64,7 @@ const user = {
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)
+    return res
   },
 }
 

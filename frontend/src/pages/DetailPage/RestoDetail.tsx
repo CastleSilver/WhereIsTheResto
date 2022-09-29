@@ -17,24 +17,34 @@ export default function RestoDetail() {
   const { restoId } = useParams()
   window.scrollTo(0, 0)
 
+  // 시간 차 테스트용
   useEffect(() => {
-    dispatch(getInfoAsync(Number(restoId)))
+    setTimeout(() => {
+      dispatch(getInfoAsync(Number(restoId)))
+    }, 2000)
   }, [dispatch])
+
+  // useEffect(() => {
+  //   dispatch(getInfoAsync(Number(restoId)))
+  // }, [dispatch])
 
   return (
     <>
       {/* <LoadingPaper /> */}
-      <Box sx={{ px: "5vw" }}>
-        {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
+      {restoInfo === undefined && <LoadingPaper />}
+      {restoInfo !== undefined && (
+        <Box sx={{ px: "5vw" }}>
+          {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
 
-        <RestoArea />
-        <Box sx={{ marginBottom: "42px" }}></Box>
-        {/* 지도 */}
-        <Map />
-        <Box sx={{ marginBottom: "42px" }}></Box>
-        {/* 사용자 리-뷰 => 유저의 프로필 사진, 이름, 리뷰 내용, 평점*/}
-        <Reviews />
-      </Box>
+          <RestoArea />
+          <Box sx={{ marginBottom: "42px" }}></Box>
+          {/* 지도 */}
+          <Map />
+          <Box sx={{ marginBottom: "42px" }}></Box>
+          {/* 사용자 리-뷰 => 유저의 프로필 사진, 이름, 리뷰 내용, 평점*/}
+          <Reviews />
+        </Box>
+      )}
     </>
   )
 }

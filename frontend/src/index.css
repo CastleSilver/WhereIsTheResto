@@ -78,3 +78,7 @@ rgb(217 93 65);
   color: rgb(2 49 119);
   font-weight: bold;
 }
+
+.kill-scroll::-webkit-scrollbar {
+  display: none;
+}

@@ -1,6 +1,7 @@
 /* global kakao*/
 import { Box } from "@mui/material"
 import React, { useState, useEffect } from "react"
+import PaperBackground from "./PaperBackground"
 const kakao = (window as any).kakao
 
 export default function Map() {
@@ -25,8 +26,8 @@ export default function Map() {
   }, [coord, getPosition])
 
   const titleArera = {
-    fontFamily: "Chosun",
-    fontSize: "40px",
+    fontFamily: "BMEULJIRO",
+    fontSize: "36px",
     color: "rgb(2 49 119)",
     textAlign: "left",
     paddingLeft: "15px",
@@ -35,15 +36,18 @@ export default function Map() {
   }
 
   return (
-    <Box sx={{ marginBottom: "42px" }}>
+    <>
       <Box sx={titleArera}>
-        지도 | <button onClick={() => getPosition()}>확인</button>
+        | 지도 <button onClick={() => getPosition()}>확인</button>
       </Box>
-
-      <div
-        id="map"
-        style={{ width: "90vw", height: "60vw", margin: "auto" }}
-      ></div>
-    </Box>
+      <PaperBackground>
+        <Box sx={{ padding: "15px" }}>
+          <div
+            id="map"
+            style={{ width: "100%", height: "60vw", margin: "auto" }}
+          ></div>
+        </Box>
+      </PaperBackground>
+    </>
   )
 }

@@ -35,3 +35,22 @@ export interface reviewUpdateType {
   content?: string
   rating?: number
 }
+
+// resto api req/res 타입
+export interface restoResType {
+  id: number
+  restoAge: number
+  thumbnail: string
+  address: string
+  name: string
+  sectors: string // 업종
+  locationX: number
+  locationY: number
+  phoneNumber: string
+  menu1: string
+  menu2: string
+  // terrace: Bool,
+  grade: string
+  review: []
+  rating: number
+}

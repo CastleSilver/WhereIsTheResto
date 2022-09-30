@@ -1,4 +1,5 @@
 # Beautifulsoup
+from tempfile import TemporaryFile
 import requests, json
 from bs4 import BeautifulSoup as bs
 
@@ -185,17 +186,24 @@ for restro_code in restro_data_id_list:
     if restro_limit_age > 2010:
         continue
     
+    restro_name = '낙원'
+    dining_url= f"https://www.diningcode.com/list.dc?addr=서울&query={restro_name}"
+    driver.get(dining_url)
+    driver.implicitly_wait(10)
+
     try:
-        tag_list = restro_tag_str.split(',')
+        restro_thumbnail = driver.find_element(By.CSS_SELECTOR, "li.PoiBlockContainer").find_element(By.CSS_SELECTOR, "img.title").get_attribute('src')
     except:
-        tag_list = []
+        restro_thumbnail = ''
+        pass
+    
     name.append(restro_name)
     menu1.append(restro_menu1)
     menu2.append(restro_menu2)
-    tag.append(tag_list)
+    tag.append(restro_tag_str)
     address.append(restro_address)
     number.append(restro_number)
-    thumbnail.append('')
+    thumbnail.append(restro_thumbnail)
     location_x.append(restro_location_x)
     location_y.append(restro_location_y)
     resto_age.append(restro_age)

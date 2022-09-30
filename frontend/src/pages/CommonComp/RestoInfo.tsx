@@ -86,11 +86,11 @@ export default function RestoInfo1() {
                 marginBottom: "4.5vw",
               }}
             >
-              <Grid item xs={9.2} sx={titleStyle}>
+              <Grid item xs={9} sx={titleStyle}>
                 <span>{resto.restoName} asdfasdfasdfasdfasdf</span>
               </Grid>
-              <Grid item xs={2.8} sx={ratingStyle}>
-                <span>★ {resto.rating.toFixed(1)}</span>
+              <Grid item xs={3} sx={ratingStyle}>
+                <Box sx={{ fontSize: "6vw" }}>★ {resto.rating.toFixed(1)}</Box>
               </Grid>
             </Grid>
 

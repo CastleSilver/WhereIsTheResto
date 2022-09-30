@@ -1,17 +1,13 @@
-import { Box, Button, Grid, Rating } from "@mui/material"
-import {
-  FormLabel,
-  FormHelperText,
-  Input,
-  InputLabel,
-  FormControl,
-} from "@mui/material"
+import { Button, Grid, Rating } from "@mui/material"
+import { FormControl } from "@mui/material"
 import StarIcon from "@mui/icons-material/Star"
 
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import PaperBackground from "../pages/CommonComp/PaperBackground"
-import { HowToVoteRounded } from "@mui/icons-material"
+import Swal from "sweetalert2"
+
+import { review } from "../api/index"
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",
@@ -33,6 +29,18 @@ const boxStyle = {
   position: "static",
 }
 
+const textStyle: {} = {
+  boxSizing: "border-box",
+  width: "100%",
+  height: "24vh",
+  margin: 0,
+  padding: "15px",
+  resize: "none",
+  marginBottom: "30px",
+  fontFamily: "Chosun",
+  fontSize: "24px",
+}
+
 function getLabelText(value: number) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`
 }
@@ -50,14 +58,31 @@ const initialValue: reviewType = {
 
 export default function ReviewForm() {
   const navigate = useNavigate()
+  const params = useParams()
   const [hover, setHover] = useState(-1)
-  const [value, setValue] = useState<number | null>(2)
-  const [submitData, setSubmitData] = useState(initialValue)
 
-  const onSubmit = () => {
-    const temp = { ...submitData }
-    temp.rating = value !== null ? value : 0
-    console.log(temp)
+  const restoId = params.restoId
+  const [rating, setRating] = useState<number | null>(0)
+  const [content, setContent] = useState<string>("")
+  const [files, setFiles] = useState<Object>({})
+
+  const onSubmit = async () => {
+    const formData = new FormData()
+    const baseInfo = JSON.stringify({ restoId, rating, content })
+    const reviewReq = new Blob([baseInfo], { type: "application/json" })
+
+    formData.append("reviewReq", reviewReq)
+    for (let file in files) {
+      formData.append("multipartFiles", file)
+    }
+    const res = await review.create(formData)
+    console.log(res)
+    if (res === "잘못된 JWT 서명입니다") {
+      Swal.fire("JWT가 만료됐습니다.", "", "success")
+      navigate("/")
+    } else {
+      navigate(`/restos/${restoId}`)
+    }
   }
 
   return (
@@ -69,16 +94,9 @@ export default function ReviewForm() {
             <Grid item>
               <Rating
                 name="hover-feedback"
-                value={value}
+                value={rating}
                 precision={0.5}
                 getLabelText={getLabelText}
-                onChange={(e, newValue) => {
-                  setValue(newValue)
-                  const temp = { ...submitData }
-                  temp.rating = newValue
-                  console.log(temp)
-                  setSubmitData(temp)
-                }}
                 onChangeActive={(event, newHover) => {
                   setHover(newHover)
                 }}
@@ -86,28 +104,19 @@ export default function ReviewForm() {
                   <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
                 }
                 sx={{ fontSize: "50px", marginBottom: "30px" }}
+                onChange={(event, newRating) => {
+                  setRating(Number(newRating))
+                }}
               />
             </Grid>
             <Grid item>
               <textarea
                 id="my-input"
                 aria-describedby="my-helper-text"
-                value={submitData.content}
-                style={{
-                  boxSizing: "border-box",
-                  width: "100%",
-                  height: "24vh",
-                  margin: 0,
-                  padding: "15px",
-                  resize: "none",
-                  marginBottom: "30px",
-                  fontFamily: "Chosun",
-                  fontSize: "24px",
-                }}
+                value={content}
+                style={textStyle}
                 onChange={(e) => {
-                  const temp = { ...submitData }
-                  temp.content = e.target.value
-                  setSubmitData(temp)
+                  setContent(e.target.value)
                 }}
               />
             </Grid>
@@ -121,22 +130,7 @@ export default function ReviewForm() {
                 작성 완료
               </Button>
             </Grid>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={(e) => {
-                if (e.target.files !== null) {
-                  const temp = { ...submitData }
-                  const formData = new FormData()
-                  for (let image of e.target.files) {
-                    formData.append("imageFile", image)
-                  }
-                  console.log(formData)
-                  setSubmitData(temp)
-                }
-              }}
-            />
+            <input type="file" accept="image/*" multiple onChange={() => {}} />
           </FormControl>
         </Grid>
       </PaperBackground>

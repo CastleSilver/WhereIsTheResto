@@ -4,10 +4,11 @@ import { reviewCreateType, reviewUpdateType } from "../reqType"
 const REVIEW = "/review"
 
 const review = {
-  create: async (data: reviewCreateType) => {
+  create: async (data: FormData) => {
     const reqData = {
       uri: REVIEW + "",
       method: "POST",
+      headers: { "Content-Type": "multipart/form-data" },
       data: data,
     }
     const req = setRequest(reqData)

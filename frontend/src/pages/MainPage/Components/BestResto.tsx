@@ -13,7 +13,7 @@ const resto = {
 
 export default function BestResto() {
   return (
-    <Box sx={{ px: "18px", marginBottom: "40px" }}>
+    <Box sx={{ marginBottom: "40px" }}>
       <p className="title-text-lg" style={{ textAlign: "left" }}>
         남바-원!
       </p>

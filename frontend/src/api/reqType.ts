@@ -3,17 +3,17 @@ export interface reqInfoType {
   url?: string
   uri?: string
   method: string
-  data?: Object
+  data?: Object | FormData
   params?: Object
-  header?: any
+  headers?: Object
 }
 
 export interface reqType {
   url: string
   method: string
-  data?: Object
-  params?: Object
-  header?: any
+  data?: object | FormData
+  params?: object
+  headers?: object
 }
 
 // user user user user

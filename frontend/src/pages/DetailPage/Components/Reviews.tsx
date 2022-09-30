@@ -1,5 +1,5 @@
 import { Grid, Box, Button } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import React from "react"
 import Review from "./Review"
 import { useAppSelector } from "../../userStore/hooks"
@@ -22,15 +22,21 @@ const btnStyle = {
 
 export default function Reviews() {
   const reviews = useAppSelector(selectResto)?.review
+  const navigate = useNavigate()
 
   return (
     <>
       {reviews === undefined && <div>로딩 중</div>}
       {reviews !== undefined && (
         <>
-          <Box sx={titleArea}>| 리-뷰</Box>
+          <Box sx={titleArea}>
+            | 리-뷰 <Button onClick={() => navigate("review")}>작성</Button>
+          </Box>
           {Object.keys(reviews).length === 0 && <div>리뷰가 없습니다</div>}
-          {Object.keys(reviews).length !== 0 && <div>리뷰가 있어용</div>}
+          {Object.keys(reviews).length !== 0 &&
+            reviews.map((review) => {
+              return <Review review={review} />
+            })}
         </>
       )}
     </>

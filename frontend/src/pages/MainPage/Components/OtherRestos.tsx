@@ -1,5 +1,5 @@
 import React from "react"
-import RestoInfo from "../../CommonComp/RestoInfo"
+import RestoInfo from "./RestoInfo"
 import { Box } from "@mui/material"
 import Carousel from "better-react-carousel"
 
@@ -14,8 +14,11 @@ const resto = {
 
 export default function OtherRestos() {
   return (
-    <Box sx={{ px: "18px", marginBottom: "40px" }}>
-      <p className="title-text-lg" style={{ textAlign: "left" }}>
+    <Box sx={{ marginBottom: "40px" }}>
+      <p
+        className="title-text-lg"
+        style={{ textAlign: "left", fontSize: "9vw" }}
+      >
         여기도 참으로 맛있는데!
       </p>
       <Carousel
@@ -26,15 +29,6 @@ export default function OtherRestos() {
         hideArrow={true}
         style={{ margin: 0 }}
       >
-        <Carousel.Item>
-          <RestoInfo />
-        </Carousel.Item>
-        <Carousel.Item>
-          <RestoInfo />
-        </Carousel.Item>
-        <Carousel.Item>
-          <RestoInfo />
-        </Carousel.Item>
         <Carousel.Item>
           <RestoInfo />
         </Carousel.Item>

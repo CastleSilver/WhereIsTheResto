@@ -97,7 +97,26 @@ def mfRecomm(userId):
     # 평점 높은 순으로 정렬한 데이터와 합치기
     recommendation = recommendation.merge(pd.DataFrame(sorted_user_prediction).reset_index(), left_on='id', right_on='resto_id')
 
-    return recommendation['id'][:1]
+    return recommendation['id'][:10]
 
+def makeReviewRestoVector():
+    review_data = selectReview()
+    resto_data = selectOldRestaurant()
+    user_resto_rating = pd.merge(review_data, resto_data, left_on="resto_id", right_on="id", how="outer")
 
-print(mfRecomm('123456789'))
+    # make pivot table
+    resto_user_rating = user_resto_rating.pivot_table('rating', index="id", columns="user_id")
+    user_resto_rating = user_resto_rating.pivot_table('rating', index="user_id", columns="resto_id")
+
+    # NaN to null
+    resto_user_rating.fillna(0, inplace=True)
+
+    # cosine similarity
+    item_based_collab = cosine_similarity(resto_user_rating)
+    item_based_collab = pd.DataFrame(data = item_based_collab, index=resto_user_rating.index, columns=resto_user_rating.index)
+    return item_based_collab
+
+def getItemBasedCF(restoId):
+    return makeReviewRestoVector()[restoId].sort_values(ascending=False)[1:16]
+
+print(getItemBasedCF(3))

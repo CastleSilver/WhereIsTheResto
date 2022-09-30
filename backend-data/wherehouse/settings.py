@@ -31,8 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # APP
     'main',
     'recommend',
+    # 사용할 라이브러리
+    'django_extensions',
+    'rest_framework',
+    
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

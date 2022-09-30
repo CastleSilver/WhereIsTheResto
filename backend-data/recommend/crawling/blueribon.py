@@ -184,10 +184,15 @@ for restro_code in restro_data_id_list:
 
     if restro_limit_age > 2010:
         continue
+    
+    try:
+        tag_list = restro_tag_str.split(',')
+    except:
+        tag_list = []
     name.append(restro_name)
     menu1.append(restro_menu1)
     menu2.append(restro_menu2)
-    tag.append(restro_tag_str)
+    tag.append(tag_list)
     address.append(restro_address)
     number.append(restro_number)
     thumbnail.append('')
@@ -197,16 +202,16 @@ for restro_code in restro_data_id_list:
     sectors.append(restro_sectors)
 
 blue_restro_df = pd.DataFrame()
+blue_restro_df['resto_age'] = resto_age
+blue_restro_df['thumbnail'] = thumbnail
+blue_restro_df['address'] = address
 blue_restro_df['resto_name'] = name
+blue_restro_df['sectors'] = sectors
+blue_restro_df['location_x'] = location_x
+blue_restro_df['location_y'] = location_y
+blue_restro_df['phone_number'] = number
 blue_restro_df['menu1'] = menu1
 blue_restro_df['menu2'] = menu2
 blue_restro_df['tag'] = tag
-blue_restro_df['address'] = address
-blue_restro_df['phone_number'] = number
-blue_restro_df['thumbnail'] = thumbnail
-blue_restro_df['location_x'] = location_x
-blue_restro_df['location_y'] = location_y
-blue_restro_df['resto_age'] = resto_age
-blue_restro_df['sectors'] = sectors
 
 blue_restro_df.to_csv("blue_restro_df.csv", mode='w', encoding='utf8')

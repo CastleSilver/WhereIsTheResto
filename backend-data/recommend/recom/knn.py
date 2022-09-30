@@ -41,7 +41,7 @@ def selectVisitedRestos(userId):
 def getSvdPred():
     review_data = selectReview()
     resto_data = selectOldRestaurant()
-    # user_resto_rating = pd.merge(review_data, resto_data, left_on="resto_id", right_on="id")
+    user_resto_rating = pd.merge(review_data, resto_data, left_on="resto_id", right_on="id")
 
     # make pivot table
     user_resto_rating = review_data.pivot_table(index="user_id", columns="resto_id", values="rating").fillna(0)

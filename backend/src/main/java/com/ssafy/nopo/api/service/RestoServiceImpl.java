@@ -29,7 +29,7 @@ public class RestoServiceImpl implements RestoService{
     @Override
     public RestoRes findByRestoId(int restoId) {
         OldRestaurant resto = restoRepository.findById(restoId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_RESTO_INFO));
-        int age = now.get(Calendar.YEAR) - Integer.parseInt(resto.getYear());
+        int age = now.get(Calendar.YEAR) - Integer.parseInt(resto.getRestoAge());
         List<ReviewRes> reviewList = reviewRepository.findAllByRestoId(resto.getId())
                                     .stream()
                                     .map(ReviewRes::new)

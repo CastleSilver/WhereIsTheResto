@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/visit")
+@RequestMapping(value = "/visited")
 public class VisitedController {
 
     private final JwtService jwtService;

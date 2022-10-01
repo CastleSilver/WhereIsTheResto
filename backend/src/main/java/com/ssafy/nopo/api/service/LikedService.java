@@ -9,6 +9,8 @@ import com.ssafy.nopo.db.repository.querydslRepo.LikedQuerydslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class LikedService {
@@ -29,7 +31,9 @@ public class LikedService {
         return liked.getId();
     }
 
+    @Transactional
     public void deleteLikedResto(LikedRequest likedRequest){
-        likedQuerydslRepository.deleteByUserIdAndRestoId(likedRequest.getUserId(), likedRequest.getRestoId());
+        Liked liked = likedQuerydslRepository.findByUserIdAndRestoId(likedRequest.getUserId(), likedRequest.getRestoId());
+        likedRepository.deleteById(liked.getId());
     }
 }

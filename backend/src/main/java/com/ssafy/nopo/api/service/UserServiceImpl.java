@@ -5,12 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.nopo.api.request.UpdateUserRequest;
 import com.ssafy.nopo.api.response.*;
 import com.ssafy.nopo.common.auth.jwt.JwtUtil;
+import com.ssafy.nopo.common.exception.CustomException;
+import com.ssafy.nopo.common.exception.ErrorCode;
 import com.ssafy.nopo.db.entity.LoggedContinue;
 import com.ssafy.nopo.db.entity.LoggedIn;
+import com.ssafy.nopo.db.entity.Review;
 import com.ssafy.nopo.db.entity.User;
-import com.ssafy.nopo.db.repository.LoggedContinueRepository;
-import com.ssafy.nopo.db.repository.LoggedInRepository;
-import com.ssafy.nopo.db.repository.UserRepository;
+import com.ssafy.nopo.db.repository.*;
 import com.ssafy.nopo.common.exception.LoginException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,9 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,6 +47,9 @@ public class UserServiceImpl implements UserService{
     private final LoggedInRepository loggedInRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final LikedRepository likedRepository;
+    private final VisitedRepository visitedRepository;
+    private final ReviewRepository reviewRepository;
     private final JwtUtil jwtUtil;
 
     private String kakaoClientId = "4451e1614fc6653da21821b099437e5a";
@@ -103,14 +109,11 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public boolean deleteUser(String  id) {
-        User user = userRepository.findById(id).get();
-        if (user != null) {
-            //user.setRole("drop");
-            userRepository.delete(user);
-
-            return true;
-        }
-        return false;
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_INFO));
+        List<Review> reviewList = reviewRepository.findAllByUserId(id);
+        reviewList.forEach(i -> reviewRepository.deleteById(i.getId()));
+        userRepository.deleteById(id);
+        return true;
     }
 
     @Override
@@ -127,11 +130,19 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public UserInfoResponse getUserInfoResponse(String id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return UserInfoResponse.generateUserInfoResDto(user.get());
-        }
-        return null;
+        log.info("유저 정보 가져오는 서비스 시작");
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER_INFO));
+        log.info(user.getId()+"의 정보를 가져옵니다.");
+        log.info("entity to dto");
+
+        List<LikedRes> likedResList = likedRepository.findAllByUserId(id)
+                .stream().map(LikedRes::new).collect(Collectors.toList());
+        List<VisitedRes> visitedResList = visitedRepository.findAllByUserId(id)
+                .stream().map(VisitedRes::new).collect(Collectors.toList());
+        List<ReviewRes> reviewResList = reviewRepository.findAllByUserId(id)
+                .stream().map(ReviewRes::new).collect(Collectors.toList());
+        return new UserInfoResponse(user.getNickname(), user.getEmail(), user.getGender(), user.getProfileImage(),
+                String.valueOf(user.getAztiType()), likedResList, visitedResList, reviewResList);
     }
 
     @Override

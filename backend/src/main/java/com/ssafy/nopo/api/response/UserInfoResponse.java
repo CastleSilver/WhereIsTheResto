@@ -19,20 +19,9 @@ public class UserInfoResponse {
     private String email;
     private String gender;
     private String profileImageURL;
-    private AZTI aztiType;
-    private List<Liked> likedList;
-    private List<Visited> visitedList;
+    private String aztiType;
+    private List<LikedRes> like;
+    private List<VisitedRes> visited;
+    private List<ReviewRes> review;
 
-    public static UserInfoResponse generateUserInfoResDto(User user) {
-        UserInfoResponse u = new UserInfoResponse();
-        u.setNickname(user.getNickname());
-        u.setEmail(user.getEmail());
-        u.setGender(user.getGender());
-        u.setProfileImageURL(user.getProfileImage());
-        u.setAztiType(user.getAztiType());
-        u.setLikedList(user.getLikedList());
-        u.setVisitedList(user.getVisitedList());
-
-        return u;
-    }
 }

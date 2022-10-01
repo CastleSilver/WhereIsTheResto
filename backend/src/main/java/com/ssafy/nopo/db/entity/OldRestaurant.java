@@ -21,7 +21,7 @@ public class OldRestaurant {
     private int id;
 
     @Column(nullable = false, length = 4)
-    private String year;
+    private String restoAge;
 
     @Column(length = 200)
     private String thumbnail;
@@ -72,9 +72,9 @@ public class OldRestaurant {
     private List<Liked> likedList = new ArrayList<>();
 
     @Builder
-    public OldRestaurant(int id, String year, String thumbnail, String address, String restoName, String sectors, double locationX, double locationY, String phoneNumber, String menu1, String menu2, Grade grade, Address dong, Element element, List<Review> reviewList, List<Visited> visitedList, List<Liked> likedList) {
+    public OldRestaurant(int id, String restoAge, String thumbnail, String address, String restoName, String sectors, double locationX, double locationY, String phoneNumber, String menu1, String menu2, Grade grade, Address dong, Element element, List<Review> reviewList, List<Visited> visitedList, List<Liked> likedList) {
         this.id = id;
-        this.year = year;
+        this.restoAge = restoAge;
         this.thumbnail = thumbnail;
         this.address = address;
         this.restoName = restoName;

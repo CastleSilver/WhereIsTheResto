@@ -39,7 +39,7 @@ export default function RestoDetail() {
           <Map />
           <Box sx={{ marginBottom: "42px" }}></Box>
           {/* 사용자 리-뷰 => 유저의 프로필 사진, 이름, 리뷰 내용, 평점*/}
-          {/* <Reviews /> */}
+          <Reviews />
         </Box>
       )}
     </>

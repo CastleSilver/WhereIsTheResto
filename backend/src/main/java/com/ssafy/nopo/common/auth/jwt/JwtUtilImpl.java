@@ -94,7 +94,7 @@ public class JwtUtilImpl implements JwtUtil {
 
         // 페이로드 생성
         Map<String, Object> payloads = new HashMap<>();
-        payloads.put("issuer", "wetness");
+        payloads.put("issuer", "nopo");
 
         String jwt = Jwts.builder()
                 .setHeader(headers)

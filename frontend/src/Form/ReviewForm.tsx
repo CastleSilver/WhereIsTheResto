@@ -1,4 +1,4 @@
-import { Button, Grid, Rating } from "@mui/material"
+import { Button, Grid, Rating, Box } from "@mui/material"
 import { FormControl } from "@mui/material"
 import StarIcon from "@mui/icons-material/Star"
 
@@ -8,6 +8,7 @@ import PaperBackground from "../pages/CommonComp/PaperBackground"
 import Swal from "sweetalert2"
 
 import { review } from "../api/index"
+import { render } from "sass"
 
 const labels: { [index: string]: string } = {
   0.5: "Useless",
@@ -23,7 +24,6 @@ const labels: { [index: string]: string } = {
 }
 
 const boxStyle = {
-  padding: "5%",
   height: "85vh",
   mx: "auto",
   position: "static",
@@ -38,7 +38,8 @@ const textStyle: {} = {
   resize: "none",
   marginBottom: "30px",
   fontFamily: "Chosun",
-  fontSize: "24px",
+  fontSize: "7vw",
+  border: "solid 2px orange",
 }
 
 function getLabelText(value: number) {
@@ -65,6 +66,7 @@ export default function ReviewForm() {
   const [rating, setRating] = useState<number | null>(0)
   const [content, setContent] = useState<string>("")
   const [files, setFiles] = useState<Object>({})
+  const [urls, setUrls] = useState<any>([])
 
   const onSubmit = async () => {
     const formData = new FormData()
@@ -85,55 +87,75 @@ export default function ReviewForm() {
     }
   }
 
+  const backBtnStyle = {
+    position: "fixed",
+    top: "7vw",
+    left: "7vw",
+    fontSize: "9vw",
+  }
+
   return (
-    <Grid container direction="column" justifyContent="center" sx={boxStyle}>
-      <span onClick={() => navigate(-1)}>뒤로가기</span>
-      <PaperBackground>
-        <Grid container direction="column">
-          <FormControl sx={{ p: "5%" }}>
-            <Grid item>
-              <Rating
-                name="hover-feedback"
-                value={rating}
-                precision={0.5}
-                getLabelText={getLabelText}
-                onChangeActive={(event, newHover) => {
-                  setHover(newHover)
-                }}
-                emptyIcon={
-                  <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                }
-                sx={{ fontSize: "50px", marginBottom: "30px" }}
-                onChange={(event, newRating) => {
-                  setRating(Number(newRating))
-                }}
+    <>
+      <Box sx={backBtnStyle} onClick={() => navigate(-1)}>
+        뒤로가기
+      </Box>
+      <Grid container direction="column" justifyContent="center" sx={boxStyle}>
+        <PaperBackground>
+          <Grid container direction="column">
+            <FormControl sx={{ p: "5%" }}>
+              <Grid item>
+                <Rating
+                  name="hover-feedback"
+                  value={rating}
+                  precision={0.5}
+                  getLabelText={getLabelText}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover)
+                  }}
+                  emptyIcon={
+                    <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
+                  }
+                  sx={{ fontSize: "50px", marginBottom: "30px" }}
+                  onChange={(event, newRating) => {
+                    setRating(Number(newRating))
+                  }}
+                />
+              </Grid>
+              <Grid item>
+                <textarea
+                  id="my-input"
+                  aria-describedby="my-helper-text"
+                  value={content}
+                  style={textStyle}
+                  onChange={(e) => {
+                    setContent(e.target.value)
+                  }}
+                />
+              </Grid>
+              {/* 사진 미리보기 */}
+
+              <label htmlFor="img-input">
+                <Box sx={{ fontSize: "6vw" }}>사진 업로드</Box>
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                id="img-input"
+                style={{ display: "none" }}
               />
-            </Grid>
-            <Grid item>
-              <textarea
-                id="my-input"
-                aria-describedby="my-helper-text"
-                value={content}
-                style={textStyle}
-                onChange={(e) => {
-                  setContent(e.target.value)
-                }}
-              />
-            </Grid>
-            <Grid item>
-              <Button
-                variant="outlined"
-                fullWidth
-                color="warning"
-                onClick={() => onSubmit()}
-              >
-                작성 완료
-              </Button>
-            </Grid>
-            <input type="file" accept="image/*" multiple onChange={() => {}} />
-          </FormControl>
-        </Grid>
-      </PaperBackground>
-    </Grid>
+              <Grid item sx={{ pt: "24px" }}>
+                <Box
+                  sx={{ fontSize: "6vw", fontFamily: "BMEULJIRO" }}
+                  onClick={() => onSubmit()}
+                >
+                  작성 완료
+                </Box>
+              </Grid>
+            </FormControl>
+          </Grid>
+        </PaperBackground>
+      </Grid>
+    </>
   )
 }

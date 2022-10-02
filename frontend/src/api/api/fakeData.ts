@@ -33,10 +33,10 @@ export const restoInfo = {
   restoAge: 20,
   thumbnail: "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C",
   address: "서울특별시 종로구 대학로9길 12",
-  name: "정돈",
+  name: "정돈 정돈 정돈 정돈 정돈",
   sectors: "한식", // 업종
-  locationX: 35.2123,
-  locationY: 112.3322,
+  locationX: 37.5538502,
+  locationY: 126.981049525,
   phoneNumber: "02-987-0924",
   menu1: "히레 카츠",
   menu2: "카레 덮밥",

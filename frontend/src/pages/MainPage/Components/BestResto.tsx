@@ -1,4 +1,5 @@
 // React 시스템 Import
+import { useNavigate } from "react-router-dom"
 
 // 기타 라이브러리 Import
 import { Box, Grid } from "@mui/material"
@@ -11,6 +12,7 @@ import AccessTimeRounded from "@mui/icons-material/AccessTimeRounded"
 import PaperBackground from "../../CommonComp/PaperBackground"
 
 export default function RestoInfo({ bestResto }: any) {
+  const navigate = useNavigate()
   const resto = { ...bestResto }
   const wholeFrame = {
     padding: "15px",
@@ -46,7 +48,7 @@ export default function RestoInfo({ bestResto }: any) {
     borderBottom: "solid 2px rgba(0, 0, 0, 0.9)",
   }
   return (
-    <>
+    <div onClick={() => navigate(`/restos/${resto.id}`)}>
       <PaperBackground>
         <Box sx={wholeFrame}>
           {/* 가게 이름 */}
@@ -101,6 +103,6 @@ export default function RestoInfo({ bestResto }: any) {
           </Grid>
         </Box>
       </PaperBackground>
-    </>
+    </div>
   )
 }

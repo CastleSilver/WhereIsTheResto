@@ -29,7 +29,7 @@ public class RestoRes {
 
     public RestoRes(OldRestaurant resto) {
         this.id = resto.getId();
-        this.restoAge = Integer.parseInt(resto.getYear());
+        this.restoAge = Integer.parseInt(resto.getRestoAge());
         this.thumbnail = resto.getThumbnail();
         this.address = resto.getAddress();
         this.name = resto.getRestoName();

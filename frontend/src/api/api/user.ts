@@ -1,5 +1,5 @@
 // import axios from "axios"
-import { setRequest, axios } from "../settings"
+import { setRequest, myAxios } from "../settings"
 import { userUpdateType } from "../reqType"
 
 const USERS = "/user"
@@ -43,8 +43,8 @@ const user = {
       method: "GET",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
-    return { data: temp }
+    const res = await myAxios(req)
+    return temp
   },
 
   delete: async () => {
@@ -53,7 +53,7 @@ const user = {
       method: "DELETE",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
   },
 
   update: async (data: userUpdateType) => {
@@ -63,7 +63,8 @@ const user = {
       data,
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
+    return res
   },
 }
 

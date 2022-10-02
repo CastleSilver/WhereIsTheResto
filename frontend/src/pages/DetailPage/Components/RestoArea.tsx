@@ -1,22 +1,15 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import PaperBackground from "../../CommonComp/PaperBackground"
 import LocalDiningIcon from "@mui/icons-material/LocalDining"
 import PinDropIcon from "@mui/icons-material/PinDrop"
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled"
-import { Box, Grid } from "@mui/material"
+import { Box, Button, Grid } from "@mui/material"
 import { Link } from "react-router-dom"
 import "./RestoArea.scss"
-
-const resto = {
-  id: 0,
-  restoName: "다동황소곱창 다동황소곱창",
-  address: "종로구 다동 OO공원 안",
-  menu1: "노가리",
-  menu2: "팥빙수",
-  rating: 4,
-  imageUrl:
-    "https://blog.kakaocdn.net/dn/1udE5/btq66utR1gh/Dff4S5fRbKKqVigtrykWiK/img.jpg",
-}
+import { useSelector } from "react-redux"
+import { useAppDispatch, useAppSelector } from "../../userStore/hooks"
+import { selectResto } from "../../userStore/restoSlice"
+import { like, visited } from "../../../api/index"
 
 const recArea = {
   position: "relative",
@@ -77,7 +70,9 @@ const linkStyle: {} = {
   textDecoration: "none",
 }
 
-export default function RestoInfo1() {
+export default function RestoArea() {
+  const resto = useAppSelector(selectResto)
+
   const isLong = (word: string) => {
     return word.length >= 10
   }
@@ -85,72 +80,81 @@ export default function RestoInfo1() {
   return (
     <div>
       <PaperBackground>
-        <Grid sx={{ padding: "18px" }}>
-          {/* 제목, 별점 */}
-          <Grid
-            container
-            sx={{
-              marginBottom: "4.5vw",
-            }}
-          >
-            <Grid item xs={12} sx={titleStyle} className="text-container">
-              <span className={isLong(resto.restoName) ? "animate" : ""}>
-                {resto.restoName}
-              </span>
-            </Grid>
-          </Grid>
-
-          {/* 이미지, 기타 정보들 */}
-          <Grid container>
-            <Grid item xs={12} sx={recArea}>
-              <img src={resto.imageUrl} style={imgStyle} />
-            </Grid>
+        {resto === undefined && <div>로딩 중 </div>}
+        {resto !== undefined && (
+          <Grid sx={{ padding: "18px" }}>
+            {/* 제목, 별점 */}
             <Grid
-              item
-              xs={12}
               container
-              direction="column"
-              justifyContent={"space-evenly"}
-              alignContent={"start"}
-              sx={{ paddingLeft: "10px" }}
+              sx={{
+                marginBottom: "4.5vw",
+              }}
             >
-              <Grid container justifyContent={"space-between"}>
-                <Grid
-                  item
-                  container
-                  xs={6}
-                  sx={{ ...contentStyle, fontSize: "6.5vw" }}
-                >
-                  ★ {resto.rating.toFixed(1)}
+              <Grid item xs={12} sx={titleStyle} className="text-container">
+                <span className={isLong(resto.name) ? "animate" : ""}>
+                  {resto.name}
+                </span>
+              </Grid>
+            </Grid>
+
+            {/* 이미지, 기타 정보들 */}
+            <Grid container>
+              <Grid item xs={12} sx={recArea}>
+                <img src={resto.thumbnail} style={imgStyle} />
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                container
+                direction="column"
+                justifyContent={"space-evenly"}
+                alignContent={"start"}
+                sx={{ paddingLeft: "10px" }}
+              >
+                <Grid container justifyContent={"space-between"}>
+                  <Grid
+                    item
+                    container
+                    xs={6}
+                    sx={{ ...contentStyle, fontSize: "6.5vw" }}
+                  >
+                    ★ {Number(resto.rating).toFixed(1)}
+                  </Grid>
+
+                  <Grid item container sx={contentStyle} xs={6}>
+                    <AccessTimeFilledIcon sx={iconStyle} />
+                    20년
+                  </Grid>
                 </Grid>
 
-                <Grid item container sx={contentStyle} xs={6}>
-                  <AccessTimeFilledIcon sx={iconStyle} />
-                  20년
+                <Grid container sx={contentStyle}>
+                  <PinDropIcon sx={iconStyle} />
+                  {resto.address}
                 </Grid>
-              </Grid>
 
-              <Grid container sx={contentStyle}>
-                <PinDropIcon sx={iconStyle} />
-                {resto.address}
-              </Grid>
-
-              <Grid container sx={contentStyle}>
-                <LocalDiningIcon sx={iconStyle} />
-                <Box
-                  sx={{
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    width: "80%",
-                  }}
-                >
-                  {resto.menu1}, {resto.menu2}, asdfasdfasfasdf
+                <Grid container sx={contentStyle}>
+                  <LocalDiningIcon sx={iconStyle} />
+                  <Box
+                    sx={{
+                      textOverflow: "ellipsis",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      width: "80%",
+                    }}
+                  >
+                    {resto.menu1}, {resto.menu2}
+                  </Box>
+                </Grid>
+                <Box>
+                  <Button onClick={() => like.do(resto.id)}>좋아요</Button>
+                </Box>
+                <Box>
+                  <Button onClick={() => visited.do(resto.id)}>가본 곳</Button>
                 </Box>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        )}
       </PaperBackground>
     </div>
   )

@@ -3,24 +3,34 @@ export interface reqInfoType {
   url?: string
   uri?: string
   method: string
-  data?: Object
+  data?: Object | FormData
   params?: Object
-  header?: any
+  headers?: Object
 }
 
 export interface reqType {
   url: string
   method: string
-  data?: Object
-  params?: Object
-  header?: any
+  data?: object | FormData
+  params?: object
+  headers?: object
 }
 
-// user api 요청 request 타입
+// user user user user
 export interface userUpdateType {
   nickname?: string
   aztiType?: string
   profileImg?: string
+}
+
+export interface userInfoType {
+  nickname: string
+  email: string
+  gender: string
+  profileImageURL: string
+  aztiType: string
+  like: {}[]
+  review: {}[]
 }
 
 // review api 요청 request 타입

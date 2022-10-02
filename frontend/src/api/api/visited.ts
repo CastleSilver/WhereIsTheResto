@@ -1,24 +1,24 @@
-import { setRequest, axios } from "../settings"
+import { setRequest, myAxios } from "../settings"
 
 const VISITED = "/like"
 
 const visited = {
   do: async (restoId: number) => {
     const reqData = {
-      uri: VISITED + `${restoId}`,
+      uri: VISITED,
       method: "POST",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
   },
 
   undo: async (restoId: number) => {
     const reqData = {
-      uri: VISITED + `${restoId}`,
+      uri: VISITED,
       method: "DELETE",
     }
     const req = setRequest(reqData)
-    const res = await axios(req)
+    const res = await myAxios(req)
   },
 }
 

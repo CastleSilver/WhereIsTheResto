@@ -6,7 +6,7 @@ import { userLogin } from "../userStore/userSlice";
 
 function Auth() {
   const REST_API_KEY = "4451e1614fc6653da21821b099437e5a";
-  const REDIRECT_URI = "http://localhost:3000/oauth/kakao/callback";
+  const REDIRECT_URI = "http://j7a401.p.ssafy.io/api/oauth/kakao/callback";
   const CLIENT_SECRET = "vCiFAO1F3QiMUYfXmR1pddgTcLYFkMFN";
 
   const navigate = useNavigate();

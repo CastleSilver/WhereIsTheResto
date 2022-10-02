@@ -18,6 +18,7 @@ import MyContents from "./Components/MyContents"
 import MyReview from "./Components/MyReview"
 import RestoList from "./Components/RestoList"
 import LoadingPaper from "../CommonComp/LoadingPaper"
+import DesignTwo from "./Components/DesignTwo"
 
 const myPageStyle = {
   paddingTop: "30px",
@@ -43,8 +44,14 @@ export default function MyPage() {
     window.localStorage.setItem("conNum", String(contentNum))
   }, [contentNum, setContentNum])
 
+  const [design, setDesign] = useState(1)
+
   return (
     <>
+      <Box sx={{ m: "auto" }}>
+        <button onClick={() => setDesign(1)}>1번 시안</button>
+        <button onClick={() => setDesign(2)}>2번 시안</button>
+      </Box>
       {userInfo === undefined && (
         <>
           <LoadingPaper />
@@ -52,7 +59,9 @@ export default function MyPage() {
       )}
       {userInfo !== undefined && (
         <Box sx={myPageStyle}>
-          <TopArea userInfo={userInfo} />
+          {design === 1 && <TopArea userInfo={userInfo} />}
+          {design === 2 && <DesignTwo userInfo={userInfo} />}
+          <Box sx={{ paddingTop: "24px" }}></Box>
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
           {contentNum === 0 && <RestoList restos={userInfo.like} />}
           {contentNum === 1 && <MyReview reviews={userInfo.review} />}

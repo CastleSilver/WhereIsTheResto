@@ -14,12 +14,13 @@ const RowContent = styled.div`
 const Content = styled.div`
   margin-right: 4vw;
   zindex: 60;
+  width: 100%;
 `
 
 export default function OtherResto({ restos }: any) {
   return (
     <Slider>
-      <RowContent>
+      <RowContent className="kill-scroll">
         {restos.map((resto: any, index: number) => {
           return (
             <Content key={index}>

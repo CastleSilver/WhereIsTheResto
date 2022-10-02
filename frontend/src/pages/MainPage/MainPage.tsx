@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Banner from "./Components/Banner"
 import BestResto from "./Components/BestResto"
-import OtherRestos from "./Components/OtherRestos"
 
 import { Box } from "@mui/material"
 import { useLocation } from "react-router-dom"
@@ -25,7 +24,6 @@ export default function MainPage() {
       <Banner />
       <Box sx={{ height: "200px" }}></Box>
       <BestResto />
-      {/* <OtherRestos /> */}
     </Box>
   )
 }

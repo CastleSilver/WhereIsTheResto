@@ -22,7 +22,7 @@ export const userInfo = {
   email: "chwon03@naver.com",
   gender: "male",
   profileImageURL: "https://cdn-icons-png.flaticon.com/512/2143/2143252.png",
-  aztiType: "감성 촉촉인데 뭔가 촉촉하진 않은 MZ 세대 꼰대 아재",
+  aztiType: "감성 알뜰 힙스터 술린이",
   like: [userLikeVisieted, userLikeVisieted],
   visited: [userLikeVisieted, userLikeVisieted],
   review: [userReview, userReview, userReview],

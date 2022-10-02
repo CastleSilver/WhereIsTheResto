@@ -36,7 +36,8 @@ export default function MyPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
     dispatch(getUserAsync(Number(userAZTI.userId)))
-  }, [dispatch])
+    console.log("제공된 데이터", userInfo)
+  }, [dispatch, userInfo])
 
   useEffect(() => {
     window.localStorage.setItem("conNum", String(contentNum))
@@ -51,11 +52,11 @@ export default function MyPage() {
       )}
       {userInfo !== undefined && (
         <Box sx={myPageStyle}>
-          <TopArea />
+          <TopArea userInfo={userInfo} />
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
-          {contentNum === 0 && <RestoList />}
+          {contentNum === 0 && <RestoList restos={userInfo.like} />}
           {contentNum === 1 && <MyReview />}
-          {contentNum === 2 && <RestoList />}
+          {contentNum === 2 && <div>{userInfo.visited[0].id}</div>}
         </Box>
       )}
     </>

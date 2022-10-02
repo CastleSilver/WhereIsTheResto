@@ -1,6 +1,6 @@
 import { setRequest, myAxios } from "../settings"
 import { userUpdateType } from "../reqType"
-import { recomList, restoInfo } from "./fakeData"
+import { recomList, restoInfo, userInfo } from "./fakeData"
 
 const USERS = "/user"
 
@@ -12,7 +12,7 @@ const user = {
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)
-    return res
+    return userInfo
   },
 
   delete: async () => {

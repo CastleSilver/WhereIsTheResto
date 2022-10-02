@@ -6,12 +6,12 @@ const userLikeVisieted = {
   age: 23,
 }
 
-const restoImg = "https://cdn-icons-png.flaticon.com/512/2143/2143252.png"
+const restoImg = "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C"
 
 const userReview = {
   id: 1,
   imageUrl: [restoImg, restoImg],
-  content: "대 존맛탱",
+  content: "대 존맛탱 대 존맛탱",
   rating: 4.3,
   regDate: "2022-02-14",
   restoName: "정돈",
@@ -22,7 +22,7 @@ export const userInfo = {
   email: "chwon03@naver.com",
   gender: "male",
   profileImageURL: "https://cdn-icons-png.flaticon.com/512/2143/2143252.png",
-  aztiType: "감성 촉촉인데 뭔가 촉촉하진 않은 MZ 세대 꼰대 아재",
+  aztiType: "감성 알뜰 힙스터 술린이",
   like: [userLikeVisieted, userLikeVisieted],
   visited: [userLikeVisieted, userLikeVisieted],
   review: [userReview, userReview, userReview],

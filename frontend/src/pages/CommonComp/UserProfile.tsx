@@ -18,7 +18,7 @@ const imgStyle = {
   height: "100%",
 }
 
-export default function UserProfile() {
+export default function UserProfile({ userInfo }: any) {
   return (
     <Grid
       container
@@ -30,14 +30,14 @@ export default function UserProfile() {
       <Box sx={imgAreaStyle}>
         <Box sx={imgStyle}>
           <img
-            src="https://media.istockphoto.com/photos/autumn-abstraction-long-vertical-banner-picture-id865449012"
+            src={`${userInfo.profileImageURL}`}
             alt="asd"
             width="100%"
             object-fit="contain"
           />
         </Box>
       </Box>
-      <p className="content-text-sm">임시 닉네임</p>
+      <p className="content-text-sm">{userInfo.nickname}</p>
     </Grid>
   )
 }

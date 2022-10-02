@@ -27,9 +27,9 @@ export const setRequest = (reqInfo: reqInfoType) => {
 
 export const myAxios = async (req: any) => {
   console.log(
-    "%c  axios 시작  ",
+    "%c  axios 시작  REQUEST ",
     "background: orange; color: white",
-    "REQUEST",
+
     req
   )
   let res
@@ -41,10 +41,13 @@ export const myAxios = async (req: any) => {
     res = error.response.data.message
   } finally {
     console.log(
-      "%c  axios 종료  ",
+      "%c  axios 종료  RESPONSE ",
       "background: blue; color: white",
-      "RESPONSE",
       res
+    )
+    console.log(
+      "%c 현재는 임시 데이터가 제공되었습니다 ",
+      "background: blue; color: white; ;"
     )
     return res
   }

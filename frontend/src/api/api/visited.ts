@@ -1,24 +1,21 @@
 import { setRequest, myAxios } from "../settings"
 
-const VISITED = "/like"
+const VISITED = "/visited"
 
 const visited = {
-  do: async (restoId: number) => {
+  do: async (restoId: number, visited: boolean) => {
     const reqData = {
       uri: VISITED,
       method: "POST",
     }
-    const req = setRequest(reqData)
-    const res = await myAxios(req)
-  },
 
-  undo: async (restoId: number) => {
-    const reqData = {
-      uri: VISITED,
-      method: "DELETE",
+    if (visited) {
+      reqData.method = "DELETE"
     }
+
     const req = setRequest(reqData)
     const res = await myAxios(req)
+    console.log(`좋아요 ${visited} => ${!visited}`)
   },
 }
 

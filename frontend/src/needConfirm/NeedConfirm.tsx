@@ -1,11 +1,7 @@
 import React from "react"
-import Api from "./Api"
 
 export default function NeedConfirm() {
-  return (
-    <>
-      <Api />
-      <hr />
-    </>
-  )
+  const user = localStorage.getItem("login-kakao")
+  console.log(user)
+  return <div>NeedConfirm</div>
 }

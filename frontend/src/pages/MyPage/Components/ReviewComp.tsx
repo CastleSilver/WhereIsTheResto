@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react"
 import PaperBackground from "../../CommonComp/PaperBackground"
 import MenuIcon from "@mui/icons-material/Menu"
 import { fontSize } from "@mui/system"
+import Swal from "sweetalert2"
+import { review as reviewAPI } from "../../../api/index"
 
 const titleText = {
   fontFamily: "BMEULJIRO",
@@ -14,13 +16,16 @@ const titleText = {
 
 const backArea = {
   padding: "20px",
+  paddingBottom: 0,
 }
 
 const imgFrame = {
-  width: "80vw",
+  width: "100%",
   height: "65vw",
   position: "relative",
   overflow: "hidden",
+  borderRadius: "12px",
+  border: "solid 2px orange",
 }
 
 const imgArea: {} = {
@@ -33,16 +38,20 @@ const imgArea: {} = {
 }
 
 const contentArea = {
-  width: "80vw",
-  maxHeight: "25vw",
+  width: "100%",
+  maxHeight: "35vw",
   overflow: "scroll",
-  marginBottom: "20px",
+  fontSize: "5.5vw",
+  display: "flex",
+  paddingBottom: "20px",
 }
 
 const btnStyle = {
-  fontSize: "4vw",
+  fontSize: "5vw",
+  fontWeight: "bold",
+  color: "rgb(217 93 65)",
   width: "100%",
-  color: "black",
+  py: "10px",
 }
 
 export default function ReviewComp({ review }: any) {
@@ -56,6 +65,22 @@ export default function ReviewComp({ review }: any) {
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const deleteReview = async () => {
+    await Swal.fire({
+      title: "정말 삭제하시겠습니까?",
+      showDenyButton: true,
+      confirmButtonText: "삭제",
+      denyButtonText: "취소",
+      confirmButtonColor: "orange",
+      denyButtonColor: "red",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        reviewAPI.delete(review.id)
+        Swal.fire("삭제 완료!", "", "success")
+      }
+    })
   }
 
   useEffect(() => {
@@ -95,8 +120,22 @@ export default function ReviewComp({ review }: any) {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>리뷰 삭제</MenuItem>
-              <MenuItem onClick={handleClose}>리뷰 수정</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Box
+                  sx={{ width: "100%", height: "100%" }}
+                  onClick={() => deleteReview()}
+                >
+                  리뷰 삭제
+                </Box>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Box
+                  sx={{ width: "100%", height: "100%" }}
+                  onClick={() => console.log("리뷰 수정", review.id)}
+                >
+                  리뷰 수정
+                </Box>
+              </MenuItem>
             </Menu>
           </Grid>
           <Grid item sx={imgFrame}>
@@ -110,10 +149,6 @@ export default function ReviewComp({ review }: any) {
           {toggle !== true && (
             <Grid item sx={contentArea} className="kill-scroll">
               <Grid direction="column" justifyContent="center">
-                <Box>{review.content}</Box>
-                <Box>{review.content}</Box>
-                <Box>{review.content}</Box>
-                <Box>{review.content}</Box>
                 <Box>{review.content}</Box>
               </Grid>
             </Grid>

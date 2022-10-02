@@ -3,12 +3,13 @@ import PaperBackground from "../../CommonComp/PaperBackground"
 import LocalDiningIcon from "@mui/icons-material/LocalDining"
 import PinDropIcon from "@mui/icons-material/PinDrop"
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled"
-import { Box, Grid } from "@mui/material"
+import { Box, Button, Grid } from "@mui/material"
 import { Link } from "react-router-dom"
 import "./RestoArea.scss"
 import { useSelector } from "react-redux"
-import { useAppSelector } from "../../userStore/hooks"
+import { useAppDispatch, useAppSelector } from "../../userStore/hooks"
 import { selectResto } from "../../userStore/restoSlice"
+import { like, visited } from "../../../api/index"
 
 const recArea = {
   position: "relative",
@@ -144,6 +145,12 @@ export default function RestoArea() {
                     {resto.menu1}, {resto.menu2}
                   </Box>
                 </Grid>
+                <Box>
+                  <Button onClick={() => like.do(resto.id)}>좋아요</Button>
+                </Box>
+                <Box>
+                  <Button onClick={() => visited.do(resto.id)}>가본 곳</Button>
+                </Box>
               </Grid>
             </Grid>
           </Grid>

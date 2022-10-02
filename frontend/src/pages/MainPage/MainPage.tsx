@@ -25,7 +25,7 @@ export default function MainPage() {
       <Banner />
       <Box sx={{ height: "200px" }}></Box>
       <BestResto />
-      <OtherRestos />
+      {/* <OtherRestos /> */}
     </Box>
   )
 }

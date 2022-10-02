@@ -5,7 +5,7 @@ const VISITED = "/like"
 const visited = {
   do: async (restoId: number) => {
     const reqData = {
-      uri: VISITED + `${restoId}`,
+      uri: VISITED,
       method: "POST",
     }
     const req = setRequest(reqData)
@@ -14,7 +14,7 @@ const visited = {
 
   undo: async (restoId: number) => {
     const reqData = {
-      uri: VISITED + `${restoId}`,
+      uri: VISITED,
       method: "DELETE",
     }
     const req = setRequest(reqData)

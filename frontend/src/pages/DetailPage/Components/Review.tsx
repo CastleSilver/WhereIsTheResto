@@ -8,9 +8,13 @@ const contentArea = {
   paddingTop: "24px",
 }
 
-export default function Review() {
+const cardStyle = {
+  marginBottom: "12px",
+}
+
+export default function Review({ review }: any) {
   return (
-    <>
+    <Box sx={cardStyle}>
       <PaperBackground>
         <Grid container sx={{ p: "12px" }}>
           <Grid item xs={4}>
@@ -19,7 +23,7 @@ export default function Review() {
 
           <Grid item xs={8} sx={contentArea} container direction="column">
             <Grid item xs={8}>
-              <span>Review 내용Review 내용Review 내용Review 내용</span>
+              <span>{review.content}</span>
             </Grid>
             <Grid
               item
@@ -42,6 +46,6 @@ export default function Review() {
           </Grid>
         </Grid>
       </PaperBackground>
-    </>
+    </Box>
   )
 }

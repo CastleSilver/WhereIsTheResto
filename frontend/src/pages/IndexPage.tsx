@@ -22,7 +22,7 @@ export default function IndexPage() {
         <Route path="main" element={<MainPage />} />
         <Route path="my-page" element={<MyPage />} />
         <Route path="restos/:restoId" element={<RestoDetail />} />
-        <Route path="review/write" element={<ReviewForm />} />
+        <Route path="restos/:restoId/review" element={<ReviewForm />} />
         {/* 실험실 */}
         <Route path="need-confirm" element={<NeedConfirm />} />
       </Routes>

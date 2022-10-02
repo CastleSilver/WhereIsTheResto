@@ -56,8 +56,8 @@ export default function StartPage() {
           <a href={KAKAO_AUTH_URL}>
             <img src={kakaoBtn} alt="logo" width="100%" />
             {/* 이 부분 떄문에 에러가 발생하는데, 배포 하면 지울 부분이라 괜찮을 듯! */}
-            <Link to="/main">개발용 MAIN 창으로</Link>
           </a>
+          <Link to="/main">개발용 MAIN 창으로</Link>
         </Grid>
       </Grid>
     </Box>

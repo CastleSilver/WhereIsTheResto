@@ -4,10 +4,11 @@ import { user as userAPI } from "../../api"
 import { recomList } from "../../api/api/fakeData"
 
 const initialState: any = {
-  value: [...recomList],
+  value: undefined,
+  status: "pending",
 }
 
-export const getRecom = createAsyncThunk("recom/get", async () => {
+export const getRecomAsync = createAsyncThunk("recom/get", async () => {
   const res = await userAPI.getRecom()
   return res
 })
@@ -17,12 +18,21 @@ export const recomSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getRecom.fulfilled, (state, action) => {
-      state.value = action.payload
-    })
+    builder
+      .addCase(getRecomAsync.pending, (state) => {
+        state.status = "pending"
+      })
+      .addCase(getRecomAsync.fulfilled, (state, action) => {
+        state.value = action.payload
+        state.status = "idle"
+      })
+      .addCase(getRecomAsync.rejected, (state) => {
+        state.status = "rejected"
+      })
   },
 })
 
 export const selectRecom = (state: RootState) => state.recom.value
+export const selectRecomStatus = (state: RootState) => state.recom.status
 
 export default recomSlice.reducer

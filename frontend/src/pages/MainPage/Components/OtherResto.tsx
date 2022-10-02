@@ -21,9 +21,9 @@ export default function OtherResto({ restos }: any) {
   return (
     <Slider>
       <RowContent>
-        {restos.map((resto: any) => {
+        {restos.map((resto: any, index: number) => {
           return (
-            <Content>
+            <Content key={index}>
               <Resto resto={resto} />
             </Content>
           )

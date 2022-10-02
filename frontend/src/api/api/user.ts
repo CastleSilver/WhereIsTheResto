@@ -1,6 +1,6 @@
 import { setRequest, myAxios } from "../settings"
 import { userUpdateType } from "../reqType"
-import { recomList } from "./fakeData"
+import { recomList, restoInfo } from "./fakeData"
 
 const USERS = "/user"
 

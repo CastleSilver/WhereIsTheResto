@@ -2,8 +2,9 @@ import axios from "axios"
 import { reqInfoType, reqType } from "./reqType"
 
 const BASE_URL = "http://localhost:8080/api"
-const key =
-  "eyJ0eXBlIjoiSldUIiwicmVnRGF0ZSI6MTY2NDU2MDQzMjI1NywiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE2NjQ1NjQwMzIsInN1YiI6ImFjY2Vzcy10b2tlbiIsInVzZXJJZCI6IjI0NjM2MjI1NzEifQ.3PPZ83s1e_Azsfx9uJTHONZkmcJQ6kv3kIFVY4ctEV0"
+// const key =
+//   "eyJ0eXBlIjoiSldUIiwicmVnRGF0ZSI6MTY2NDU2MDQzMjI1NywiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE2NjQ1NjQwMzIsInN1YiI6ImFjY2Vzcy10b2tlbiIsInVzZXJJZCI6IjI0NjM2MjI1NzEifQ.3PPZ83s1e_Azsfx9uJTHONZkmcJQ6kv3kIFVY4ctEV0"
+const key = localStorage.getItem("login-kakao")
 const Authorization = `Bearer ${key}`
 
 export const setRequest = (reqInfo: reqInfoType) => {

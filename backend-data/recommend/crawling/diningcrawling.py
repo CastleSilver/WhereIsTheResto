@@ -70,9 +70,10 @@ for i in range(len(locations)):
     for restro in restro_list:
         restro_code = restro.find_element(By.CSS_SELECTOR, "div.PoiBlock").get_attribute('id')
         restro_code = restro_code[5:]
+        headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
 
         dining_url = f"https://diningcode.com/profile.php?rid={restro_code}"
-        page = requests.get(dining_url)
+        page = requests.get(dining_url, headers=headers)
         soup = bs(page.text, "lxml")
         try:
             restro_star = soup.find('div', attrs={"class": "s-list appraisal"}).find('p', attrs={"class": "tit"}).get_text()
@@ -120,18 +121,18 @@ for i in range(len(locations)):
         restro_location_y = crd["lat"]
         restro_location_x = crd["lng"]
 
-        f = open('restdata.csv', 'r', encoding='utf-8')
-        rdr = csv.reader(f)
+        # f = open('restdata.csv', 'r', encoding='utf-8')
+        # rdr = csv.reader(f)
         # 0 : 인허가 날짜
         # 4 : 지번 주소
         # 7 : 사업자명(레스토랑 이름)
         # 11: 업종
         restro_age = 'notf'
         restro_sectors = 'notf'
-        for line in rdr:
-            if restro_name == line[7]:
-                restro_age = line[0][:4]
-                restro_sectors = line[11]
+        # for line in rdr:
+        #     if restro_name == line[7]:
+        #         restro_age = line[0][:4]
+        #         restro_sectors = line[11]
 
         restro_tag_dic = {}
         restro_menu_dic = {}
@@ -186,18 +187,18 @@ for i in range(len(locations)):
         sectors.append(restro_sectors)
 
 restro_df = pd.DataFrame()
+restro_df['resto_age'] = resto_age
+restro_df['thumbnail'] = thumbnail
+restro_df['address'] = address
 restro_df['resto_name'] = name
-# restro_df['hours'] = hours
-# restro_df['menu'] = menu
+restro_df['sectors'] = sectors
+restro_df['location_x'] = location_x
+restro_df['location_y'] = location_y
+restro_df['phone_number'] = number
 restro_df['menu1'] = menu1
 restro_df['menu2'] = menu2
 restro_df['tag'] = tag
-restro_df['address'] = address
-restro_df['phone_number'] = number
-restro_df['thumbnail'] = thumbnail
-restro_df['location_x'] = location_x
-restro_df['location_y'] = location_y
-restro_df['resto_age'] = resto_age
-restro_df['sectors'] = sectors
+# restro_df['hours'] = hours
+# restro_df['menu'] = menu
 
 restro_df.to_csv("restro_list.csv", mode='w', encoding='utf8')

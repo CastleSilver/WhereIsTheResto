@@ -1,3 +1,4 @@
+// api 관련 Import (직접 만든 local 파일들)
 import { setRequest, myAxios } from "../settings"
 
 const RESTO = "/resto"

@@ -1,13 +1,32 @@
-import React, { useEffect, useState } from "react"
+// React 시스템 Import
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import { useAppSelector } from "../userStore/hooks"
+import { selectRecom } from "../userStore/recomSlice"
+
+// 기타 라이브러리 Import
+import { Box } from "@mui/material"
+import { slideInLeft } from "react-animations"
+import styled, { keyframes } from "styled-components"
+
+// Components Import
 import Banner from "./Components/Banner"
 import BestResto from "./Components/BestResto"
+import OtherResto from "./Components/OtherResto"
 
-import { Box } from "@mui/material"
-import { useLocation } from "react-router-dom"
+const sideLeftAnimation = keyframes`${slideInLeft}`
+
+const SideRLeft = styled.div`
+  animation: 1s ${sideLeftAnimation};
+  position: relative;
+  top: 5%;
+  z-index: 10;
+`
 
 export default function MainPage() {
   const { pathname } = useLocation()
   const [show, setShow] = useState(false)
+  const recomList = useAppSelector(selectRecom)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -16,14 +35,30 @@ export default function MainPage() {
   useEffect(() => {
     setTimeout(() => {
       setShow(true)
-    }, 2000)
+    }, 1000)
   }, [show])
 
   return (
     <Box>
       <Banner />
-      <Box sx={{ height: "200px" }}></Box>
-      <BestResto />
+      {show && (
+        <SideRLeft>
+          {/* 마진 */}
+          <Box sx={{ height: "200px" }}></Box>
+
+          {/* 제일 인기 많은 가게 추천 Area */}
+          <p className="title-text-lg" style={{ textAlign: "left" }}>
+            남바-원!
+          </p>
+          <BestResto bestResto={recomList[0]} />
+
+          {/* 다른 추천 가게들 Carousel */}
+          <p className="title-text-lg" style={{ textAlign: "left" }}>
+            여기도 정-말 맛있는데
+          </p>
+          <OtherResto restos={recomList.slice(1, recomList.length)} />
+        </SideRLeft>
+      )}
     </Box>
   )
 }

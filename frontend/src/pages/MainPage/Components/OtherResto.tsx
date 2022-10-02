@@ -1,5 +1,4 @@
 import Resto from "./Resto"
-import { Grid } from "@mui/material"
 import styled from "styled-components"
 
 const Slider = styled.div`

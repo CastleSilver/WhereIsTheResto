@@ -55,7 +55,7 @@ export default function MyPage() {
           <TopArea userInfo={userInfo} />
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
           {contentNum === 0 && <RestoList restos={userInfo.like} />}
-          {contentNum === 1 && <MyReview />}
+          {contentNum === 1 && <MyReview reviews={userInfo.review} />}
           {contentNum === 2 && <div>{userInfo.visited[0].id}</div>}
         </Box>
       )}

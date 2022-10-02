@@ -6,12 +6,12 @@ const userLikeVisieted = {
   age: 23,
 }
 
-const restoImg = "https://cdn-icons-png.flaticon.com/512/2143/2143252.png"
+const restoImg = "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C"
 
 const userReview = {
   id: 1,
   imageUrl: [restoImg, restoImg],
-  content: "대 존맛탱",
+  content: "대 존맛탱 대 존맛탱",
   rating: 4.3,
   regDate: "2022-02-14",
   restoName: "정돈",

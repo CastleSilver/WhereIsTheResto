@@ -42,7 +42,6 @@ const contentArea = {
   maxHeight: "35vw",
   overflow: "scroll",
   fontSize: "5.5vw",
-  display: "flex",
   paddingBottom: "20px",
 }
 
@@ -122,7 +121,13 @@ export default function ReviewComp({ review }: any) {
             >
               <MenuItem onClick={handleClose}>
                 <Box
-                  sx={{ width: "100%", height: "100%" }}
+                  sx={{
+                    width: "100%",
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "black",
+                    fontFamily: "CHOSUN",
+                  }}
                   onClick={() => deleteReview()}
                 >
                   리뷰 삭제
@@ -130,7 +135,13 @@ export default function ReviewComp({ review }: any) {
               </MenuItem>
               <MenuItem onClick={handleClose}>
                 <Box
-                  sx={{ width: "100%", height: "100%" }}
+                  sx={{
+                    width: "100%",
+                    fontSize: "24px",
+                    fontWeight: "bold",
+                    color: "black",
+                    fontFamily: "CHOSUN",
+                  }}
                   onClick={() => console.log("리뷰 수정", review.id)}
                 >
                   리뷰 수정
@@ -139,7 +150,7 @@ export default function ReviewComp({ review }: any) {
             </Menu>
           </Grid>
           <Grid item sx={imgFrame}>
-            <img src={review.imageUrl} style={imgArea} />
+            <img src={review.imageUrl[0]} style={imgArea} />
           </Grid>
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>
@@ -148,9 +159,7 @@ export default function ReviewComp({ review }: any) {
           </Grid>
           {toggle !== true && (
             <Grid item sx={contentArea} className="kill-scroll">
-              <Grid direction="column" justifyContent="center">
-                <Box>{review.content}</Box>
-              </Grid>
+              <Box sx={{ alignText: "center" }}>{review.content}</Box>
             </Grid>
           )}
         </Grid>

@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { Box, Grid } from "@mui/material"
 import RestoInfo from "../../CommonComp/RestoInfo"
 import { Banner as BannerImg } from "../../../assets/imageUrl"
-import Carousel from "better-react-carousel"
 import RoofB from "../../../assets/roofB.png"
 import RoofL from "../../../assets/roofL.png"
 

@@ -13,13 +13,19 @@ function Auth() {
   const dispatch = useDispatch();
 
   const code = new URL(window.location.href).searchParams.get("code");
+
+  console.log(code);
+
   // axios 로 백엔드 전송 및 받아와햐 하는데
   useEffect(() => {
     (async () => {
       try {
+        console.log("백 보내기 전");
         const res = await axios.post(
           `http://j7a401.p.ssafy.io/api/oauth/login/kakao?code=${code}`
         );
+        console.log("백 요청 후");
+        console.log(res);
         // localStorage => token 저장
         localStorage.setItem(
           "login-kakao",
@@ -31,6 +37,7 @@ function Auth() {
 
         navigate("/azti");
       } catch (e) {
+        console.log(e);
         navigate("/");
       }
     })();

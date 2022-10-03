@@ -1,11 +1,12 @@
 package com.ssafy.nopo.api.service;
 
+import com.ssafy.nopo.api.request.AztiTypeReq;
 import com.ssafy.nopo.api.request.UpdateUserRequest;
-import com.ssafy.nopo.api.response.*;
-import com.ssafy.nopo.db.entity.LoggedContinue;
+import com.ssafy.nopo.api.response.LoginSocialResponse;
+import com.ssafy.nopo.api.response.OAuthTokenDto;
+import com.ssafy.nopo.api.response.UserInfoResponse;
 import com.ssafy.nopo.db.entity.User;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 public interface UserService {
@@ -19,17 +20,18 @@ public interface UserService {
     String getRefreshToken(String nickname);
     boolean checkNicknameDuplicate(String nickname);
     UserInfoResponse getUserInfoResponse(String id);
+
     boolean updateUser(String id, UpdateUserRequest updateUserRequest);
+    boolean updateAztiType(AztiTypeReq aztiTypeReq, String userId);
 
     boolean deleteUser(String id);
     User findByNickname(String nickname);
 
     Optional<User> findById(String id);
     void setLoginData(String userId);
-    LoggedContinue getLoginData(String userId);
-    void setLoggedInData(String userId);
-    ArrayList<LoginLogResponse> getLoginLog(String userId);
-    ArrayList<String> getLoginDateLog(String userId);
-
-    LoginResponse getCurrentUserLoginDto(String headerAuth, String nickname);
+    //LoggedContinue getLoginData(String userId);
+    //void setLoggedInData(String userId);
+    //ArrayList<LoginLogResponse> getLoginLog(String userId);
+    //ArrayList<String> getLoginDateLog(String userId);
+    //LoginResponse getCurrentUserLoginDto(String headerAuth, String nickname);
 }

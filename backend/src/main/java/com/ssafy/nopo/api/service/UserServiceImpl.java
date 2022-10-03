@@ -2,17 +2,17 @@ package com.ssafy.nopo.api.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.nopo.api.request.AztiTypeReq;
 import com.ssafy.nopo.api.request.UpdateUserRequest;
 import com.ssafy.nopo.api.response.*;
 import com.ssafy.nopo.common.auth.jwt.JwtUtil;
 import com.ssafy.nopo.common.exception.CustomException;
 import com.ssafy.nopo.common.exception.ErrorCode;
+import com.ssafy.nopo.common.exception.LoginException;
 import com.ssafy.nopo.db.entity.LoggedContinue;
-import com.ssafy.nopo.db.entity.LoggedIn;
 import com.ssafy.nopo.db.entity.Review;
 import com.ssafy.nopo.db.entity.User;
 import com.ssafy.nopo.db.repository.*;
-import com.ssafy.nopo.common.exception.LoginException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -27,12 +27,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -85,6 +82,19 @@ public class UserServiceImpl implements UserService{
             if (updateUserRequest.getProfileImg() != null &&
                     !updateUserRequest.getProfileImg().isEmpty()) {
                 user.setProfileImage(updateUserRequest.getProfileImg());
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean updateAztiType(AztiTypeReq aztiTypeReq, String userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            if(aztiTypeReq.getAztiType() != null) {
+                user.update(aztiTypeReq.getAztiType());
             }
             return true;
         }
@@ -181,10 +191,10 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-    @Override
-    public LoggedContinue getLoginData(String userId) {
-        return loggedContinueRepository.findByUserId(userId);
-    }
+//    @Override
+//    public LoggedContinue getLoginData(String userId) {
+//        return loggedContinueRepository.findByUserId(userId);
+//    }
 
     /** 기존 회원 로그인 -> 토큰 발급 */
     @Override
@@ -202,38 +212,38 @@ public class UserServiceImpl implements UserService{
 
     }
 
-    @Override
-    @Transactional
-    public void setLoggedInData(String userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            LoggedIn loggedIn = new LoggedIn();
-            loggedIn.setUser(user.get());
-            loggedIn.setDate(LocalDateTime.now());
-            loggedInRepository.save(loggedIn);
-        }
-    }
+//    @Override
+//    @Transactional
+//    public void setLoggedInData(String userId) {
+//        Optional<User> user = userRepository.findById(userId);
+//        if (user.isPresent()) {
+//            LoggedIn loggedIn = new LoggedIn();
+//            loggedIn.setUser(user.get());
+//            loggedIn.setDate(LocalDateTime.now());
+//            loggedInRepository.save(loggedIn);
+//        }
+//    }
 
-    @Override
-    public ArrayList<LoginLogResponse> getLoginLog(String userId) {
-        return loggedInRepository.getLoginLog(userId);
-    }
+//    @Override
+//    public ArrayList<LoginLogResponse> getLoginLog(String userId) {
+//        return loggedInRepository.getLoginLog(userId);
+//    }
 
-    @Override
-    public ArrayList<String> getLoginDateLog(String userId) {
-        return loggedInRepository.getLoginDateLog(userId);
-    }
+//    @Override
+//    public ArrayList<String> getLoginDateLog(String userId) {
+//        return loggedInRepository.getLoginDateLog(userId);
+//    }
 
 
-    @Override
-    public LoginResponse getCurrentUserLoginDto(String headerAuth, String nickname) {
-        String accessToken = null;
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            accessToken = headerAuth.substring(7, headerAuth.length());
-        }
-        String refreshToken = getRefreshToken(nickname);
-        return new LoginResponse("200", null, accessToken, refreshToken);
-    }
+//    @Override
+//    public LoginResponse getCurrentUserLoginDto(String headerAuth, String nickname) {
+//        String accessToken = null;
+//        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+//            accessToken = headerAuth.substring(7, headerAuth.length());
+//        }
+//        String refreshToken = getRefreshToken(nickname);
+//        return new LoginResponse("200", null, accessToken, refreshToken);
+//    }
 
     @Override
     @Transactional

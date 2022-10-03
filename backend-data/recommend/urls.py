@@ -5,4 +5,5 @@ app_name = 'recommend'
 
 urlpatterns = [
     path('recommlist', views.recommList),
+    path('recomm', views.recomm)
 ]

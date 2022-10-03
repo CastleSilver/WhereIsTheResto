@@ -1,7 +1,8 @@
 package com.ssafy.nopo.db.entity;
 
 public enum AZTI {
-    a,b,c,d, X
+    mcis, dcis, mnis, dnis, mchs, dchs, mnhs, dnhs,
+    mchc, dchc, mnhc, dnhc, mcic, dcic, mnic, dnic, X
 }
 
 //@Getter

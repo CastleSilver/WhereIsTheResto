@@ -7,7 +7,7 @@ import com.ssafy.nopo.api.response.ReviewRes;
 import java.util.List;
 
 public interface RestoService {
-    RestoRes findByRestoId(int restoId);
+    RestoRes findByRestoId(int restoId, String userId);
     RestoListRes getRestoLists();
     List<RestoRes> findAllByRestoGrade();
     List<RestoRes> orderByLikedCnt();

@@ -57,4 +57,7 @@ public class User {
         this.aztiType = aztiType;
     }
 
+    public void update(AZTI aztiType) {
+        this.aztiType = aztiType;
+    }
 }

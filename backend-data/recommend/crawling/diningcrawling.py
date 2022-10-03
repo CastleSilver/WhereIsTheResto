@@ -1,4 +1,5 @@
 # Beautifulsoup
+from tempfile import TemporaryFile
 import requests, json
 from bs4 import BeautifulSoup as bs
 
@@ -43,6 +44,18 @@ location_x = []
 location_y = []
 resto_age = []
 sectors = []
+terrace = []
+drinking = []
+meal = []
+lunch = []
+dinner = []
+cost_effective = []
+classy = []
+mood = []
+noisy = []
+quiet = []
+real_local = []
+etc = []
 
 # 주소 이동
 locations = ["종로구", "중구", "용산구", "성동구", "광진구", "동대문구", '중랑구', '성북구', '강북구', '도봉구', '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구', '관악구', '서초구', '강남구', '송파구', '강동구']
@@ -98,7 +111,7 @@ for i in range(len(locations)):
         except:
             restro_thumbnail = ""
 
-        restro_name = soup.find('div', attrs={"class": "tit-point"}).get_text()
+        restro_name = soup.find('div', attrs={"class": "tit-point"}).find('p', attrs={"class": "tit"}).get_text()
         restro_artis = soup.find('ul', attrs={"class": "app-arti"}).findAll('p', {"class": "icon"})
         restro_address = soup.find('div', attrs={"class" : "s-list basic-info"}).find("li", {"class": "locat"}).get_text()
         restro_number = soup.find('li', attrs={"class": "tel"}).get_text()
@@ -121,18 +134,18 @@ for i in range(len(locations)):
         restro_location_y = crd["lat"]
         restro_location_x = crd["lng"]
 
-        # f = open('restdata.csv', 'r', encoding='utf-8')
-        # rdr = csv.reader(f)
+        f = open('restdata.csv', 'r', encoding='utf-8')
+        rdr = csv.reader(f)
         # 0 : 인허가 날짜
         # 4 : 지번 주소
         # 7 : 사업자명(레스토랑 이름)
         # 11: 업종
         restro_age = 'notf'
         restro_sectors = 'notf'
-        # for line in rdr:
-        #     if restro_name == line[7]:
-        #         restro_age = line[0][:4]
-        #         restro_sectors = line[11]
+        for line in rdr:
+            if restro_name == line[7]:
+                restro_age = line[0][:4]
+                restro_sectors = line[11]
 
         restro_tag_dic = {}
         restro_menu_dic = {}
@@ -186,6 +199,100 @@ for i in range(len(locations)):
         resto_age.append(restro_age)
         sectors.append(restro_sectors)
 
+        try:
+            restro_terrace = restro_tag_dic['야외좌석']
+        except:
+            restro_terrace = 0
+
+        restro_drinking = 0
+        try:
+            restro_drinking += restro_tag_dic['술모임']
+        except:
+            restro_drinking = 0
+
+        try:
+            restro_drinking += restro_tag_dic['혼술']
+        except:
+            restro_drinking += 0
+        
+        try:
+            restro_meal = restro_tag_dic['식사모임']
+        except:
+            restro_meal = 0
+
+        try:
+            restro_lunch = restro_tag_dic['점심식사']
+        except:
+            restro_lunch = 0
+
+        try:
+            restro_dinner = restro_tag_dic['저녁식사']
+        except:
+            restro_dinner = 0
+
+        restro_cost_effective = 0
+        try:
+            restro_cost_effective += restro_tag_dic['가성비좋은']
+        except:
+            restro_cost_effective += 0
+
+        try:
+            restro_cost_effective += restro_tag_dic['서민적인']
+        except:
+            restro_cost_effective += 0
+
+        try:
+            restro_cost_effective += restro_tag_dic['푸짐한']
+        except:
+            restro_cost_effective += 0
+
+        try:
+            restro_classy = restro_tag_dic['고급스러운']
+        except:
+            restro_classy = 0
+
+        try:
+            restro_mood = restro_tag_dic['분위기좋은']
+        except:
+            restro_mood = 0
+
+        try:
+            restro_noisy = restro_tag_dic['시끌벅적한']
+        except:
+            restro_noisy = 0
+
+        try:
+            restro_quiet = restro_tag_dic['조용한']
+        except:
+            restro_quiet = 0
+
+        try:
+            restro_real_local = restro_tag_dic['지역주민이찾는']
+        except:
+            restro_real_local = 0
+        
+        restro_etc = ''
+        try:
+            del_list = ['지역주민이찾는', '조용한', '시끌벅적한', '분위기좋은', '고급스러운', '푸짐한', '서민적인', '가성비좋은', '저녁식사', '점심식사', '식사모임', '혼술', '술모임', '야외좌석']
+            for item in restro_tag_dic.keys():
+                if item not in del_list:
+                    restro_etc += item + ','
+        except:
+            pass
+
+        terrace.append(restro_terrace)  
+        drinking.append(restro_drinking)  
+        meal.append(restro_meal)  
+        lunch.append(restro_lunch)  
+        dinner.append(restro_dinner)  
+        cost_effective.append(restro_cost_effective)  
+        classy.append(restro_classy)  
+        mood.append(restro_mood)  
+        noisy.append(restro_noisy)  
+        quiet.append(restro_quiet)  
+        real_local.append(restro_real_local)  
+        etc.append(restro_etc)  
+
 restro_df = pd.DataFrame()
 restro_df['resto_age'] = resto_age
 restro_df['thumbnail'] = thumbnail
@@ -197,8 +304,20 @@ restro_df['location_y'] = location_y
 restro_df['phone_number'] = number
 restro_df['menu1'] = menu1
 restro_df['menu2'] = menu2
-restro_df['tag'] = tag
 # restro_df['hours'] = hours
 # restro_df['menu'] = menu
+restro_df['terrace'] = terrace
+restro_df['drinking'] = drinking
+restro_df['meal'] = meal
+restro_df['lunch'] = lunch
+restro_df['dinner'] = dinner
+restro_df['cost_effective'] = cost_effective
+restro_df['classy'] = classy
+restro_df['mood'] = mood
+restro_df['noisy'] = noisy
+restro_df['quiet'] = quiet
+restro_df['real_local'] = real_local
+restro_df['etc'] = etc
+# restro_df['tag'] = tag
 
 restro_df.to_csv("restro_list.csv", mode='w', encoding='utf8')

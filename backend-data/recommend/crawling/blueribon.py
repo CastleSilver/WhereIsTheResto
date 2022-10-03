@@ -112,6 +112,18 @@ location_x = []
 location_y = []
 resto_age = []
 sectors = []
+terrace = []
+drinking = []
+meal = []
+lunch = []
+dinner = []
+cost_effective = []
+classy = []
+mood = []
+noisy = []
+quiet = []
+real_local = []
+etc = []
 
 for restro_code in restro_data_id_list:
     blue_url = f"https://www.bluer.co.kr/restaurants/{restro_code}"
@@ -186,7 +198,6 @@ for restro_code in restro_data_id_list:
     if restro_limit_age > 2010:
         continue
     
-    restro_name = '낙원'
     dining_url= f"https://www.diningcode.com/list.dc?addr=서울&query={restro_name}"
     driver.get(dining_url)
     driver.implicitly_wait(10)
@@ -209,6 +220,19 @@ for restro_code in restro_data_id_list:
     resto_age.append(restro_age)
     sectors.append(restro_sectors)
 
+    terrace.append('')
+    drinking.append('')
+    meal.append('')
+    lunch.append('')
+    dinner.append('')
+    cost_effective.append('')
+    classy.append('')
+    mood.append('')
+    noisy.append('')
+    quiet.append('')
+    real_local.append('')
+    etc.append('')
+
 blue_restro_df = pd.DataFrame()
 blue_restro_df['resto_age'] = resto_age
 blue_restro_df['thumbnail'] = thumbnail
@@ -221,5 +245,17 @@ blue_restro_df['phone_number'] = number
 blue_restro_df['menu1'] = menu1
 blue_restro_df['menu2'] = menu2
 blue_restro_df['tag'] = tag
+blue_restro_df['terrace'] = terrace
+blue_restro_df['drinking'] = drinking
+blue_restro_df['meal'] = meal
+blue_restro_df['lunch'] = lunch
+blue_restro_df['dinner'] = dinner
+blue_restro_df['cost_effective'] = cost_effective
+blue_restro_df['classy'] = classy
+blue_restro_df['mood'] = mood
+blue_restro_df['noisy'] = noisy
+blue_restro_df['quiet'] = quiet
+blue_restro_df['real_local'] = real_local
+blue_restro_df['etc'] = etc
 
 blue_restro_df.to_csv("blue_restro_df.csv", mode='w', encoding='utf8')

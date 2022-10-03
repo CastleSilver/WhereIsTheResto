@@ -9,7 +9,7 @@ const review = {
       uri: REVIEW + "",
       method: "POST",
       headers: { "Content-Type": "multipart/form-data" },
-      data: data,
+      data,
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)

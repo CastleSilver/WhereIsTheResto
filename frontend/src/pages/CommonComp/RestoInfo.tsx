@@ -61,6 +61,8 @@ const linkStyle: {} = {
 }
 
 export default function RestoInfo1({ resto }: any) {
+  const temp = resto.address.split(" ")
+  const address = temp.slice(1, temp.length).join(" ")
   return (
     <div>
       <Link to={`/restos/${1}`} style={linkStyle}>
@@ -74,11 +76,8 @@ export default function RestoInfo1({ resto }: any) {
                 marginBottom: "4.5vw",
               }}
             >
-              <Grid item xs={9} sx={titleStyle}>
+              <Grid item xs={12} sx={titleStyle}>
                 <span>{resto.name} asdfasdfasdfasdfasdf</span>
-              </Grid>
-              <Grid item xs={3} sx={ratingStyle}>
-                <Box sx={{ fontSize: "6vw" }}>★ {resto.rating.toFixed(1)}</Box>
               </Grid>
             </Grid>
 
@@ -98,15 +97,15 @@ export default function RestoInfo1({ resto }: any) {
               >
                 <Grid container sx={contentStyle}>
                   <AccessTimeFilledIcon sx={iconStyle} />
-                  {resto.age}
+                  {resto.age}년
                 </Grid>
 
                 <Grid container sx={contentStyle}>
                   <PinDropIcon sx={iconStyle} />
-                  {resto.address}
+                  {address}
                 </Grid>
 
-                <Grid container sx={contentStyle}>
+                {/* <Grid container sx={contentStyle}>
                   <LocalDiningIcon sx={iconStyle} />
                   <Box
                     sx={{
@@ -116,9 +115,9 @@ export default function RestoInfo1({ resto }: any) {
                       width: "70%",
                     }}
                   >
-                    {/* {resto.menu1}, {resto.menu2}, asdfasdfasfasdf */}
+                    {resto.menu1}, {resto.menu2}, asdfasdfasfasdf
                   </Box>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Grid>

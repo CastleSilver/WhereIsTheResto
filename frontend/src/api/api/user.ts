@@ -12,7 +12,7 @@ const user = {
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)
-    return userInfo
+    return res
   },
 
   delete: async () => {

@@ -30,11 +30,13 @@ const selected = {
 }
 
 export default function Bottombar() {
-  const [pageNum, setPageNum] =
-    useState(() => Number(sessionStorage.getItem("pageNum"))) || 0
+  const [pageNum, setPageNum] = useState(0)
 
   useEffect(() => {
-    sessionStorage.setItem("pageNum", String(pageNum))
+    if (pageNum !== Number(sessionStorage.getItem("pageNum"))) {
+      const temp = sessionStorage.getItem("pageNum")
+      setPageNum(Number(temp))
+    }
   }, [pageNum, setPageNum])
 
   return (

@@ -1,21 +1,8 @@
-import styled from "styled-components"
-import ReviewComp from "./ReviewComp"
+// 기타 라이브러리 Import
 import { Box } from "@mui/material"
 
-const Slider = styled.div`
-  position: relative;
-`
-
-const RowContent = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  flex-column: column;
-  scroll-behavior: smooth;
-`
-const Content = styled.div`
-  margin-right: 4vw;
-  zindex: 60;
-`
+// Components Import
+import ReviewComp from "./ReviewComp"
 
 export default function MyReview({ reviews }: any) {
   return (

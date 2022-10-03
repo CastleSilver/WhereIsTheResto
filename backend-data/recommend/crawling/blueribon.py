@@ -1,4 +1,5 @@
 # Beautifulsoup
+from tempfile import TemporaryFile
 import requests, json
 from bs4 import BeautifulSoup as bs
 
@@ -111,16 +112,34 @@ location_x = []
 location_y = []
 resto_age = []
 sectors = []
+terrace = []
+drinking = []
+meal = []
+lunch = []
+dinner = []
+cost_effective = []
+classy = []
+mood = []
+noisy = []
+quiet = []
+real_local = []
+etc = []
 
 for restro_code in restro_data_id_list:
     blue_url = f"https://www.bluer.co.kr/restaurants/{restro_code}"
     page = requests.get(blue_url)
     soup = bs(page.text, "lxml")
-
-    restro_sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
-    restro_name = soup.find('div', attrs={"class": "header-title"}).find('h1')
-    restro_name.find('small').decompose()
-    restro_name = restro_name.get_text()
+    try:
+        restro_sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
+    except:
+        restro_sectors = ''
+    
+    try:
+        restro_name = soup.find('div', attrs={"class": "header-title"}).find('h1')
+        restro_name.find('small').decompose()
+        restro_name = restro_name.get_text()
+    except:
+        restro_name = ''
     try:
         restro_number = soup.find('dl', attrs={"class": "dl-horizontal"}).find('a', attrs={"class": "link"}).get_text()
     except:
@@ -129,10 +148,23 @@ for restro_code in restro_data_id_list:
         restro_address = soup.find('dl', attrs={"class": "dl-horizontal"}).findAll('dd')[1].get_text()
     except:
         retsro_address = ''
-    restro_tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
-    restro_tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+
+    try:
+        restro_tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
+    except:
+        restro_tag_key = []
+    
+    try:
+        restro_tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+    except:
+        restro_tag_value = []
+
     restro_tag = {}
-    restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+    try:
+        restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+    except:
+        restro_menu = ''
+        
     menu_list = restro_menu.split(',')
     try:
         restro_menu1 = menu_list[0].split('(')[0].strip()
@@ -165,9 +197,13 @@ for restro_code in restro_data_id_list:
 
 
     for i in range(len(restro_tag_key)):
-        key = restro_tag_key[i].get_text()
-        value = restro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
-        restro_tag[key] = value
+        try:
+            key = restro_tag_key[i].get_text()
+            value = restro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
+            restro_tag[key] = value
+        except:
+            pass
+
     try:
         restro_age = restro_tag['개업일(연)'].split('년')[0]
     except:
@@ -184,29 +220,65 @@ for restro_code in restro_data_id_list:
 
     if restro_limit_age > 2010:
         continue
+    
+    dining_url= f"https://www.diningcode.com/list.dc?addr=서울&query={restro_name}"
+    driver.get(dining_url)
+    driver.implicitly_wait(10)
+
+    try:
+        restro_thumbnail = driver.find_element(By.CSS_SELECTOR, "li.PoiBlockContainer").find_element(By.CSS_SELECTOR, "img.title").get_attribute('src')
+    except:
+        restro_thumbnail = ''
+        pass
+    
     name.append(restro_name)
     menu1.append(restro_menu1)
     menu2.append(restro_menu2)
     tag.append(restro_tag_str)
     address.append(restro_address)
     number.append(restro_number)
-    thumbnail.append('')
+    thumbnail.append(restro_thumbnail)
     location_x.append(restro_location_x)
     location_y.append(restro_location_y)
     resto_age.append(restro_age)
     sectors.append(restro_sectors)
 
+    terrace.append('')
+    drinking.append('')
+    meal.append('')
+    lunch.append('')
+    dinner.append('')
+    cost_effective.append('')
+    classy.append('')
+    mood.append('')
+    noisy.append('')
+    quiet.append('')
+    real_local.append('')
+    etc.append('')
+
 blue_restro_df = pd.DataFrame()
+blue_restro_df['resto_age'] = resto_age
+blue_restro_df['thumbnail'] = thumbnail
+blue_restro_df['address'] = address
 blue_restro_df['resto_name'] = name
+blue_restro_df['sectors'] = sectors
+blue_restro_df['location_x'] = location_x
+blue_restro_df['location_y'] = location_y
+blue_restro_df['phone_number'] = number
 blue_restro_df['menu1'] = menu1
 blue_restro_df['menu2'] = menu2
 blue_restro_df['tag'] = tag
-blue_restro_df['address'] = address
-blue_restro_df['phone_number'] = number
-blue_restro_df['thumbnail'] = thumbnail
-blue_restro_df['location_x'] = location_x
-blue_restro_df['location_y'] = location_y
-blue_restro_df['resto_age'] = resto_age
-blue_restro_df['sectors'] = sectors
+blue_restro_df['terrace'] = terrace
+blue_restro_df['drinking'] = drinking
+blue_restro_df['meal'] = meal
+blue_restro_df['lunch'] = lunch
+blue_restro_df['dinner'] = dinner
+blue_restro_df['cost_effective'] = cost_effective
+blue_restro_df['classy'] = classy
+blue_restro_df['mood'] = mood
+blue_restro_df['noisy'] = noisy
+blue_restro_df['quiet'] = quiet
+blue_restro_df['real_local'] = real_local
+blue_restro_df['etc'] = etc
 
 blue_restro_df.to_csv("blue_restro_df.csv", mode='w', encoding='utf8')

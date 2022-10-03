@@ -78,15 +78,13 @@ export default function RestoArea() {
   const address = resto?.address.split(" ").slice(1, -1).join(" ")
 
   const isLong = (word: string) => {
-    return word.length >= 10
+    return word.length >= 9
   }
-
-  console.log(resto)
 
   return (
     <div>
       <PaperBackground>
-        {resto === undefined && <div>로딩 중 </div>}
+        {resto === undefined && <div>로딩 중</div>}
         {resto !== undefined && (
           <Grid sx={{ padding: "18px" }}>
             {/* 제목, 별점 */}

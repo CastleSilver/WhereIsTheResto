@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 import RestoInfo from "../../CommonComp/RestoInfo"
 
 export default function RestoLList({ restos }: any) {
@@ -5,10 +6,9 @@ export default function RestoLList({ restos }: any) {
     <>
       {restos.map((resto: any, index: number) => {
         return (
-          <div key={index}>
-            {/* <RestoInfo resto={resto} /> */}
-            <div>asd</div>
-          </div>
+          <Box key={index} sx={{ mb: "12px" }}>
+            <RestoInfo resto={resto} />
+          </Box>
         )
       })}
     </>

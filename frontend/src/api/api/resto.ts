@@ -11,7 +11,7 @@ const resto = {
     }
     const req = setRequest(reqData)
     const res = await myAxios(req)
-    return restoInfo
+    return res
   },
 }
 

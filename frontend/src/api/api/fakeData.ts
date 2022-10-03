@@ -7,7 +7,7 @@ const userLikeVisieted = {
 }
 
 const restoImg = "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C"
-
+const userImg = "https://i.ytimg.com/vi/qk4NcRdIqVA/maxresdefault.jpg"
 const userReview = {
   id: 1,
   imageUrl: [restoImg, restoImg],
@@ -21,7 +21,7 @@ export const userInfo = {
   nickname: "너무나도 맛있게 먹는 아저씨",
   email: "chwon03@naver.com",
   gender: "male",
-  profileImageURL: "https://cdn-icons-png.flaticon.com/512/2143/2143252.png",
+  profileImageURL: userImg,
   aztiType: "감성 알뜰 힙스터 술린이",
   like: [userLikeVisieted, userLikeVisieted],
   visited: [userLikeVisieted, userLikeVisieted],

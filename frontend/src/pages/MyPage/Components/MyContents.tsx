@@ -1,4 +1,7 @@
-import React, { useState, Dispatch, SetStateAction } from "react"
+// React 시스템 Import
+import { Dispatch, SetStateAction } from "react"
+
+// 기타 라이브러리 Import
 import { Grid, Box, Button } from "@mui/material"
 
 const btnList = ["좋아요", "내 리-뷰", "가본 곳"]

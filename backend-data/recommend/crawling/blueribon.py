@@ -129,11 +129,17 @@ for restro_code in restro_data_id_list:
     blue_url = f"https://www.bluer.co.kr/restaurants/{restro_code}"
     page = requests.get(blue_url)
     soup = bs(page.text, "lxml")
-
-    restro_sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
-    restro_name = soup.find('div', attrs={"class": "header-title"}).find('h1')
-    restro_name.find('small').decompose()
-    restro_name = restro_name.get_text()
+    try:
+        restro_sectors = soup.find('ol', attrs={"class": "foodtype"}).find('li').get_text()
+    except:
+        restro_sectors = ''
+    
+    try:
+        restro_name = soup.find('div', attrs={"class": "header-title"}).find('h1')
+        restro_name.find('small').decompose()
+        restro_name = restro_name.get_text()
+    except:
+        restro_name = ''
     try:
         restro_number = soup.find('dl', attrs={"class": "dl-horizontal"}).find('a', attrs={"class": "link"}).get_text()
     except:
@@ -142,10 +148,23 @@ for restro_code in restro_data_id_list:
         restro_address = soup.find('dl', attrs={"class": "dl-horizontal"}).findAll('dd')[1].get_text()
     except:
         retsro_address = ''
-    restro_tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
-    restro_tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+
+    try:
+        restro_tag_key = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dt')
+    except:
+        restro_tag_key = []
+    
+    try:
+        restro_tag_value = soup.find('div', attrs={"class": "col-md-6 padding-lg-left border-left-lg"}).findAll('dd')
+    except:
+        restro_tag_value = []
+
     restro_tag = {}
-    restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+    try:
+        restro_menu = soup.findAll('div', attrs={"class": "col-md-6 border-right-lg"})[1].find('dd').get_text()
+    except:
+        restro_menu = ''
+        
     menu_list = restro_menu.split(',')
     try:
         restro_menu1 = menu_list[0].split('(')[0].strip()
@@ -178,9 +197,13 @@ for restro_code in restro_data_id_list:
 
 
     for i in range(len(restro_tag_key)):
-        key = restro_tag_key[i].get_text()
-        value = restro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
-        restro_tag[key] = value
+        try:
+            key = restro_tag_key[i].get_text()
+            value = restro_tag_value[i].get_text().replace(' ', '').replace('\xa0\n', '').replace('\n', '')
+            restro_tag[key] = value
+        except:
+            pass
+
     try:
         restro_age = restro_tag['개업일(연)'].split('년')[0]
     except:

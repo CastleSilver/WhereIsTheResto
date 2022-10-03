@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react"
+// React 시스템 Import
+import { useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "../userStore/hooks"
 import { getInfoAsync, selectResto } from "../userStore/restoSlice"
 
 import { useLocation, useParams } from "react-router-dom"
+
+// 기타 라이브러리 Import
 import { Box } from "@mui/material"
+
+// Components Import
+import LoadingPaper from "../CommonComp/LoadingPaper"
 import RestoArea from "./Components/RestoArea"
 import Reviews from "./Components/Reviews"
 import Map from "../CommonComp/Map"
 
-// API
-import LoadingPaper from "../CommonComp/LoadingPaper"
-
 export default function RestoDetail() {
+  const { restoId } = useParams()
   const restoInfo = useAppSelector(selectResto)
   const dispatch = useAppDispatch()
-  const { restoId } = useParams()
+
   window.scrollTo(0, 0)
 
-  // 시간 차 테스트용
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getInfoAsync(Number(restoId)))
-    }, 2000)
+    dispatch(getInfoAsync(Number(restoId)))
   }, [dispatch])
-
-  // useEffect(() => {
-  //   dispatch(getInfoAsync(Number(restoId)))
-  // }, [dispatch])
 
   return (
     <>

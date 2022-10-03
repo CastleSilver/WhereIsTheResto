@@ -1,10 +1,10 @@
-import { Grid, Box, Button } from "@mui/material"
-import { Link, useNavigate } from "react-router-dom"
-import React from "react"
-import Review from "./Review"
+import { Box, Button } from "@mui/material"
+import { useNavigate } from "react-router-dom"
+
+import Review from "../../CommonComp/Review"
 import { useAppSelector } from "../../userStore/hooks"
 import { selectResto } from "../../userStore/restoSlice"
-import { unstable_extendSxProp } from "@mui/system"
+
 const titleArea = {
   fontFamily: "BMEULJIRO",
   fontSize: "36px",
@@ -34,8 +34,12 @@ export default function Reviews() {
           </Box>
           {Object.keys(reviews).length === 0 && <div>리뷰가 없습니다</div>}
           {Object.keys(reviews).length !== 0 &&
-            reviews.map((review) => {
-              return <Review review={review} />
+            reviews.map((review, index) => {
+              return (
+                <Box sx={{ mb: "24px" }} key={index}>
+                  <Review review={review} />
+                </Box>
+              )
             })}
         </>
       )}

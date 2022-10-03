@@ -13,7 +13,7 @@ const style = {
   left: 0,
   backgroundColor: "rgb(255 249 243)",
   height: "40px",
-  zIndex: 2,
+  zIndex: 100,
 }
 
 const btnStyle = {
@@ -41,14 +41,19 @@ export default function Bottombar() {
     <Grid container display="flex" sx={style}>
       {btnList.map((btn, index) => {
         return (
-          <Grid item xs={4} key={index} onClick={() => setPageNum(index)}>
+          <Grid
+            item
+            xs={4}
+            key={index}
+            sx={{ height: "100%" }}
+            onClick={() => setPageNum(index)}
+          >
             <Link to={`${Links[index]}`} style={btnStyle}>
               <Box sx={index === pageNum ? selected : { height: "5px" }}></Box>
               <p
                 style={{
                   padding: "5px",
                   margin: 0,
-                  height: "100%",
                   color: "rgb(217 93 65)",
                 }}
               >

@@ -1,12 +1,5 @@
+// React 시스템 Import
 import { useEffect, useState } from "react"
-import { Box, Grid, Button } from "@mui/material"
-
-// MyPage 전용 Components
-import TopArea from "./Components/TopArea"
-import MyContents from "./Components/MyContents"
-import MyReview from "./Components/MyReview"
-import RestoList from "./Components/RestoList"
-import LoadingPaper from "../CommonComp/LoadingPaper"
 import { useAppSelector, useAppDispatch } from "../userStore/hooks"
 import {
   selectUserInfo,
@@ -15,6 +8,17 @@ import {
   deleteUserAsync,
 } from "../userStore/userInfoSlice"
 import { selectUser } from "../userStore/userSlice"
+
+// 기타 라이브러리 Import
+import { Box, Grid, Button } from "@mui/material"
+
+// Components Import
+import TopArea from "./Components/TopArea"
+import MyContents from "./Components/MyContents"
+import MyReview from "./Components/MyReview"
+import RestoList from "./Components/RestoList"
+import LoadingPaper from "../CommonComp/LoadingPaper"
+import DesignTwo from "./Components/DesignTwo"
 
 const myPageStyle = {
   paddingTop: "30px",
@@ -33,14 +37,21 @@ export default function MyPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
     dispatch(getUserAsync(Number(userAZTI.userId)))
-  }, [dispatch])
+    console.log("제공된 데이터", userInfo)
+  }, [dispatch, userInfo])
 
   useEffect(() => {
     window.localStorage.setItem("conNum", String(contentNum))
   }, [contentNum, setContentNum])
 
+  const [design, setDesign] = useState(1)
+
   return (
     <>
+      <Box sx={{ m: "auto" }}>
+        <button onClick={() => setDesign(1)}>1번 시안</button>
+        <button onClick={() => setDesign(2)}>2번 시안</button>
+      </Box>
       {userInfo === undefined && (
         <>
           <LoadingPaper />
@@ -48,11 +59,13 @@ export default function MyPage() {
       )}
       {userInfo !== undefined && (
         <Box sx={myPageStyle}>
-          <TopArea />
+          {design === 1 && <TopArea userInfo={userInfo} />}
+          {design === 2 && <DesignTwo userInfo={userInfo} />}
+          <Box sx={{ paddingTop: "24px" }}></Box>
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
-          {contentNum === 0 && <RestoList />}
-          {contentNum === 1 && <MyReview />}
-          {contentNum === 2 && <RestoList />}
+          {contentNum === 0 && <RestoList restos={userInfo.like} />}
+          {contentNum === 1 && <MyReview reviews={userInfo.review} />}
+          {contentNum === 2 && <div>{userInfo.visited[0].id}</div>}
         </Box>
       )}
     </>

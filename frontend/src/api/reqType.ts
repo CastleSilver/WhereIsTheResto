@@ -29,8 +29,9 @@ export interface userInfoType {
   gender: string
   profileImageURL: string
   aztiType: string
-  like: {}[]
-  review: {}[]
+  like: any[]
+  review: any[]
+  visited: any[]
 }
 
 // review api 요청 request 타입

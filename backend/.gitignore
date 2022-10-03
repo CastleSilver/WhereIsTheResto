@@ -1,7 +1,10 @@
 HELP.md
 .gradle
+<<<<<<< HEAD
 build/
 !build/libs/nopo-0.0.1-SNAPSHOT.jar
+=======
+>>>>>>> develop
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -37,3 +40,10 @@ out/
 
 ### VS Code ###
 .vscode/
+/build/classes/
+/build/generated/
+/build/reports/
+/build/resources/
+/build/test-results/
+/build/tmp
+/build/bootJarMainClassName

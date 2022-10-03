@@ -15,13 +15,18 @@ export interface restoResType {
   thumbnail: string
   address: string
   name: string
-  sectors: string
+  sectors: string // 업종
   locationX: number
   locationY: number
   phoneNumber: string
   menu1: string
   menu2: string
   grade: string
-  review: reviewType[]
+  review: {}[]
   rating: number
+  liked: boolean
+  likedCnt: number
+  visited: boolean
+  visitedCnt: number
+  recomList: {}[]
 }

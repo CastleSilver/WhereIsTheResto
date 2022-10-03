@@ -10,7 +10,7 @@ const LoadingPaperStyle = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 90;
+  z-index: 110;
   background-color: rgba(217, 217, 217, 0.9);
 `
 

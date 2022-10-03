@@ -39,7 +39,7 @@ public class RestoServiceImpl implements RestoService{
             avgRating = RestoRes.getAvgRating(reviewList);
         }
         return new RestoRes(restoId, age, resto.getThumbnail(), resto.getAddress(), resto.getRestoName(), resto.getSectors(),
-                resto.getLocationX(), resto.getLocationY(), resto.getPhoneNumber(), resto.getMenu1(), resto.getMenu2(), String.valueOf(resto.getGrade()), reviewList, avgRating);
+                resto.getLocationX(), resto.getLocationY(), resto.getPhoneNumber(), resto.getMenu1(), resto.getMenu2(), resto.getGrade().getType(), reviewList, avgRating);
     }
 
     @Override

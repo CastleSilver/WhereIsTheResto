@@ -7,3 +7,6 @@ from django.http import HttpResponse, JsonResponse
 def recommList(request):
     pass
     # return JsonResponse({'recomList': result})
+
+def recomm(request):
+    pass

@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService{
     private final JwtUtil jwtUtil;
 
     private String kakaoClientId = "4451e1614fc6653da21821b099437e5a";
-    private String kakaoRedirectUri = "http://localhost:5173/oauth/kakao/callback";
+    private String kakaoRedirectUri = "http://j7a401.p.ssafy.io/oauth/kakao/callback";
 
     @Override
     public User login(String id) {

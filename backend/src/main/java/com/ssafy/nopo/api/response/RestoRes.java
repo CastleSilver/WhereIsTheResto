@@ -26,6 +26,11 @@ public class RestoRes {
     private String grade;
     private List<ReviewRes> review;
     private double rating;
+    private boolean liked;
+    private long likedCnt;
+    private boolean visited;
+    private long visitedCnt;
+
 
     public RestoRes(OldRestaurant resto) {
         this.id = resto.getId();

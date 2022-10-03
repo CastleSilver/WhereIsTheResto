@@ -16,7 +16,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://j7a401.p.ssafy.io")
                 .allowedOrigins("http://localhost:5173")
                 .allowedOrigins("http://localhost:8080")
-//                .allowedOrigins("http://localhost:80")
         ;
     }
 

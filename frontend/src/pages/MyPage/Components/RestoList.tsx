@@ -6,8 +6,8 @@ export default function RestoLList({ restos }: any) {
       {restos.map((resto: any, index: number) => {
         return (
           <div key={index}>
-            {index}
-            {resto.name}
+            {/* <RestoInfo resto={resto} /> */}
+            <div>asd</div>
           </div>
         )
       })}

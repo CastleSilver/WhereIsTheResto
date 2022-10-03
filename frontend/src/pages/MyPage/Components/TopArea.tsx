@@ -11,7 +11,7 @@ export default function TopArea({ userInfo }: any) {
             container
             display="flex"
             spacing={3}
-            sx={{ px: "25px" }}
+            sx={{ p: "24px" }}
             justifyContent="space-between"
           >
             <Grid

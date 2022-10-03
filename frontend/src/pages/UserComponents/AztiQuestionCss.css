@@ -1,66 +1,96 @@
 @font-face {
-  font-family: "BMEULJIRO";
-  src: url("./assets/BMEULJIRO.otf");
-}
+    font-family: "BMEULJIRO";
+    src: url("./assets/BMEULJIRO.otf");
+  }
+  
+  body {
+    margin: 0 auto;
+    background-image: url("./assets/background_paper.png");
+    background-size: cover;
+    max-width: 400px;
+    padding-bottom: 71px;
+    font-family: "BMEULJIRO";
+  }
+  
+  #root {
+    margin: 0 auto;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .text-yellow-0 {
+    color: rgb(254, 192, 41);
+    font-size: 2rem;
+    font-weight: bold;
+    -webkit-text-stroke: 0.01rem green;
+    margin: 5px;
+  }
+  
+  .text-yellow-1 {
+    color: rgb(254, 192, 41);
+    font-size: 1.5rem;
+    font-weight: bold;
+    -webkit-text-stroke: 0.01rem green;
+    margin: 5px;
+  }
+  .text-yellow-2 {
+    color: rgb(254, 192, 41);
+    font-size: 1rem;
+    font-weight: bold;
+    -webkit-text-stroke: 0.01rem green;
+    margin: 5px;
+  }
+  
+  .text-orange-1 {
+    color: rgb(216, 99, 69);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .text-orange-2 {
+    color: rgb(216, 99, 69);
+    font-size: 1.5rem;
+    text-shadow: 0.1rem 0.1rem 0.1em grey;
+    font-weight: bold;
+  }
+  .text-orange-3 {
+    color: rgb(216, 99, 69);
+    font-size: 1.3rem;
+    text-shadow: 0.1rem 0.1rem 0.1em grey;
+    font-weight: bold;
+  }
 
-body {
-  margin: 0 auto;
-  background-image: url("./assets/background_paper.png");
-  background-size: cover;
-  max-width: 450px;
-  padding-bottom: 71px;
-  font-family: "BMEULJIRO";
-}
+  .text-orange-4 {
+    color: rgb(216, 99, 69);
+    font-size: 1.3rem;
+    /* text-shadow: 0.1rem 0.1rem 0.1em grey; */
+    font-weight: bold;
+  }
+  
+  .text-blue-1 {
+    color: rgb(77, 152, 182);
+    font-size: 1.2rem;
+    /* text-shadow: 0.1rem 0.1rem 0.1em grey; */
+    text-align: left;
+  }
+  
+  .text-blue-2 {
+    color: rgb(77, 152, 182);
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  #user-azti{
+    width : 300px;
+    height : 300px;
+  }
 
-#root {
-  margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
-}
+  #question_img{
+    width : 300px;
+    height : 300px;
+  }
 
-.text-yellow-0 {
-  color: rgb(254, 192, 41);
-  font-size: 2rem;
-  font-weight: bold;
-  -webkit-text-stroke: 0.01rem green;
-  margin: 5px;
-}
-
-.text-yellow-1 {
-  color: rgb(254, 192, 41);
-  font-size: 1.5rem;
-  font-weight: bold;
-  -webkit-text-stroke: 0.01rem green;
-  margin: 5px;
-}
-
-.text-orange-1 {
-  color: rgb(216, 99, 69);
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.text-orange-2 {
-  color: rgb(216, 99, 69);
-  font-size: 1.5rem;
-  text-shadow: 0.1rem 0.1rem 0.1em grey;
-  font-weight: bold;
-}
-
-.text-blue-1 {
-  color: rgb(77, 152, 182);
-  font-size: 2rem;
-  text-shadow: 0.1rem 0.1rem 0.1em grey;
-  text-align: left;
-}
-
-.text-blue-2 {
-  color: rgb(77, 152, 182);
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-#user-azti {
-  width: 300px;
-  height: 300px;
-}
+  #kakao_share_btn{
+    width : 40px;
+    height : 40px;
+  }

@@ -1,9 +1,10 @@
 import PaperBackground from "../../CommonComp/PaperBackground"
+import MyInfoUpdate from "../MyInfoUpdate"
 import { Box, Grid } from "@mui/material"
 
 export default function DesignTwo({ userInfo }: any) {
   const userInfoStyle = {
-    fontSize: "5.5vw",
+    fontSize: "5vw",
     paddingBottom: "12px",
     borderBottom: "solid 2px rgba(0, 0, 0, 0.4)",
   }
@@ -47,8 +48,11 @@ export default function DesignTwo({ userInfo }: any) {
               />
             </Box>
           </Grid>
-          <Grid item xs={10.5} sx={{ textAlign: "center" }}>
+          <Grid item xs={9.5} sx={{ textAlign: "center" }}>
             <Box>{userInfo.nickname}</Box>
+          </Grid>
+          <Grid item xs={1} sx={{ textAlign: "center" }}>
+            <MyInfoUpdate />
           </Grid>
         </Grid>
 

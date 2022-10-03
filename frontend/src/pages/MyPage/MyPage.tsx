@@ -1,16 +1,11 @@
 // React 시스템 Import
 import { useEffect, useState } from "react"
 import { useAppSelector, useAppDispatch } from "../userStore/hooks"
-import {
-  selectUserInfo,
-  getUserAsync,
-  updateUserAsync,
-  deleteUserAsync,
-} from "../userStore/userInfoSlice"
+import { selectUserInfo, getUserAsync } from "../userStore/userInfoSlice"
 import { selectUser } from "../userStore/userSlice"
 
 // 기타 라이브러리 Import
-import { Box, Grid, Button } from "@mui/material"
+import { Box } from "@mui/material"
 
 // Components Import
 import TopArea from "./Components/TopArea"
@@ -19,7 +14,9 @@ import MyReview from "./Components/MyReview"
 import RestoList from "./Components/RestoList"
 import LoadingPaper from "../CommonComp/LoadingPaper"
 import DesignTwo from "./Components/DesignTwo"
+import DesignThree from "./Components/DesignThree"
 
+// Styling Code
 const myPageStyle = {
   paddingTop: "30px",
   px: "19px",
@@ -31,7 +28,7 @@ export default function MyPage() {
   const dispatch = useAppDispatch()
 
   const [contentNum, setContentNum] = useState(
-    () => Number(window.localStorage.getItem("conNum")) || 0
+    () => Number(window.sessionStorage.getItem("conNum")) || 0
   )
 
   useEffect(() => {
@@ -41,7 +38,7 @@ export default function MyPage() {
   }, [dispatch, userInfo])
 
   useEffect(() => {
-    window.localStorage.setItem("conNum", String(contentNum))
+    window.sessionStorage.setItem("conNum", String(contentNum))
   }, [contentNum, setContentNum])
 
   const [design, setDesign] = useState(1)
@@ -51,6 +48,7 @@ export default function MyPage() {
       <Box sx={{ m: "auto" }}>
         <button onClick={() => setDesign(1)}>1번 시안</button>
         <button onClick={() => setDesign(2)}>2번 시안</button>
+        <button onClick={() => setDesign(3)}>3번 오리지널</button>
       </Box>
       {userInfo === undefined && (
         <>
@@ -59,8 +57,9 @@ export default function MyPage() {
       )}
       {userInfo !== undefined && (
         <Box sx={myPageStyle}>
-          {design === 1 && <TopArea userInfo={userInfo} />}
-          {design === 2 && <DesignTwo userInfo={userInfo} />}
+          {design === 1 && <DesignTwo userInfo={userInfo} />}
+          {design === 2 && <DesignThree userInfo={userInfo} />}
+          {design === 3 && <TopArea userInfo={userInfo} />}
           <Box sx={{ paddingTop: "24px" }}></Box>
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
           {contentNum === 0 && <RestoList restos={userInfo.like} />}

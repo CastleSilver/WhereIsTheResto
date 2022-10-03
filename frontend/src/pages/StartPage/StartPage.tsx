@@ -16,9 +16,9 @@ export default function StartPage() {
     borderBottom: "2px solid rgb(216, 99, 69)",
   }
 
-  const REST_API_KEY = "4451e1614fc6653da21821b099437e5a"
-  const REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback"
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+  const REST_API_KEY = "4451e1614fc6653da21821b099437e5a";
+  const REDIRECT_URI = "http://j7a401.p.ssafy.io/oauth/kakao/callback";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const koreanAztiType = {
     mcis: "감성 알뜰 인싸 주당",

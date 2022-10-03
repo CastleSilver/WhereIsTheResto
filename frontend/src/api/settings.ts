@@ -44,16 +44,11 @@ export const myAxios = async (req: any) => {
       "%c  axios 종료  RESPONSE ",
       "background: blue; color: white",
       res
-<<<<<<< HEAD
     );
-    return res;
-=======
-    )
     console.log(
       "%c 현재는 임시 데이터가 제공되었습니다 ",
       "background: blue; color: white; ;"
-    )
-    return res
->>>>>>> develop
+    );
+    return res;
   }
 };

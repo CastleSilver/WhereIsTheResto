@@ -1,5 +1,5 @@
 // React 시스템 Import
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../userStore/hooks"
 import {
@@ -44,7 +44,7 @@ export default function MainPage() {
   }, [dispatch])
 
   useEffect(() => {
-    console.log(isProgress)
+    sessionStorage.setItem("pageNum", "0")
   })
   return (
     <Box>

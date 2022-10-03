@@ -30,7 +30,7 @@ export default function RestoDetail() {
       {/* <LoadingPaper /> */}
       {restoInfo === undefined && <LoadingPaper />}
       {restoInfo !== undefined && (
-        <Box sx={{ px: "5vw" }}>
+        <Box>
           {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
 
           <RestoArea />

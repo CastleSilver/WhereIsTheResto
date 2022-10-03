@@ -1,11 +1,16 @@
-import { Box, Button, Grid, Menu, MenuItem } from "@mui/material"
+// React 시스템 Import
 import React, { useEffect, useState } from "react"
-import PaperBackground from "../../CommonComp/PaperBackground"
-import MenuIcon from "@mui/icons-material/Menu"
-import { fontSize } from "@mui/system"
-import Swal from "sweetalert2"
 import { review as reviewAPI } from "../../../api/index"
 
+// 기타 라이브러리 Import
+import { Box, Button, Grid, Menu, MenuItem } from "@mui/material"
+import MenuIcon from "@mui/icons-material/Menu"
+import Swal from "sweetalert2"
+
+// Components Import
+import PaperBackground from "../../CommonComp/PaperBackground"
+
+// Styling Code
 const titleText = {
   fontFamily: "BMEULJIRO",
   fontSize: "8vw",
@@ -56,8 +61,8 @@ const btnStyle = {
 export default function ReviewComp({ review }: any) {
   const [toggle, setToggle] = useState(true)
   const [toggleMsg, setToggleMsg] = useState("리뷰 사진 보기")
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)

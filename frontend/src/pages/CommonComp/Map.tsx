@@ -14,11 +14,36 @@ export default function Map() {
     let container = document.getElementById("map") //지도를 담을 영역의 DOM 레퍼런스
     let options = {
       //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(resto?.locationX, resto?.locationY), //지도의 중심좌표.
+      center: new kakao.maps.LatLng(resto?.locationY, resto?.locationX), //지도의 중심좌표.
       level: 3, //지도의 레벨(확대, 축소 정도)
     }
-
     let map = new kakao.maps.Map(container, options) //지도 생성 및 객체 리턴
+
+    const markerPosition = new kakao.maps.LatLng(
+      resto?.locationY,
+      resto?.locationX
+    )
+    // 지도 마커 표시 코드
+    // let marker = new kakao.maps.Marker({
+    //   position: markerPosition,
+    // })
+
+    // 지도 마커 대체 이미지 설정
+    const imageSrc =
+      "https://velog.velcdn.com/images/tanger2ne/post/fb18c31b-9cea-4b0b-bc1e-546198476465/image.png"
+    const imageSize = new kakao.maps.Size(100, 50)
+    const imageOption = { offset: new kakao.maps.Point(27, 69) }
+    const markerImage = new kakao.maps.MarkerImage(
+      imageSrc,
+      imageSize,
+      imageOption
+    )
+
+    const marker = new kakao.maps.Marker({
+      position: markerPosition,
+      image: markerImage,
+    })
+    marker.setMap(map)
   }, [resto])
 
   const titleArera = {

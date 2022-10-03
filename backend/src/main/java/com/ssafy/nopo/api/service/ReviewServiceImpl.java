@@ -4,14 +4,8 @@ import com.ssafy.nopo.api.request.ReviewReq;
 import com.ssafy.nopo.api.response.ReviewRes;
 import com.ssafy.nopo.common.exception.CustomException;
 import com.ssafy.nopo.common.exception.ErrorCode;
-import com.ssafy.nopo.db.entity.OldRestaurant;
-import com.ssafy.nopo.db.entity.Review;
-import com.ssafy.nopo.db.entity.ReviewImg;
-import com.ssafy.nopo.db.entity.User;
-import com.ssafy.nopo.db.repository.RestoRepository;
-import com.ssafy.nopo.db.repository.ReviewImgRepository;
-import com.ssafy.nopo.db.repository.UserRepository;
-import com.ssafy.nopo.db.repository.ReviewRepository;
+import com.ssafy.nopo.db.entity.*;
+import com.ssafy.nopo.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +23,7 @@ public class ReviewServiceImpl implements ReviewService{
     private final UserRepository userRepository;
     private final RestoRepository restoRepository;
     private final ReviewImgRepository imgRepository;
+    private final VisitedRepository visitedRepository;
     private S3Service s3Service;
     @Override
     public void createReview(ReviewReq reviewReq, List<String> imgUrls, String userId) {
@@ -55,6 +50,11 @@ public class ReviewServiceImpl implements ReviewService{
                         .build();
                 imgRepository.save(img);
             }
+        }
+        // 리뷰 남기면 방문한 곳에 데이터 추가
+        if(!visitedRepository.findByRestoIdAndUserId(resto.getId(), userId).isPresent()){
+            Visited visited = Visited.builder().resto(resto).user(user).build();
+            visitedRepository.save(visited);
         }
     }
     @Transactional

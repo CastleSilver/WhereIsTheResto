@@ -1,8 +1,8 @@
 import styled from "@emotion/styled"
-import { Button, Grid } from "@mui/material"
+import { Box, Button, Grid } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import { ThreeDots } from "react-loader-spinner"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const LoadingPaperStyle = styled.div`
   position: fixed;
@@ -16,6 +16,7 @@ const LoadingPaperStyle = styled.div`
 
 export default function LoadingPaper() {
   const [guide, setGuide] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,11 +48,17 @@ export default function LoadingPaper() {
                   <p>해당 페이지 접속이 지연되고 있습니다.</p>
                   <p>메인 페이지로 돌아가고 싶다면 버튼을 눌러주세요</p>
                 </Grid>
-                <Link to="/main" style={{ textDecoration: "none" }}>
+                <Box
+                  style={{ textDecoration: "none" }}
+                  onClick={() => {
+                    sessionStorage.setItem("pageNum", "0")
+                    navigate("/main")
+                  }}
+                >
                   <Button variant="outlined" color="warning">
                     to Main Page...
                   </Button>
-                </Link>
+                </Box>
               </Grid>
             </>
           )}

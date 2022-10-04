@@ -6,7 +6,7 @@ import MainPage from "./MainPage/MainPage"
 import MyPage from "./MyPage/MyPage"
 import Bottombar from "./CommonComp/BottomBar"
 import RestoDetail from "./DetailPage/RestoDetail"
-import ReviewForm from "../Form/ReviewForm"
+import ReviewForm from "../Form/NewReviewForm"
 import NeedConfirm from "../needConfirm/NeedConfirm"
 import MyInfoUpdate from "./MyPage/MyInfoUpdate"
 

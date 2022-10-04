@@ -1,5 +1,5 @@
-import { Grid, Rating, Box } from "@mui/material"
-import { FormControl } from "@mui/material"
+import { Grid, Rating, Box, Avatar, FormControl } from "@mui/material"
+
 import StarIcon from "@mui/icons-material/Star"
 
 import { useState } from "react"
@@ -8,7 +8,24 @@ import PaperBackground from "../pages/CommonComp/PaperBackground"
 import Swal from "sweetalert2"
 
 import { review } from "../api/index"
+import styled from "styled-components"
 
+const Slider = styled.div`
+  position: relative;
+  overflow: hidden;
+`
+
+const RowContent = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  flex-column: column;
+  scroll-behavior: smooth;
+`
+const Content = styled.div`
+  margin-right: 4vw;
+  zindex: 60;
+  width: "30vw";
+`
 const labels: { [index: string]: string } = {
   0.5: "Useless",
   1: "Useless+",
@@ -25,6 +42,7 @@ const labels: { [index: string]: string } = {
 const boxStyle = {
   height: "85vh",
   mx: "auto",
+  width: "100%",
   position: "static",
 }
 
@@ -66,19 +84,36 @@ export default function ReviewForm() {
   const [content, setContent] = useState<string>("")
 
   // 이미지 미리보기 시스템 제작-ing
-  const [files, setFiles] = useState<Object>({})
+  const [files, setFiles] = useState<any>({})
   const [urls, setUrls] = useState<any>([])
 
+  const takeImgs = async (e: any) => {
+    const newFiles = e.target.files
+    const lenFiles = newFiles.length
+    setFiles({ ...e.target.files })
+
+    const temp = []
+    for (let ind = 0; ind < lenFiles; ind++) {
+      const a = URL.createObjectURL(newFiles[ind])
+      temp.push(a)
+    }
+    setUrls(temp)
+  }
+
+  // 리뷰 제출 폼
   const onSubmit = async () => {
     const formD = new FormData()
     const baseInfo = JSON.stringify({ restoId, rating, content })
+
     console.log("baseInfo", baseInfo)
     const reviewReq = new Blob([baseInfo], { type: "application/json" })
 
+    // form-data에 데이터 넣기
     formD.append("reviewReq", reviewReq)
     for (let file in files) {
       formD.append("multipartFiles", file)
     }
+
     console.log("-----------------------Review 보내기 전")
     formD.forEach(async (f: any) => {
       const a = await f.text()
@@ -87,12 +122,6 @@ export default function ReviewForm() {
 
     const res = await review.create(formD)
     console.log(res)
-    // if (res === "잘못된 JWT 서명입니다") {
-    //   Swal.fire("JWT가 만료됐습니다.", "", "success")
-    //   navigate("/")
-    // } else {
-    //   navigate(`/restos/${restoId}`)
-    // }
   }
 
   const backBtnStyle = {
@@ -109,7 +138,7 @@ export default function ReviewForm() {
       </Box>
       <Grid container direction="column" justifyContent="center" sx={boxStyle}>
         <PaperBackground>
-          <Grid container direction="column">
+          <Grid container direction="column" sx={{ w: "100%" }}>
             <FormControl sx={{ p: "5%" }}>
               <Grid item>
                 <Rating
@@ -141,7 +170,20 @@ export default function ReviewForm() {
                 />
               </Grid>
               {/* 사진 미리보기 */}
-
+              <Grid
+                item
+                container
+                sx={{
+                  width: "90%",
+                  overflow: "hidden",
+                  overflowX: "scroll",
+                  position: "relative",
+                }}
+              >
+                <Grid item>asdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Grid>
+                <Grid item>asdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Grid>
+                <Grid item>asdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Grid>
+              </Grid>
               <label htmlFor="img-input">
                 <Box sx={{ fontSize: "6vw" }}>사진 업로드</Box>
               </label>
@@ -151,6 +193,7 @@ export default function ReviewForm() {
                 multiple
                 id="img-input"
                 style={{ display: "none" }}
+                onChange={(e) => takeImgs(e)}
               />
               <Grid item sx={{ pt: "24px" }}>
                 <Box

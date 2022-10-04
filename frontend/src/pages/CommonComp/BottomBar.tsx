@@ -13,7 +13,7 @@ const style = {
   left: 0,
   backgroundColor: "rgb(255 249 243)",
   height: "40px",
-  zIndex: 100,
+  zIndex: 90,
 }
 
 const btnStyle = {
@@ -33,10 +33,8 @@ export default function Bottombar() {
   const [pageNum, setPageNum] = useState(0)
 
   useEffect(() => {
-    if (pageNum !== Number(sessionStorage.getItem("pageNum"))) {
-      const temp = sessionStorage.getItem("pageNum")
-      setPageNum(Number(temp))
-    }
+    const temp = sessionStorage.getItem("pageNum")
+    setPageNum(Number(temp))
   }, [pageNum, setPageNum])
 
   return (

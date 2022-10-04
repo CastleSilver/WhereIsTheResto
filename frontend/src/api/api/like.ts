@@ -7,6 +7,7 @@ const like = {
     const reqData = {
       uri: LIKE,
       method: "POST",
+      data: { restoId },
     }
 
     if (liked) {

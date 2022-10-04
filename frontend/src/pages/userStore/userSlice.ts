@@ -45,7 +45,7 @@ const userState: UserState = {
 }
 
 const initialState: AztiState = {
-  userId: "",
+  userId: "2463622571",
   cost_effective: "",
   mood: "",
   place: "",

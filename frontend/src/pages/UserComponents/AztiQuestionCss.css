@@ -48,15 +48,17 @@
   }
   
   .text-orange-2 {
-    color: rgb(216, 99, 69);
-    font-size: 1.5rem;
-    text-shadow: 0.1rem 0.1rem 0.1em grey;
+    font-size: 25px;
+    color: rgb(228, 73, 39);
+    -webkit-text-stroke: 0.01rem rgb(227 187 105);
+    margin-bottom: 2vh;
     font-weight: bold;
   }
   .text-orange-3 {
-    color: rgb(216, 99, 69);
-    font-size: 1.3rem;
-    text-shadow: 0.1rem 0.1rem 0.1em grey;
+    font-size: 20px;
+    color: rgb(228, 73, 39);
+    -webkit-text-stroke: 0.01rem rgb(227 187 105);
+    margin-bottom: 2vh;
     font-weight: bold;
   }
 

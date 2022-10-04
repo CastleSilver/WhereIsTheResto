@@ -20,6 +20,7 @@ public class ReviewRes {
     private double rating;
     private String regDate;
     private String nickname;
+    private String restoName;
 
     public ReviewRes(Review review) {
         id = review.getId();
@@ -28,5 +29,6 @@ public class ReviewRes {
         rating = review.getRating();
         regDate = review.getRegdate().toString();
         nickname = review.getUser().getNickname();
+        restoName = review.getResto().getRestoName();
     }
 }

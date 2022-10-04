@@ -49,7 +49,7 @@ public class Element {
     private OldRestaurant resto;
 
     @Builder
-    public Element(int id, int terrace, int drinking, int meal, int lunch, int dinner, int costEffective, int classy, int mood, int noisy, int quiet, int realLocal, OldRestaurant resto) {
+    public Element(int id, int terrace, int drinking, int meal, int lunch, int dinner, int costEffective, int classy, int mood, int noisy, int quiet, int realLocal, String tags, OldRestaurant resto) {
         this.id = id;
         this.terrace = terrace;
         this.drinking = drinking;
@@ -62,6 +62,7 @@ public class Element {
         this.noisy = noisy;
         this.quiet = quiet;
         this.realLocal = realLocal;
+        this.tags = tags;
         this.resto = resto;
     }
 }

@@ -23,7 +23,7 @@ public class OldRestaurant {
     @Column(nullable = false, length = 4)
     private String restoAge;
 
-    @Column(length = 200)
+    @Column(length = 1000)
     private String thumbnail;
 
     @Column(nullable = false, length = 300)

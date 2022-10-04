@@ -23,7 +23,7 @@ public class OldRestaurant {
     @Column(nullable = false, length = 4)
     private String restoAge;
 
-    @Column(length = 1000)
+    @Column(length = 2000)
     private String thumbnail;
 
     @Column(nullable = false, length = 300)
@@ -32,7 +32,7 @@ public class OldRestaurant {
     @Column(name = "resto_name", nullable = false, length = 100)
     private String restoName;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 30)
     private String sectors;
 
     @Column(name = "location_x")

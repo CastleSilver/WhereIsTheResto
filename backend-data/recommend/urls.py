@@ -4,6 +4,6 @@ from . import views
 app_name = 'recommend'
 
 urlpatterns = [
-    path('recommlist', views.recommList),
+    path('<aztiType>', views.recommList),
     path('recomm', views.recomm)
 ]

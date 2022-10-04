@@ -7,6 +7,7 @@ const visited = {
     const reqData = {
       uri: VISITED,
       method: "POST",
+      data: { restoId },
     }
 
     if (visited) {

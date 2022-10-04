@@ -28,8 +28,8 @@ export default function RestoDetail() {
   return (
     <>
       {/* <LoadingPaper /> */}
-      {restoInfo === undefined && <LoadingPaper />}
-      {restoInfo !== undefined && (
+      {restoInfo?.address === undefined && <LoadingPaper />}
+      {restoInfo?.address !== undefined && (
         <Box>
           {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
 

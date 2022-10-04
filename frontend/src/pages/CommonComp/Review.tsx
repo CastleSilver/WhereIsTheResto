@@ -90,6 +90,16 @@ export default function Review({ review }: any) {
     }
   }, [toggle, setToggleMsg])
 
+  const getTime = (date: string) => {
+    const KoreaTime = 9 * 60 * 60 * 1000
+    const utc = new Date(date).getTime() + KoreaTime
+    const [year, month, day, ampm, time] = new Date(utc)
+      .toLocaleString("ko-KR")
+      .split(". ")
+    const kTime = `${year}년 ${month}월 ${day}일`
+    return kTime
+  }
+
   return (
     <>
       <PaperBackground>
@@ -105,8 +115,10 @@ export default function Review({ review }: any) {
               justifyContent={"space-around"}
               sx={{ fontSize: "6.5vw" }}
             >
-              <Grid item>{review.regDate}</Grid>
-              <Grid item sx={{ color: "orange" }}>
+              <Grid item xs={9}>
+                {getTime(review.regDate)}
+              </Grid>
+              <Grid item sx={{ color: "orange" }} xs={3}>
                 ★ {review.rating}
               </Grid>
             </Grid>
@@ -149,9 +161,11 @@ export default function Review({ review }: any) {
               </MenuItem>
             </Menu>
           </Grid>
-          <Grid item sx={imgFrame}>
-            <img src={review.imageUrl[0]} style={imgArea} />
-          </Grid>
+          {Object.keys(review.imageUrl).length !== 0 && (
+            <Grid item sx={imgFrame}>
+              <img src={`${review.imageUrl[0]}`} style={imgArea} />
+            </Grid>
+          )}
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>
               {toggleMsg}

@@ -42,6 +42,9 @@ public class Element {
     @Column(name = "real_local")
     private int realLocal;
 
+    @Column(length = 1000)
+    private String tags;
+
     @OneToOne(mappedBy = "element")
     private OldRestaurant resto;
 

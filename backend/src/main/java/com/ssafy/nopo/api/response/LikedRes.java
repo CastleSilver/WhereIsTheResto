@@ -16,6 +16,9 @@ public class LikedRes {
     private String imageUrl;
     private String address;
     private int age;
+    private int restoId;
+    private String menu1;
+    private String menu2;
 
     public LikedRes(Liked like){
         this.id = like.getId();
@@ -23,6 +26,9 @@ public class LikedRes {
         this.imageUrl = like.getResto().getThumbnail();
         this.address = like.getResto().getAddress();
         this.age = Integer.parseInt(like.getResto().getRestoAge());
+        this.restoId = like.getResto().getId();
+        this.menu1 = like.getResto().getMenu1();
+        this.menu2 = like.getResto().getMenu2();
     }
 
 }

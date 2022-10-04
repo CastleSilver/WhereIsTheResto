@@ -45,15 +45,13 @@ const contentStyle: {} = {
   fontFamily: "Chosun",
   fontWeight: "bold",
   color: "black",
-  margin: "0",
-  fontSize: "4.5vw",
+  fontSize: "7vw",
   textAlign: "left",
 }
 
 const iconStyle = {
-  width: "6.4vw",
-  height: "6.4vw",
   paddingRight: "2.5vw",
+  fontSize: "7.6vw",
 }
 
 const linkStyle: {} = {
@@ -62,10 +60,10 @@ const linkStyle: {} = {
 
 export default function RestoInfo1({ resto }: any) {
   const temp = resto.address.split(" ")
-  const address = temp.slice(1, temp.length).join(" ")
+  const address = temp[1]
   return (
     <div>
-      <Link to={`/restos/${1}`} style={linkStyle}>
+      <Link to={`/restos/${resto.id}`} style={linkStyle}>
         <PaperBackground>
           <Grid sx={{ padding: "18px" }}>
             {/* 제목, 별점 */}
@@ -95,29 +93,15 @@ export default function RestoInfo1({ resto }: any) {
                 alignContent={"start"}
                 sx={{ paddingLeft: "10px" }}
               >
-                <Grid container sx={contentStyle}>
+                <Grid container sx={contentStyle} alignContent="center">
                   <AccessTimeFilledIcon sx={iconStyle} />
                   {resto.age}년
                 </Grid>
 
-                <Grid container sx={contentStyle}>
+                <Grid container sx={contentStyle} alignContent="center">
                   <PinDropIcon sx={iconStyle} />
                   {address}
                 </Grid>
-
-                {/* <Grid container sx={contentStyle}>
-                  <LocalDiningIcon sx={iconStyle} />
-                  <Box
-                    sx={{
-                      textOverflow: "ellipsis",
-                      overflow: "hidden",
-                      whiteSpace: "nowrap",
-                      width: "70%",
-                    }}
-                  >
-                    {resto.menu1}, {resto.menu2}, asdfasdfasfasdf
-                  </Box>
-                </Grid> */}
               </Grid>
             </Grid>
           </Grid>

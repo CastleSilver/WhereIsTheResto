@@ -5,7 +5,7 @@ import { recomList, restoInfo, userInfo } from "./fakeData"
 const USERS = "/user"
 
 const user = {
-  info: async (userId = 4) => {
+  info: async (userId: number) => {
     const reqData = {
       uri: USERS + `/${userId}`,
       method: "GET",

@@ -97,7 +97,11 @@ export default function RestoInfo({ bestResto }: any) {
             <Grid item xs={2}>
               <LocalDiningIcon sx={{ fontSize: "6vw", marginRight: "16px" }} />
             </Grid>
-            <Grid item xs={10} sx={{ ...fontOver, fontSize: "6vw" }}>
+            <Grid
+              item
+              xs={10}
+              sx={{ ...fontOver, fontSize: "6vw", textAlign: "left" }}
+            >
               {resto.menu1}, {resto.menu2}
             </Grid>
           </Grid>

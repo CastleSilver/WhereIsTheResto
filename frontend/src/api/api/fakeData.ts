@@ -3,7 +3,7 @@ const userLikeVisieted = {
   name: "정돈정돈",
   imageUrl: "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C",
   address: "서울특별시 종로구 대학로9길 12",
-  age: 23,
+  age: 2009,
 }
 
 const restoImg = "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C"
@@ -11,6 +11,7 @@ const userImg = "https://i.ytimg.com/vi/qk4NcRdIqVA/maxresdefault.jpg"
 const userReview = {
   id: 1,
   imageUrl: [restoImg, restoImg],
+  // imageUrl: [],
   content: "대 존맛탱 대 존맛탱",
   rating: 4.3,
   regDate: "2022-02-14",
@@ -18,7 +19,7 @@ const userReview = {
 }
 
 export const userInfo = {
-  nickname: "너무나도 맛있게 먹는 아저씨",
+  nickname: "임시 유저의 닉네임",
   email: "chwon03@naver.com",
   gender: "male",
   profileImageURL: userImg,
@@ -30,7 +31,7 @@ export const userInfo = {
 
 export const restoInfo = {
   id: 1,
-  restoAge: 20,
+  restoAge: 2009,
   thumbnail: "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C",
   address: "서울특별시 종로구 대학로9길 12",
   name: "정돈 정돈 정돈 정돈 정돈",

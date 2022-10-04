@@ -10,7 +10,7 @@ const boxStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  zIndex: "20",
+  zIndex: "200",
 }
 
 const fontStyle = {

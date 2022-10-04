@@ -74,11 +74,17 @@ export default function ReviewComp({ review }: any) {
   const deleteReview = async () => {
     await Swal.fire({
       title: "정말 삭제하시겠습니까?",
+      html: "<img src='https://t1.daumcdn.net/cfile/tistory/9940DB4C5EEB9D0018'/>",
       showDenyButton: true,
       confirmButtonText: "삭제",
       denyButtonText: "취소",
+      denyButtonColor: "rgba(217, 217, 217, 1)",
       confirmButtonColor: "orange",
-      denyButtonColor: "red",
+      background: "#fff url(/images/trees.png)",
+      backdrop: `
+      rgba(0, 0, 0 ,0.8)
+      no-repeat
+    `,
     }).then((result) => {
       if (result.isConfirmed) {
         reviewAPI.delete(review.id)
@@ -154,9 +160,11 @@ export default function ReviewComp({ review }: any) {
               </MenuItem>
             </Menu>
           </Grid>
-          <Grid item sx={imgFrame}>
-            <img src={review.imageUrl[0]} style={imgArea} />
-          </Grid>
+          {Object.keys(review.imageUrl).length !== 0 && (
+            <Grid item sx={imgFrame}>
+              <img src={review.imageUrl[0]} style={imgArea} />
+            </Grid>
+          )}
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>
               {toggleMsg}

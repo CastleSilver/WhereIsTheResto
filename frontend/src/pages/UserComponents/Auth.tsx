@@ -22,15 +22,23 @@ function Auth() {
       try {
         console.log("백 보내기 전");
         const res = await axios.post(
-          `http://j7a401.p.ssafy.io/api/oauth/login/kakao?code=${code}`
+          // `http://j7a401.p.ssafy.io/api/oauth/login/kakao?code=${code}`
+          // `http://localhost:5173/api/oauth/login/kakao?code=${code}`
+          `http://localhost:8080/api/oauth/login/kakao?code=${code}`
+          // onst REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
         );
         console.log("백 요청 후");
-        console.log(res);
+        console.log(res.data);
         // localStorage => token 저장
         localStorage.setItem(
           "login-kakao",
           Object.values(res.data)[1] as string
         );
+        // localStorage => userId 저장
+        localStorage.setItem(
+          "userId",
+          Object.values(res.data)[2] as string
+        )
 
         // userId 와 토큰도 redux store에 저장 두자
         dispatch(userLogin(res.data));

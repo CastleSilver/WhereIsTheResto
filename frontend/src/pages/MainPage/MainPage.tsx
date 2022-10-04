@@ -1,51 +1,62 @@
 // React 시스템 Import
-import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "../userStore/hooks"
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../userStore/hooks";
 import {
   getRecomAsync,
   selectRecom,
   selectRecomStatus,
-} from "../userStore/recomSlice"
+} from "../userStore/recomSlice";
 
 // 기타 라이브러리 Import
-import { Box } from "@mui/material"
-import { slideInLeft } from "react-animations"
-import styled, { keyframes } from "styled-components"
+import { Box } from "@mui/material";
+import { slideInLeft } from "react-animations";
+import styled, { keyframes } from "styled-components";
 
 // Components Import
-import Banner from "./Components/Banner"
-import BestResto from "./Components/BestResto"
-import OtherResto from "./Components/OtherResto"
-import LoadingPaper from "../CommonComp/LoadingPaper"
+import Banner from "./Components/Banner";
+import BestResto from "./Components/BestResto";
+import OtherResto from "./Components/OtherResto";
+import LoadingPaper from "../CommonComp/LoadingPaper";
+import axios from "axios";
 
-const sideLeftAnimation = keyframes`${slideInLeft}`
+const sideLeftAnimation = keyframes`${slideInLeft}`;
 
 const SideRLeft = styled.div`
   animation: 1s ${sideLeftAnimation};
   position: relative;
   top: 5%;
   z-index: 10;
-`
+`;
 
 export default function MainPage() {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
-  const recomList = useAppSelector(selectRecom)
-  const isProgress = useAppSelector(selectRecomStatus)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
+  const recomList = useAppSelector(selectRecom);
+  const isProgress = useAppSelector(selectRecomStatus);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getRecomAsync())
-  }, [dispatch])
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
-    sessionStorage.setItem("pageNum", "0")
-  })
+    dispatch(getRecomAsync());
+  }, [dispatch]);
+
+  useEffect(() => {
+    sessionStorage.setItem("pageNum", "0");
+    axios({
+      url: "http://j7a401.p.ssafy.io/recommend/aaaa",
+      method: "GET",
+    })
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((e: any) => {
+        console.log(e);
+      });
+  });
   return (
     <Box>
       {isProgress === "pending" && <LoadingPaper />}
@@ -71,5 +82,5 @@ export default function MainPage() {
         </>
       )}
     </Box>
-  )
+  );
 }

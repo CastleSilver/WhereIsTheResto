@@ -45,13 +45,13 @@ const contentStyle: {} = {
   fontFamily: "Chosun",
   fontWeight: "bold",
   color: "black",
-  fontSize: "7vw",
+  fontSize: "5.5vw",
   textAlign: "left",
 }
 
 const iconStyle = {
   paddingRight: "2.5vw",
-  fontSize: "7.6vw",
+  fontSize: "6.1vw",
 }
 
 const linkStyle: {} = {
@@ -63,7 +63,7 @@ export default function RestoInfo1({ resto }: any) {
   const address = temp[1]
   return (
     <div>
-      <Link to={`/restos/${resto.id}`} style={linkStyle}>
+      <Link to={`/restos/${resto.restoId}`} style={linkStyle}>
         <PaperBackground>
           <Grid sx={{ padding: "18px" }}>
             {/* 제목, 별점 */}
@@ -75,24 +75,32 @@ export default function RestoInfo1({ resto }: any) {
               }}
             >
               <Grid item xs={12} sx={titleStyle}>
-                <span>{resto.name} asdfasdfasdfasdfasdf</span>
+                <span>{resto.name}</span>
               </Grid>
             </Grid>
 
             {/* 이미지, 기타 정보들 */}
             <Grid container>
-              <Grid item xs={5.5} sx={recArea}>
+              <Grid item xs={6.5} sx={recArea}>
                 <img src={resto.imageUrl} style={imgStyle} />
               </Grid>
               <Grid
                 item
-                xs={6.5}
+                xs={5.5}
                 container
                 direction="column"
                 justifyContent={"space-evenly"}
                 alignContent={"start"}
                 sx={{ paddingLeft: "10px" }}
               >
+                <Grid container sx={contentStyle} alignContent="center">
+                  <LocalDiningIcon sx={iconStyle} />
+                  메뉴1
+                </Grid>
+                <Grid container sx={contentStyle} alignContent="center">
+                  <LocalDiningIcon sx={iconStyle} />
+                  메뉴2
+                </Grid>
                 <Grid container sx={contentStyle} alignContent="center">
                   <AccessTimeFilledIcon sx={iconStyle} />
                   {resto.age}년

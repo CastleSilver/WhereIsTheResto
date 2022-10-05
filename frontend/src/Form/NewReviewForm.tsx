@@ -81,7 +81,8 @@ export default function NewReviewForm() {
     const reviewReq = new Blob([befData], { type: "application/json" })
     formD.append("reviewReq", reviewReq)
     for (let file in files) {
-      formD.append("multipartFiles", file)
+      // console.log(files[file])
+      formD.append("multipartFiles", files[file])
     }
 
     const res = await review.create(formD)
@@ -90,7 +91,10 @@ export default function NewReviewForm() {
       navigate(-1)
       return
     } else {
-      Swal.fire("리뷰 작성에 실패 했습니다", "")
+      Swal.fire(
+        "리뷰 작성에 실패 했습니다",
+        "해당 가게에 대한 리뷰를 작성하였거나, 잘못된 요청입니다."
+      )
       return
     }
   }

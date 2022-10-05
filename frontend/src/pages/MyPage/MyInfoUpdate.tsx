@@ -9,9 +9,10 @@ import ListItem from "@mui/material/ListItem"
 import Dialog from "@mui/material/Dialog"
 import List from "@mui/material/List"
 import { Box } from "@mui/material"
+import Swal from "sweetalert2"
 
-const options = ["AZTI 재검사", "닉네임 변경"]
-const links = ["/azti", ""]
+const options = ["AZTI 재검사", "닉네임 변경", "로그아웃"]
+const links = ["re-azti", "change", "logout"]
 export interface SimpleDialogProps {
   open: boolean
   selectedValue: string
@@ -20,6 +21,44 @@ export interface SimpleDialogProps {
 
 function SimpleDialog(props: SimpleDialogProps) {
   const navigate = useNavigate()
+
+  const goTo = async (link: string) => {
+    switch (link) {
+      case "re-azti":
+        await Swal.fire({
+          title: "AZTI 검사를 다시 하시겠습니까?",
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: "AZTI 타입 재검사",
+          cancelButtonText: "취소하기",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/azti")
+          }
+        })
+        break
+      case "change":
+        console.log(2)
+        break
+      case "logout":
+        await Swal.fire({
+          title: "로그아웃 하시겠습니까?",
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: "로그아웃",
+          confirmButtonColor: "red",
+          cancelButtonText: "취소하기",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.clear()
+            sessionStorage.clear()
+            navigate("/")
+          }
+        })
+        break
+    }
+  }
+
   const { onClose, selectedValue, open } = props
 
   const handleClose = () => {
@@ -57,13 +96,13 @@ function SimpleDialog(props: SimpleDialogProps) {
         </DialogTitle>
         {/* 모달 창 */}
         <List sx={{ pt: 0 }}>
-          {options.map((option) => (
+          {options.map((option, index) => (
             <ListItem
               button
               onClick={() => handleListItemClick(option)}
               key={option}
             >
-              <Box sx={optionStyle} onClick={() => navigate("")}>
+              <Box sx={optionStyle} onClick={() => goTo(`${links[index]}`)}>
                 {option}
               </Box>
             </ListItem>
@@ -91,9 +130,9 @@ export default function SimpleDialogDemo() {
     <div>
       <span
         onClick={handleClickOpen}
-        style={{ fontSize: "24px", color: "rgb(2 49 119)" }}
+        style={{ fontSize: "11vw", color: "rgb(2 49 119)" }}
       >
-        <SettingsIcon />
+        <SettingsIcon style={{ fontSize: "8vw" }} />
       </span>
       <SimpleDialog
         selectedValue={selectedValue}

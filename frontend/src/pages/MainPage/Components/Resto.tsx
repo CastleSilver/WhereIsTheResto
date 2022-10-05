@@ -35,7 +35,7 @@ export default function Resto({ resto }: any) {
 
   const titleStyle = {
     fontFamily: "BMEULJIRO",
-    fontSize: "11vw",
+    fontSize: "9vw",
     textAlign: "left",
     // color: "rgb(216 99 69)",
     color: "rgb(2 49 119)",

@@ -1,0 +1,13 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAS6FLVWY7ESTKLLA3
+      secretKey: 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
+    s3:
+      bucket:
+        name: nopo
+        url: https://nopo.s3.ap-northeast-2.amazonaws.com/
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

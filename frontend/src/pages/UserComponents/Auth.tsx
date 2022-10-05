@@ -18,7 +18,7 @@ function Auth() {
 
   // axios 로 백엔드 전송 및 받아와햐 하는데
   useEffect(() => {
-    ;(async () => {
+    ;async () => {
       try {
         console.log("백 보내기 전")
         const res = await axios.post(
@@ -40,12 +40,15 @@ function Auth() {
         // userId 와 토큰도 redux store에 저장 두자
         dispatch(userLogin(res.data))
 
+        if (res.data.isNewMember === false) {
+          navigate("/main")
+        }
         navigate("/azti")
       } catch (e) {
         console.log(e)
         navigate("/")
       }
-    })()
+    }
   }, [])
 
   // 인가코드

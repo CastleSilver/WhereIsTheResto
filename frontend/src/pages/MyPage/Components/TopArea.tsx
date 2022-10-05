@@ -11,22 +11,15 @@ const nameStyle = {
 
 const aztiStyle = {
   fontFamily: "BMEULJIRO",
-  fontSize: "6.2vw",
-  mb: "16px",
+  fontSize: "10vw",
+  m: "auto",
   color: "rgba(228, 115, 39, 0.973)",
 }
 
 const recLen = "29vw"
 export default function TopArea({ userInfo }: any) {
   // AZTI 정보 편집
-  let temp = userInfo.aztiType
-  let azti
-  if (temp === "X") {
-    azti = ["AZTI 정보가 없음", "테스트 해주세요"]
-  } else {
-    temp = temp.split(" ")
-    azti = [temp[0] + " " + temp[1], temp[2] + " " + temp[3]]
-  }
+  let azti = localStorage.getItem("userKoreanAzti") || "X"
 
   return (
     <>
@@ -50,14 +43,9 @@ export default function TopArea({ userInfo }: any) {
                 xs={7}
                 sx={aztiStyle}
                 justifyContent="center"
+                alignContent={"center"}
               >
-                {azti.map((txt: string, index: number) => {
-                  return (
-                    <Grid item key={index}>
-                      {txt}
-                    </Grid>
-                  )
-                })}
+                <Grid item>{azti}</Grid>
               </Grid>
             </Grid>
           </Box>

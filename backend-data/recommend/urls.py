@@ -4,6 +4,7 @@ from . import views
 app_name = 'recommend'
 
 urlpatterns = [
-    path('<aztiType>', views.recommList),
-    path('recomm', views.recomm)
+    path('cbf/<aztiType>', views.recommCbfList),
+    path('cf/<int:restoId>', views.recommCfList),
+    path('mf/<userId>', views.recommMfList)
 ]

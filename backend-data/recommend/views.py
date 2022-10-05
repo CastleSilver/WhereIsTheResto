@@ -86,5 +86,6 @@ def recommList(request, aztiType):
         # print(data)
         return HttpResponse(json.dumps(data), content_type='application/json')
 
+@api_view(['GET'])
 def recomm(request):
     pass

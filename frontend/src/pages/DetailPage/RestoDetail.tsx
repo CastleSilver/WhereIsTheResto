@@ -1,9 +1,13 @@
 // React 시스템 Import
 import { useEffect } from "react"
 import { useAppSelector, useAppDispatch } from "../userStore/hooks"
-import { getInfoAsync, selectResto } from "../userStore/restoSlice"
+import {
+  getInfoAsync,
+  selectResto,
+  selectRestoStatus,
+} from "../userStore/restoSlice"
 
-import { useLocation, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 // 기타 라이브러리 Import
 import { Box } from "@mui/material"
@@ -16,7 +20,9 @@ import Map from "../CommonComp/Map"
 
 export default function RestoDetail() {
   const { restoId } = useParams()
+
   const restoInfo = useAppSelector(selectResto)
+  const status = useAppSelector(selectRestoStatus)
   const dispatch = useAppDispatch()
 
   window.scrollTo(0, 0)
@@ -28,8 +34,8 @@ export default function RestoDetail() {
   return (
     <>
       {/* <LoadingPaper /> */}
-      {restoInfo?.address === undefined && <LoadingPaper />}
-      {restoInfo?.address !== undefined && (
+      {status !== "idle" && <LoadingPaper />}
+      {status === "idle" && (
         <Box>
           {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
 

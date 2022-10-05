@@ -3,6 +3,7 @@ package com.ssafy.nopo.api.service;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.transfer.*;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
@@ -10,7 +11,9 @@ import com.ssafy.nopo.common.exception.CustomException;
 import com.ssafy.nopo.common.exception.ErrorCode;
 import com.ssafy.nopo.db.entity.ReviewImg;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,9 +24,9 @@ import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@Service
+@Component
+@Slf4j
 public class S3Service {
-
     @Value("${cloud.aws.s3.bucket.url}")
     private String defaultUrl;
 
@@ -59,11 +62,14 @@ public class S3Service {
     }
 
     public List<String> uploadImges(List<MultipartFile> multipartFile) throws IOException {
+        log.info("이미지 업로드 시작");
         List<String> imgUrlList = new ArrayList<>();
 
         // forEach 구문을 통해 multipartFile로 넘어온 파일들 하나씩 fileNameList에 추가
         for (MultipartFile file : multipartFile) {
-            imgUrlList.add(upload(file));
+            String url = upload(file);
+            log.info("이미지 url = "+ url);
+            imgUrlList.add(url);
         }
         return imgUrlList;
     }
@@ -73,19 +79,21 @@ public class S3Service {
     }
 
     private void uploadOnS3(final String findName, final File file) {
-        // AWS S3 전송 객체 생성
-        final TransferManager transferManager = TransferManagerBuilder.standard()
-                .withS3Client(this.amazonS3Client).build();
-        // 요청 객체 생성
-        final PutObjectRequest request = new PutObjectRequest(bucket, findName, file);
-        // 업로드 시도
-        final Upload upload =  transferManager.upload(request);
-
-        try {
-            upload.waitForCompletion();
-        } catch (AmazonClientException | InterruptedException amazonClientException) {
-            amazonClientException.printStackTrace();
-        }
+//        // AWS S3 전송 객체 생성
+//        final TransferManager transferManager = TransferManagerBuilder.standard()
+//                .withS3Client(this.amazonS3Client).build();
+//        // 요청 객체 생성
+//        final PutObjectRequest request = new PutObjectRequest(bucket, findName, file);
+//        // 업로드 시도
+//        final Upload upload =  transferManager.upload(request);
+//
+//        try {
+//            upload.waitForCompletion();
+//        } catch (AmazonClientException | InterruptedException amazonClientException) {
+//            amazonClientException.printStackTrace();
+//        }
+        amazonS3Client.putObject(new PutObjectRequest(bucket, findName, file).withCannedAcl(CannedAccessControlList.PublicRead));
+//        return amazonS3Client.getUrl(bucket, findName).toString();
     }
     public void delete(String imageUrl) {
         try {

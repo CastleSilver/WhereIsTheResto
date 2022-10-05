@@ -17,6 +17,7 @@ const titleText = {
   color: "rgb(228, 73, 39)",
   marginTop: "auto",
   marginBottom: "auto",
+  textAlign: "left",
 }
 
 const backArea = {
@@ -58,6 +59,11 @@ const btnStyle = {
   py: "10px",
 }
 
+const fontOver = {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+}
 export default function ReviewComp({ review }: any) {
   const [toggle, setToggle] = useState(true)
   const [toggleMsg, setToggleMsg] = useState("리뷰 사진 보기")
@@ -111,16 +117,20 @@ export default function ReviewComp({ review }: any) {
             justifyContent={"space-between"}
             sx={{ marginBottom: "18px" }}
           >
-            <Box sx={titleText}>{review.restoName}</Box>
-            <Button
-              id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-            >
-              <MenuIcon fontSize="large" color="warning" />
-            </Button>
+            <Grid item xs={10} sx={{ ...titleText, ...fontOver }}>
+              {review.restoName}
+            </Grid>
+            <Grid item xs={2}>
+              <Button
+                id="basic-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <MenuIcon fontSize="large" color="warning" />
+              </Button>
+            </Grid>
             <Menu
               id="basic-menu"
               anchorEl={anchorEl}

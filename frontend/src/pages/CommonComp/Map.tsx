@@ -30,8 +30,8 @@ export default function Map() {
 
     // 지도 마커 대체 이미지 설정
     const imageSrc =
-      "https://velog.velcdn.com/images/tanger2ne/post/fb18c31b-9cea-4b0b-bc1e-546198476465/image.png"
-    const imageSize = new kakao.maps.Size(100, 50)
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMzX7Woa-ETtHYpRg9ydRD-nXpisEewpxwWg&usqp=CAU"
+    const imageSize = new kakao.maps.Size(30, 50)
     const imageOption = { offset: new kakao.maps.Point(27, 69) }
     const markerImage = new kakao.maps.MarkerImage(
       imageSrc,

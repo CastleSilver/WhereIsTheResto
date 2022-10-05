@@ -15,6 +15,9 @@ public class VisitedRes {
     private String imageUrl;
     private String address;
     private int age;
+    private int restoId;
+    private String menu1;
+    private String menu2;
 
     public VisitedRes(Visited visited){
         this.id = visited.getId();
@@ -22,5 +25,8 @@ public class VisitedRes {
         this.imageUrl = visited.getResto().getThumbnail();
         this.address = visited.getResto().getAddress();
         this.age = Integer.parseInt(visited.getResto().getRestoAge());
+        this.restoId = visited.getResto().getId();
+        this.menu1 = visited.getResto().getMenu1();
+        this.menu2 = visited.getResto().getMenu2();
     }
 }

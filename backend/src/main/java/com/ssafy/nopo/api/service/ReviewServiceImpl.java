@@ -69,7 +69,7 @@ public class ReviewServiceImpl implements ReviewService{
                                 .collect(Collectors.toList());
 
         String regdate = review.getRegdate().toLocalDate().toString();
-        return new ReviewRes(reviewId, imageUrl, review.getContent(), review.getRating(), regdate, review.getUser().getNickname());
+        return new ReviewRes(reviewId, imageUrl, review.getContent(), review.getRating(), regdate, review.getUser().getNickname(), review.getResto().getRestoName());
     }
 
     @Transactional

@@ -79,21 +79,7 @@ public class S3Service {
     }
 
     private void uploadOnS3(final String findName, final File file) {
-//        // AWS S3 전송 객체 생성
-//        final TransferManager transferManager = TransferManagerBuilder.standard()
-//                .withS3Client(this.amazonS3Client).build();
-//        // 요청 객체 생성
-//        final PutObjectRequest request = new PutObjectRequest(bucket, findName, file);
-//        // 업로드 시도
-//        final Upload upload =  transferManager.upload(request);
-//
-//        try {
-//            upload.waitForCompletion();
-//        } catch (AmazonClientException | InterruptedException amazonClientException) {
-//            amazonClientException.printStackTrace();
-//        }
         amazonS3Client.putObject(new PutObjectRequest(bucket, findName, file).withCannedAcl(CannedAccessControlList.PublicRead));
-//        return amazonS3Client.getUrl(bucket, findName).toString();
     }
     public void delete(String imageUrl) {
         try {

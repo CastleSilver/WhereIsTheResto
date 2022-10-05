@@ -56,7 +56,8 @@ public class ReviewController {
         if (multipartFiles != null) {
             log.info("이미지 업로드 요청");
             for (MultipartFile file: multipartFiles) {
-                s3Service.upload(file);
+                String url = s3Service.upload(file);
+                imgUrlList.add(url);
             }
         }
         reviewService.createReview(reviewReq, imgUrlList, userId);

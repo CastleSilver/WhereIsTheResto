@@ -1,0 +1,21 @@
+#Logo {
+    margin-top: 150px;
+}
+
+#img_div{
+    margin-top : 10px;
+}
+
+#RandomImage {
+    width : 300px;
+    height : 300px;
+    border: 3px solid rgb(216, 99, 69);
+}
+
+#quote {
+    font-size: 15px;
+    color: rgb(228, 73, 39);
+    -webkit-text-stroke: 0.01rem rgb(227 187 105);
+    margin-bottom: 2vh;
+    font-weight: bold;
+}

@@ -35,11 +35,12 @@ export default function MyPage() {
   useEffect(() => {
     window.scrollTo(0, 0) // 최상단 페이지 이동
     console.log("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★")
-    console.log("아래의 데이터에서 userId 를 뽑아내 유저 정보를 조회합니다.")
-    console.log(userAZTI)
+    console.log("LocalStroage에서 userId 를 뽑아내 유저 정보를 조회합니다.")
+    const a = localStorage.getItem("userId")
+    console.log(a)
     console.log("만약 데이터의 userId가 비어있다면 프론트에게 문의하세요")
     console.log("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★")
-    dispatch(getUserAsync(Number(userAZTI.userId))) // userId를 통해 User 정보를 받아옴
+    dispatch(getUserAsync(Number(a))) // userId를 통해 User 정보를 받아옴
 
     console.log(userInfo)
   }, [dispatch])

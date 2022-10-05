@@ -19,10 +19,10 @@ public class User {
     @Setter (AccessLevel.NONE)
     private String id;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 30, nullable = false)
     private String nickname;
 
-    @Column(length = 30)
+    @Column(length = 100)
     private String email;
 
     private String gender;

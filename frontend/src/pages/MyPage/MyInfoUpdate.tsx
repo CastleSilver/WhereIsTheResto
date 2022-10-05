@@ -3,6 +3,7 @@ import * as React from "react"
 import { useNavigate } from "react-router-dom"
 
 // 기타 라이브러리 Import
+import SettingsIcon from "@mui/icons-material/Settings"
 import DialogTitle from "@mui/material/DialogTitle"
 import ListItem from "@mui/material/ListItem"
 import Dialog from "@mui/material/Dialog"
@@ -62,7 +63,9 @@ function SimpleDialog(props: SimpleDialogProps) {
               onClick={() => handleListItemClick(option)}
               key={option}
             >
-              <Box sx={optionStyle}>{option}</Box>
+              <Box sx={optionStyle} onClick={() => navigate("")}>
+                {option}
+              </Box>
             </ListItem>
           ))}
         </List>
@@ -86,7 +89,12 @@ export default function SimpleDialogDemo() {
 
   return (
     <div>
-      <span onClick={handleClickOpen}>{">"}</span>
+      <span
+        onClick={handleClickOpen}
+        style={{ fontSize: "24px", color: "rgb(2 49 119)" }}
+      >
+        <SettingsIcon />
+      </span>
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

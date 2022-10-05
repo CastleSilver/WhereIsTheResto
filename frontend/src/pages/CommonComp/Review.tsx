@@ -78,6 +78,7 @@ export default function Review({ review }: any) {
       if (result.isConfirmed) {
         reviewAPI.delete(review.id)
         Swal.fire("삭제 완료!", "", "success")
+        location.reload()
       }
     })
   }

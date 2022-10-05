@@ -20,17 +20,24 @@ const imgStyle: {} = {
   width: "100%",
   height: "100%",
   objectFit: "cover",
+  borderRadius: "5%",
+}
+
+const fontOver = {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
 }
 
 const titleStyle = {
   fontFamily: "BMEULJIRO",
   fontSize: "8vw",
   textAlign: "left",
-  marginBottom: "6px",
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-  color: "rgb(216 99 69)",
+  // color: "rgb(216 99 69)",
+  color: "rgb(2 49 119)",
 }
 
 const ratingStyle = {
@@ -45,7 +52,7 @@ const contentStyle: {} = {
   fontFamily: "Chosun",
   fontWeight: "bold",
   color: "black",
-  fontSize: "5.5vw",
+  fontSize: "5vw",
   textAlign: "left",
 }
 
@@ -65,7 +72,7 @@ export default function RestoInfo1({ resto }: any) {
     <div>
       <Link to={`/restos/${resto.restoId}`} style={linkStyle}>
         <PaperBackground>
-          <Grid sx={{ padding: "18px" }}>
+          <Grid sx={{ py: "12px", px: "5vw" }}>
             {/* 제목, 별점 */}
             <Grid
               container
@@ -94,21 +101,42 @@ export default function RestoInfo1({ resto }: any) {
                 sx={{ paddingLeft: "10px" }}
               >
                 <Grid container sx={contentStyle} alignContent="center">
-                  <LocalDiningIcon sx={iconStyle} />
-                  메뉴1
-                </Grid>
-                <Grid container sx={contentStyle} alignContent="center">
-                  <LocalDiningIcon sx={iconStyle} />
-                  메뉴2
-                </Grid>
-                <Grid container sx={contentStyle} alignContent="center">
-                  <AccessTimeFilledIcon sx={iconStyle} />
-                  {resto.age}년
+                  <Grid item xs={3}>
+                    <AccessTimeFilledIcon sx={iconStyle} />
+                  </Grid>
+                  <Grid item xs={9} sx={fontOver}>
+                    {resto.age} 년
+                  </Grid>
                 </Grid>
 
                 <Grid container sx={contentStyle} alignContent="center">
-                  <PinDropIcon sx={iconStyle} />
-                  {address}
+                  <Grid item xs={3}>
+                    <PinDropIcon sx={iconStyle} />
+                  </Grid>
+                  <Grid item xs={9} sx={fontOver}>
+                    {address}
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  container
+                  sx={{ ...contentStyle, ...fontOver }}
+                  alignContent="center"
+                >
+                  <Grid item xs={3}>
+                    <LocalDiningIcon sx={iconStyle} />
+                  </Grid>
+                  <Grid item xs={9} sx={fontOver}>
+                    {resto.menu1}
+                  </Grid>
+                </Grid>
+                <Grid container sx={{ ...contentStyle }} alignContent="center">
+                  <Grid item xs={3}>
+                    <LocalDiningIcon sx={iconStyle} />
+                  </Grid>
+                  <Grid item xs={9} sx={fontOver}>
+                    {resto.menu2}
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

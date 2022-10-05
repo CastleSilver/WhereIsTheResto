@@ -40,9 +40,6 @@ function Auth() {
         // userId 와 토큰도 redux store에 저장 두자
         dispatch(userLogin(res.data))
 
-        if (res.data.isNewMember === false) {
-          navigate("/main")
-        }
         navigate("/azti")
       } catch (e) {
         console.log(e)

@@ -1,3 +1,4 @@
+from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -10,6 +11,24 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 import json
 # Create your views here.
+# azti_dic = {
+#     mcis: "감성 알뜰 인싸 주당",
+#     dcis: "현실 알뜰 인싸 주당",
+#     mnis: "감성 호탕 인싸 주당",
+#     dnis: "현실 호탕 인싸 주당",
+#     mchs: "감성 알뜰 힙스터 주당",
+#     dchs: "현실 알뜰 힙스터 주당",
+#     mnhs: "감성 호탕 힙스터 주당",
+#     dnhs: "현실 호탕 힙스터 주당",
+#     mchc: "감성 알뜰 힙스터 술린이",
+#     dchc: "현실 알뜰 힙스터 술린이",
+#     mnhc: "감성 호탕 힙스터 술린이",
+#     dnhc: "현실 호탕 힙스터 술린이",
+#     mcic: "감성 알뜰 인싸 술린이",
+#     dcic: "현실 알뜰 인싸 술린이",
+#     mnic: "감성 호탕 인싸 술린이",
+#     dnic: "현실 호탕 인싸 술린이",
+# }
 
 @api_view(["GET"])
 def recommList(request, aztiType):
@@ -39,7 +58,7 @@ def recommList(request, aztiType):
         def find_sim_resto(df, sim_matrix, title_name, top_n=10):
             
             # 입력한 영화의 index
-            title_movie = df[df['resto_name'] == title_name]
+            title_movie = df[df['name'] == title_name]
             title_index = title_movie.index.values
             
             # 입력한 영화의 유사도 데이터 프레임 추가
@@ -56,15 +75,17 @@ def recommList(request, aztiType):
 
         similar_restos = find_sim_resto(restos_data, cat_sim, request_title, request_num)
 
-        print(similar_restos)
-        data = similar_restos.to_dict('recods')
-        result = {
-            'recommendList': data,
-        }
-        json_data = json.dumps(result)
+        # print(similar_restos)
+        # print(type(similar_restos))
+        result = similar_restos.to_dict(orient='records')
         print(result)
         print(type(result))
-        return Response(json_data)
+        data = {
+            'recommendList': result,
+        }
+        # print(data)
+        return HttpResponse(json.dumps(data), content_type='application/json')
 
+@api_view(['GET'])
 def recomm(request):
     pass

@@ -6,5 +6,6 @@ app_name = 'recommend'
 urlpatterns = [
     path('cbf/<aztiType>', views.recommCbfList),
     path('cf/<int:restoId>', views.recommCfList),
-    path('mf/<userId>', views.recommMfList)
+    path('mf/<userId>', views.recommMfList),
+    path('resto/<userId>/<aztiType>/', views.restoList)
 ]

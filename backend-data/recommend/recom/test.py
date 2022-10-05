@@ -34,6 +34,17 @@ def selectReview():
     df = pd.DataFrame(result)
     return df
 
+def selectReviewByUserId(userId):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT user_id, resto_id, rating FROM review WHERE user_id = {userId}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    df = pd.DataFrame(result)
+    return df
+
 def selectOldRestaurant():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()
@@ -81,13 +92,12 @@ def getSvdPred():
     return df_svd_preds
 
 def mfRecomm(userId):
-    review_data = selectReview()
     resto_data = selectOldRestaurant()
     visited_data = selectVisitedRestos(userId)
     # userId 기준으로 평점 높은 순으로 정렬
     sorted_user_prediction = getSvdPred().loc[userId].sort_values(ascending=False)
     # review data에서 userId의 정보 가져오기
-    user_data = review_data[review_data.user_id == userId]
+    user_data = selectReviewByUserId(userId)
     # user_data와 노포 데이터 합치기
     user_history = user_data.merge(resto_data, left_on='resto_id', right_on='id').sort_values(['rating'], ascending=False)
     # 원본 노포 데이터에서 리뷰 남긴 곳 제외
@@ -96,8 +106,14 @@ def mfRecomm(userId):
     recommendation = resto_data[~resto_data['id'].isin(visited_data['resto_id'])]
     # 평점 높은 순으로 정렬한 데이터와 합치기
     recommendation = recommendation.merge(pd.DataFrame(sorted_user_prediction).reset_index(), left_on='id', right_on='resto_id')
-
-    return recommendation['id'][:10]
+    print(recommendation)
+    sort_column = recommendation.columns[-1]
+    recommendation = recommendation.sort_values(by=sort_column, ascending=False)
+    print(recommendation)
+    print(sort_column)
+    result = recommendation['id'][:10]
+    return result
+    return recommendation['id'].sort_values(ascending=False)[:10]
 
 def makeReviewRestoVector():
     review_data = selectReview()
@@ -119,4 +135,4 @@ def makeReviewRestoVector():
 def getItemBasedCF(restoId):
     return makeReviewRestoVector()[restoId].sort_values(ascending=False)[1:16]
 
-print(getItemBasedCF(3))
+print(mfRecomm("250"))

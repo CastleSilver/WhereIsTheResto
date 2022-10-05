@@ -1,5 +1,5 @@
 from sqlite3 import connect
-from database import *
+from recommend.recom.database import *
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
@@ -16,10 +16,45 @@ def selectReview():
     df = pd.DataFrame(result)
     return df
 
+def IdOldRestaurant(idList):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+
+    sql = f"SELECT * FROM nopo_db.old_restaurant WHERE id in {idList}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    # df = pd.DataFrame(result)
+    return result
+
+def thirtyRestaurants():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+
+    sql = "SELECT * FROM nopo_db.old_restaurant WHERE grade = 'THIRTY'"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    # df = pd.DataFrame(result)
+    return result
+
 def selectOldRestaurant():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()
     sql = """SELECT id, resto_name FROM old_restaurant"""
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    df = pd.DataFrame(result)
+    return df
+
+def selectOldAllRestaurant():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = """SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id"""
     cursor.execute(sql)
     
     result = cursor.fetchall()
@@ -101,3 +136,4 @@ def mfRecomm(userId):
 
 def getItemBasedCF(restoId):
     return makeReviewRestoVector()[restoId].sort_values(ascending=False)[1:16]
+

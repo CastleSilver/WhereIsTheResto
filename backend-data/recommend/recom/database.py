@@ -2,9 +2,9 @@ import os, json, pymysql
 
 def connectMySQL():
     connect = pymysql.connect(
-        user='root', 
-        password='ssafy', 
-        host='127.0.0.1',
+        user='nopo', 
+        password='rmwlqdjeprh401', 
+        host='j7a401.p.ssafy.io',
         db='nopo_db', 
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor

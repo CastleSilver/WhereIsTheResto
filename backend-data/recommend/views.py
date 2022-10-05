@@ -1,3 +1,4 @@
+from django.shortcuts import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -57,14 +58,11 @@ def recommList(request, aztiType):
         similar_restos = find_sim_resto(restos_data, cat_sim, request_title, request_num)
 
         print(similar_restos)
-        data = similar_restos.to_dict('recods')
-        result = {
-            'recommendList': data,
+        result = similar_restos.to_json(orient='records')
+        data = {
+            'recommendList': result,
         }
-        json_data = json.dumps(result)
-        print(result)
-        print(type(result))
-        return Response(json_data)
+        return HttpResponse(data, content_type='application/json')
 
 def recomm(request):
     pass

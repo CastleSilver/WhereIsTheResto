@@ -7,13 +7,14 @@ const sideRightAnimation = keyframes`${slideInRight}`
 const SideRight = styled.div`
   animation: 1s ${sideRightAnimation};
   position: relative;
-  top: 5%;
+  top: 0;
   z-index: 10;
 `
 
 const BackgroundArea = styled.div`
   overflow: hidden;
   position: absolute;
+  top: -11%;
 `
 
 export default function Banner() {

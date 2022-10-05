@@ -17,7 +17,6 @@ import LoadingPaper from "../CommonComp/LoadingPaper"
 // Styling Code
 const myPageStyle = {
   paddingTop: "30px",
-  px: "19px",
 }
 
 export default function MyPage() {

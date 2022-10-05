@@ -21,10 +21,11 @@ export default function MyContents({ contentNum, setContentNum }: propTypes) {
               <Button
                 fullWidth
                 color="warning"
+                sx={{ m: 0, p: 0, height: "48px" }}
                 variant={contentNum === index ? "contained" : "outlined"}
                 onClick={() => setContentNum(index)}
               >
-                <span style={{ fontFamily: "BMEULJIRO", fontSize: "4.6vw" }}>
+                <span style={{ fontFamily: "BMEULJIRO", fontSize: "5vw" }}>
                   {btn}
                 </span>
               </Button>

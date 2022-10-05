@@ -37,7 +37,8 @@ export default function Resto({ resto }: any) {
     fontFamily: "BMEULJIRO",
     fontSize: "11vw",
     textAlign: "left",
-    color: "rgb(216 99 69)",
+    // color: "rgb(216 99 69)",
+    color: "rgb(2 49 119)",
     ...fontOver,
   }
 

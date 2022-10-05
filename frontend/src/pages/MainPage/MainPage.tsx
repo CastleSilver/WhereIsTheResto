@@ -1,5 +1,5 @@
 // React 시스템 Import
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../userStore/hooks"
 import {
@@ -20,6 +20,9 @@ import OtherResto from "./Components/OtherResto"
 import LoadingPaper from "../CommonComp/LoadingPaper"
 import axios from "axios"
 
+// Styling
+import "../../style/style.css"
+
 const sideLeftAnimation = keyframes`${slideInLeft}`
 
 const SideRLeft = styled.div`
@@ -31,7 +34,6 @@ const SideRLeft = styled.div`
 
 export default function MainPage() {
   const { pathname } = useLocation()
-
   const recomList = useAppSelector(selectRecom)
   const isProgress = useAppSelector(selectRecomStatus)
   const dispatch = useAppDispatch()
@@ -65,16 +67,28 @@ export default function MainPage() {
           <Banner />
           <SideRLeft>
             {/* 마진 */}
-            <Box sx={{ height: "200px" }}></Box>
+            <Box sx={{ height: "130px" }}></Box>
 
             {/* 제일 인기 많은 가게 추천 Area */}
-            <p className="title-text-lg" style={{ textAlign: "left" }}>
+            <p
+              // *******************************************
+              // className={"title1"}
+              className={"title-text-lg"}
+              style={{ textAlign: "left", fontSize: "10vw" }}
+              // *******************************************
+            >
               남바-원!
             </p>
             <BestResto bestResto={recomList[0]} />
 
             {/* 다른 추천 가게들 Carousel */}
-            <p className="title-text-lg" style={{ textAlign: "left" }}>
+            <p
+              // *******************************************
+              // className={"title1"}
+              className={"title-text-lg"}
+              style={{ textAlign: "left", fontSize: "8.5vw" }}
+              // *******************************************
+            >
               여기도 정-말 맛있는데
             </p>
             <OtherResto restos={recomList.slice(1, recomList.length)} />

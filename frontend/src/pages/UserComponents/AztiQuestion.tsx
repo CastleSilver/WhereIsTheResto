@@ -152,7 +152,7 @@ function AztiQuestion() {
         })
     }
     recoFood()
-  }, [question_parameter === 7])
+  }, [question_parameter])
 
   // 현재 문제
   if (question_parameter === 1) {

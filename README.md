@@ -268,19 +268,48 @@ FRONTEND
   ├── node_modules
   ├── public
   └── src
+  │   ├── api
+  |   │   ├── api
+  |   │   ├── index.ts
+  |   │   ├── reqType.ts
+  |   │   ├── resType.ts
+  |   │   └── settings.ts
   │   ├── assets
-  │   ├── components
-  │   ├── images
+  │   ├── Form
+  |   │   ├── ReviewComp
+  |   │   ├── NewReviewForm.tsx
+  |   │   └── ReviewForm.tsx
+  │   ├── needConfirm
+  |   │   ├── NeedConfirm.tsx
+  |   │   ├── RestoInfo.tsx
+  |   │   └── SearchCompo.tsx
   │   ├── pages
-  │   ├── App
-  │   └── index
-  ├── env
+  |   │   ├── CommonComp
+  |   │   ├── DetailPage
+  |   │   ├── MainPage
+  |   │   ├── MyPage
+  |   │   ├── SearchPage
+  |   │   ├── StartPage
+  |   │   ├── UserComponents
+  |   │   ├── userStore
+  |   │   └── IndexPage.tsx
+  │   ├── style
+  |   |   └── style.css
+  │   ├── App.css
+  │   ├── App.tsx
+  │   ├── index.css
+  │   ├── main.tsx
+  │   ├── PrivateRoute.tsx
+  │   └── vite-env.d.ts
   ├── gitignore
-  ├── .prettierrc
-  ├── jsconfig
-  ├── package-lock
-  ├── package
-  └── README
+  ├── Dockerfile
+  ├── index.html
+  ├── package-lock.json
+  ├── package.json
+  ├── tsconfig.json
+  ├── tsconfig.node.json
+  └── vite.config.ts
+   
 ```
 
 

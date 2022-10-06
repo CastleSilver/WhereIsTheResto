@@ -11,8 +11,8 @@ import List from "@mui/material/List"
 import { Box } from "@mui/material"
 import Swal from "sweetalert2"
 
-const options = ["AZTI 재검사", "닉네임 변경", "로그아웃"]
-const links = ["re-azti", "change", "logout"]
+const options = ["AZTI 재검사", "로그아웃"]
+const links = ["re-azti", "logout"]
 export interface SimpleDialogProps {
   open: boolean
   selectedValue: string

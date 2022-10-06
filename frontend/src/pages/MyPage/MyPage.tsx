@@ -35,7 +35,6 @@ export default function MyPage() {
     window.scrollTo(0, 0) // 최상단 페이지 이동
     const a = localStorage.getItem("userId")
     dispatch(getUserAsync(Number(a))) // userId를 통해 User 정보를 받아옴
-    console.log(userInfo)
   }, [dispatch])
 
   useEffect(() => {

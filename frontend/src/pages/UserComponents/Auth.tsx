@@ -14,21 +14,17 @@ function Auth() {
 
   const code = new URL(window.location.href).searchParams.get("code")
 
-  console.log(code)
-
   // axios 로 백엔드 전송 및 받아와햐 하는데
   useEffect(() => {
     ;(async () => {
       try {
-        console.log("백 보내기 전")
         const res = await axios.post(
           `http://j7a401.p.ssafy.io/api/oauth/login/kakao?code=${code}`
           // `http://localhost:5173/api/oauth/login/kakao?code=${code}`
           // `http://localhost:8080/api/oauth/login/kakao?code=${code}`
           // onst REDIRECT_URI = "http://localhost:5173/oauth/kakao/callback";
         )
-        console.log("백 요청 후")
-        console.log(res.data)
+
         // localStorage => token 저장
         localStorage.setItem(
           "login-kakao",
@@ -52,7 +48,6 @@ function Auth() {
   }, [])
 
   // 인가코드
-  console.log(code)
 
   return null
 }

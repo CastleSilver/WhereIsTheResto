@@ -1,6 +1,7 @@
 import { Box, Grid, Avatar } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PaperBackGround from "../../CommonComp/PaperBackground"
+import { koreanAztiType } from "../../userStore/userSlice"
 import MyInfoUpdate from "../MyInfoUpdate"
 
 // STYLING CODE
@@ -21,10 +22,11 @@ const aztiStyle = {
 const recLen = "29vw"
 export default function TopArea({ userInfo }: any) {
   // AZTI 정보 편집
-  let [azti, setAZTI] = useState(localStorage.getItem("userKoreanAzti"))
-  if (azti == "X" || azti === undefined) {
-    setAZTI("AZTI 정보가 없습니다")
-  }
+  let [azti, setAZTI] = useState(userInfo.aztiType)
+  useEffect(() => {
+    const temp = koreanAztiType[azti]
+    setAZTI(temp)
+  }, [setAZTI])
 
   return (
     <>

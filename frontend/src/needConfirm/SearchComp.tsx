@@ -50,7 +50,6 @@ export default function SearchComp() {
 
   const getList = async (ind: string) => {
     const wList = await restoAPI.getOther()
-    console.log(wList)
   }
 
   useEffect(() => {

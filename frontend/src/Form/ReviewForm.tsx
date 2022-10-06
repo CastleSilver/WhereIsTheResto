@@ -125,9 +125,6 @@ export default function ReviewForm() {
   }
 
   const backBtnStyle = {
-    position: "fixed",
-    top: "7vw",
-    left: "7vw",
     fontSize: "9vw",
   }
 

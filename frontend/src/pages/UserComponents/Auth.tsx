@@ -36,11 +36,14 @@ function Auth() {
         )
         // localStorage => userId 저장
         localStorage.setItem("userId", Object.values(res.data)[2] as string)
-
         // userId 와 토큰도 redux store에 저장 두자
         dispatch(userLogin(res.data))
 
-        navigate("/azti")
+        if (Object.values(res.data)[0] === false) {
+          navigate("/main")
+        } else {
+          navigate("/azti")
+        }
       } catch (e) {
         console.log(e)
         navigate("/")

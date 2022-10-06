@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { review as reviewAPI } from "../../../api/index"
 
 // 기타 라이브러리 Import
-import { Box, Button, Grid, Menu, MenuItem } from "@mui/material"
+import { Avatar, Box, Button, Grid, Menu, MenuItem } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
 import Swal from "sweetalert2"
 
@@ -29,7 +29,6 @@ const backArea = {
 
 const imgFrame = {
   width: "100%",
-  height: "65vw",
   position: "relative",
   overflow: "hidden",
   borderRadius: "12px",
@@ -65,7 +64,7 @@ const fontOver = {
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
 }
-export default function ReviewComp({ review }: any) {
+export default function ReviewComp({ review, onDelete }: any) {
   const [toggle, setToggle] = useState(true)
   const [toggleMsg, setToggleMsg] = useState("리뷰 사진 보기")
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -96,6 +95,7 @@ export default function ReviewComp({ review }: any) {
       if (result.isConfirmed) {
         reviewAPI.delete(review.id)
         Swal.fire("삭제 완료!", "", "success")
+        onDelete(review.id)
       }
     })
   }
@@ -175,7 +175,11 @@ export default function ReviewComp({ review }: any) {
           </Grid>
           {Object.keys(review.imageUrl).length !== 0 && (
             <Grid item sx={imgFrame}>
-              <img src={review.imageUrl[0]} style={imgArea} />
+              <Avatar
+                src={review.imageUrl[0]}
+                sx={{ width: "100%", height: "100%" }}
+                variant="rounded"
+              />
             </Grid>
           )}
           <Grid item>

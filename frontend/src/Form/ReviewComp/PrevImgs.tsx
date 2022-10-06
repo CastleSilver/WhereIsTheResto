@@ -33,7 +33,6 @@ const avatarStyle = {
 }
 
 export default function PrevImgs({ urls }: propsType) {
-  console.log(urls)
   return (
     <Box
       sx={{

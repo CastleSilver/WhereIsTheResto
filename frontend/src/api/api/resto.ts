@@ -13,6 +13,7 @@ const resto = {
     const res = await myAxios(req)
     return res
   },
+
   getOther: async () => {
     const reqData = {
       uri: RESTO,

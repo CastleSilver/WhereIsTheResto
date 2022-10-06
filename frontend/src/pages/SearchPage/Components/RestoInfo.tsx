@@ -57,7 +57,7 @@ export default function RestoInfo({ resto }: any) {
               </Grid>
               <Grid item xs={3}>
                 <span style={{ fontSize: "6vw", color: "rgb(222, 224, 59)" }}>
-                  ★ 4.2
+                  ★ {resto.rating ? resto.rating.toFixed(1) : 3.0}
                 </span>
               </Grid>
             </Grid>

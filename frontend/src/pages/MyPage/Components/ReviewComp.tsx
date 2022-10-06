@@ -10,6 +10,22 @@ import Swal from "sweetalert2"
 // Components Import
 import PaperBackground from "../../CommonComp/PaperBackground"
 
+import styled from "styled-components"
+const Slider = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+`
+
+const RowContent = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  flex-column: column;
+  scroll-behavior: smooth;
+
+  width: 100%;
+  height: 60vw;
+`
 // Styling Code
 const titleText = {
   fontFamily: "BMEULJIRO",
@@ -160,13 +176,19 @@ export default function ReviewComp({ review, onDelete }: any) {
             </Menu>
           </Grid>
           {Object.keys(review.imageUrl).length !== 0 && (
-            <Grid item sx={imgFrame}>
-              <Avatar
-                src={review.imageUrl[0]}
-                sx={{ width: "100%", height: "100%" }}
-                variant="rounded"
-              />
-            </Grid>
+            <Slider>
+              <RowContent className="kill-scroll">
+                {review.imageUrl.map((url: string) => {
+                  return (
+                    <Avatar
+                      src={url}
+                      sx={{ width: "100%", height: "100%" }}
+                      variant="rounded"
+                    />
+                  )
+                })}
+              </RowContent>
+            </Slider>
           )}
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>

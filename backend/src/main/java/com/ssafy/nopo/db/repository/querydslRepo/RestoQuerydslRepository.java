@@ -21,6 +21,6 @@ public class RestoQuerydslRepository {
 
     public List<OldRestaurant> orderByLiked(){
         return jpaQueryFactory.select(resto).from(resto, liked).
-                orderBy(resto.likedList.size().intValue().desc()).fetch();
+                orderBy(resto.likedList.size().intValue().desc()).limit(20).fetch();
     }
 }

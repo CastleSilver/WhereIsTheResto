@@ -91,7 +91,7 @@ export default function RestoDetail() {
 
   let age
   if (resto !== undefined) {
-    age = resto.restoAge
+    age = 2022 - resto.restoAge
   } else {
     age = 0
   }

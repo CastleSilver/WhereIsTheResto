@@ -84,7 +84,7 @@ export default function StartPage() {
         </div>
         <br />
         <a href={KAKAO_AUTH_URL}>
-          <img src={kakaoBtn} alt="logo" width="50%" />
+          <img src={kakaoBtn} alt="logo" width="80%" />
         </a>
       </Grid>
     </>

@@ -63,7 +63,7 @@ export default function RestoInfo({ bestResto }: any) {
               xs={3}
               sx={{ fontSize: "6vw", textAlign: "center", color: "#E3B574" }}
             >
-              ★ {4}
+              ★ {resto.rating ? resto.rating.toFixed(1) : 3.0}
             </Grid>
           </Grid>
 

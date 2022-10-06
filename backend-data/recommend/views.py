@@ -158,8 +158,18 @@ def recommCbfList(request, aztiType):
 def recommCfList(request, restoId):
     result = getItemBasedCF(restoId)
     id_list = tuple(result.index.values)
+    cfList = IdOldRestaurant(id_list)
+    
+    for cfItem in cfList:
+        try:
+            rating = selectRestoRating(cfItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+
+        cfItem['rating'] = rating
+
     data = {
-        'recommendCfList': IdOldRestaurant(id_list)
+        'recommendCfList': cfList
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
 
@@ -202,6 +212,14 @@ def restoList(request, userId, aztiType):
     elif 31 <= liked_num:
         answer += result_cbf[:1]
         answer += result_mf[:7]
+
+    for ansItem in answer:
+        try:
+            rating = selectRestoRating(ansItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+
+        ansItem['rating'] = rating
 
     data = {
         'recomList': answer

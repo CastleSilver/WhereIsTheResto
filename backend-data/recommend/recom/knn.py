@@ -152,6 +152,18 @@ def aztiRestaurants(text):
     # df = pd.DataFrame(result)
     return result
 
+def selectOneRestaurant(restoId):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+
+    sql = f"SELECT * FROM old_restaurant WHERE id = {restoId}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    # df = pd.DataFrame(result)
+    return result
+
 def selectOldRestaurant():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()

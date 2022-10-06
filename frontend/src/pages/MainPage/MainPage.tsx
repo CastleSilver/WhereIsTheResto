@@ -49,17 +49,14 @@ export default function MainPage() {
   }, [pathname])
 
   useEffect(() => {
-    console.log("AXIOS 시작")
     axios({
       // url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
       url: `http://j7a401.p.ssafy.io/data/recommend/resto/${userId}/${azti}/`,
       method: "GET",
     })
       .then((res: any) => {
-        console.log("AXIOS 끝")
         const temp = res.data.recomList
         setRecomList(temp)
-        console.log(temp)
       })
       .catch((e: any) => {
         console.log(e)

@@ -38,7 +38,6 @@ function SimpleDialog(props: SimpleDialogProps) {
         })
         break
       case "change":
-        console.log(2)
         break
       case "logout":
         await Swal.fire({

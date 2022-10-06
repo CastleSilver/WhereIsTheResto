@@ -25,12 +25,6 @@ export const setRequest = (reqInfo: reqInfoType) => {
 }
 
 export const myAxios = async (req: any) => {
-  console.log(
-    "%c  axios 시작  REQUEST ",
-    "background: orange; color: white",
-
-    req
-  )
   let res
   try {
     const temp = await axios(req)

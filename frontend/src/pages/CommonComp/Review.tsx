@@ -146,20 +146,6 @@ export default function Review({ review }: any) {
                   리뷰 삭제
                 </Box>
               </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Box
-                  sx={{
-                    width: "100%",
-                    fontSize: "24px",
-                    fontWeight: "bold",
-                    color: "black",
-                    fontFamily: "CHOSUN",
-                  }}
-                  onClick={() => console.log("리뷰 수정", review.id)}
-                >
-                  리뷰 수정
-                </Box>
-              </MenuItem>
             </Menu>
           </Grid>
           {Object.keys(review.imageUrl).length !== 0 && (

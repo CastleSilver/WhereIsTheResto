@@ -16,7 +16,6 @@ const like = {
 
     const req = setRequest(reqData)
     const res = await myAxios(req)
-    console.log(`좋아요 ${liked} => ${!liked}`)
   },
 }
 

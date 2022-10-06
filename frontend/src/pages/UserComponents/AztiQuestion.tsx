@@ -1,4 +1,3 @@
-// MUI
 import Button from "@mui/material/Button"
 import Radio, { RadioProps } from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
@@ -147,9 +146,6 @@ function AztiQuestion() {
 
           setTodayRes((event) => (event = today.resto_name))
           setTodayMenu((event) => (event = today.menu1))
-
-          console.log(todayRes)
-          console.log(todayMenu)
         })
         .catch((err) => {
           console.log(err)
@@ -581,12 +577,8 @@ function AztiQuestion() {
               Authorization: `${localStorage.getItem("login-kakao")}`,
             },
           })
-          .then((res) => {
-            console.log(res)
-          })
-          .then((err) => {
-            console.log(err)
-          })
+          .then((res) => {})
+          .then((err) => {})
       }
       hook()
 

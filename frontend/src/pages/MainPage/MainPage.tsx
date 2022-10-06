@@ -52,7 +52,7 @@ export default function MainPage() {
     console.log("AXIOS 시작")
     axios({
       // url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
-      url: `http://https://j7a401.p.ssafy.io/data/recommend/resto/${userId}/${azti}/`,
+      url: `http://j7a401.p.ssafy.io/data/recommend/resto/${userId}/${azti}/`,
       method: "GET",
     })
       .then((res: any) => {

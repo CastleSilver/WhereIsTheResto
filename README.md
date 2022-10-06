@@ -137,6 +137,45 @@ SSAFY 7기 특화 프로젝트 [ 그 집 어데고 ]
 
 
 
+## 사용 방법
+
+- front
+
+```
+npm i
+
+npm run dev
+or
+npx vite
+```
+
+
+
+- backend
+
+```
+(intelij)
+build
+
+run
+```
+
+
+
+- backend-data
+
+```
+python -m venv venv
+
+source venv/Scripts/activate
+
+pip install -r requirements.txt
+
+python manage.py runserver
+```
+
+
+
 ## 프로젝트 파일 구조
 
 
@@ -219,8 +258,6 @@ backend-data
   └── settings.gradle
 
 ```
-
-
 
 
 

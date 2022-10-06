@@ -33,14 +33,8 @@ export default function MyPage() {
   // ----------------------------------- My Page 렌더링 후 이루어지는 작업들 -----------------------------------
   useEffect(() => {
     window.scrollTo(0, 0) // 최상단 페이지 이동
-    console.log("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★")
-    console.log("LocalStroage에서 userId 를 뽑아내 유저 정보를 조회합니다.")
     const a = localStorage.getItem("userId")
-    console.log(a)
-    console.log("만약 데이터의 userId가 비어있다면 프론트에게 문의하세요")
-    console.log("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★")
     dispatch(getUserAsync(Number(a))) // userId를 통해 User 정보를 받아옴
-
     console.log(userInfo)
   }, [dispatch])
 
@@ -57,9 +51,9 @@ export default function MyPage() {
           <TopArea userInfo={userInfo} />
           <Box sx={{ paddingTop: "24px" }}></Box>
           <MyContents contentNum={contentNum} setContentNum={setContentNum} />
-          {contentNum === 0 && <RestoList restos={userInfo.like} />}
+          {contentNum === 0 && <RestoList restos={userInfo.like} cat={0} />}
           {contentNum === 1 && <MyReview reviews={userInfo.review} />}
-          {contentNum === 2 && <RestoList restos={userInfo.visited} />}
+          {contentNum === 2 && <RestoList restos={userInfo.visited} cat={1} />}
         </Box>
       )}
     </>

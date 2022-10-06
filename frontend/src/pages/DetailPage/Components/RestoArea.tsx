@@ -18,6 +18,7 @@ import BeenhereIcon from "@mui/icons-material/Beenhere"
 // Components Import
 import PaperBackground from "../../CommonComp/PaperBackground"
 import "./RestoArea.scss"
+import Swal from "sweetalert2"
 
 const recArea = {
   position: "relative",
@@ -86,7 +87,7 @@ export default function RestoArea() {
       <PaperBackground>
         {resto === undefined && <div>로딩 중</div>}
         {resto !== undefined && (
-          <Grid sx={{ padding: "18px" }}>
+          <Grid sx={{ px: "12px", py: "8px" }}>
             {/* 제목, 별점 */}
             <Grid container>
               <Grid item xs={12} sx={titleStyle} className="text-container">
@@ -127,7 +128,7 @@ export default function RestoArea() {
                     xs={6}
                   >
                     <AccessTimeFilledIcon sx={iconStyle} />
-                    20년
+                    {resto.restoAge}
                   </Grid>
                 </Grid>
                 <Grid container sx={contentStyle}>
@@ -149,27 +150,45 @@ export default function RestoArea() {
                 </Grid>
 
                 {/* 좋아요 & 가본 곳 */}
-                <Grid container sx={{ mt: "12px" }}>
+                <Grid container sx={{ mt: "0px" }}>
                   <Grid item xs={6}>
-                    <Button onClick={() => dispatch(likeRestoAsync(resto.id))}>
+                    <Button
+                      onClick={() => {
+                        dispatch(likeRestoAsync(resto.id))
+                        Swal.fire({
+                          title: "좋아요 등록/취소 완료",
+                          timer: 900,
+                          showConfirmButton: false,
+                        })
+                      }}
+                    >
                       {resto.liked ? (
                         <FavoriteIcon
                           color="warning"
-                          sx={{ fontSize: "14vw" }}
+                          sx={{ fontSize: "11vw" }}
                         />
                       ) : (
                         <FavoriteBorderIcon
                           color="disabled"
-                          sx={{ fontSize: "14vw" }}
+                          sx={{ fontSize: "11vw" }}
                         />
                       )}
                     </Button>
                   </Grid>
                   <Grid item xs={6}>
-                    <Button onClick={() => dispatch(vstRestoAsync(resto.id))}>
+                    <Button
+                      onClick={() => {
+                        dispatch(vstRestoAsync(resto.id))
+                        Swal.fire({
+                          title: "방문한 곳 등록/취소 완료",
+                          timer: 900,
+                          showConfirmButton: false,
+                        })
+                      }}
+                    >
                       <BeenhereIcon
                         color={resto.visited ? "warning" : "disabled"}
-                        sx={{ fontSize: "14vw" }}
+                        sx={{ fontSize: "11vw" }}
                       />
                     </Button>
                   </Grid>

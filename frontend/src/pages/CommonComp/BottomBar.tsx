@@ -12,7 +12,7 @@ const style = {
   bottom: 0,
   left: 0,
   backgroundColor: "rgb(255 249 243)",
-  height: "40px",
+  height: "50px",
   zIndex: 90,
 }
 
@@ -50,15 +50,19 @@ export default function Bottombar() {
           >
             <Link to={`${Links[index]}`} style={btnStyle}>
               <Box sx={index === pageNum ? selected : { height: "5px" }}></Box>
-              <p
-                style={{
+              <Grid
+                container
+                justifyContent="center"
+                alignContent="center"
+                sx={{
                   padding: "5px",
                   margin: 0,
                   color: "rgb(217 93 65)",
+                  height: "100%",
                 }}
               >
-                {btn}
-              </p>
+                <Grid item>{btn}</Grid>
+              </Grid>
             </Link>
           </Grid>
         )

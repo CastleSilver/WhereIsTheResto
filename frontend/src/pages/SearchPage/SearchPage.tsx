@@ -1,38 +1,81 @@
-/* global kakao */
+import { Box, Avatar, Grid } from "@mui/material"
+import { useEffect, useState } from "react"
 
-import React, { useState, useEffect } from "react"
-const kakao = (window as any).kakao
+import { useNavigate } from "react-router-dom"
+import cardImg from "../../assets/cardImg.png"
+import PaperBackground from "../CommonComp/PaperBackground"
 
-export default function SearchPage() {
-  const [coord, setCoord] = useState([33.450701, 126.570667])
+const cardStyle = {
+  height: "60vw",
+  width: "100%",
+  position: "relative",
+  overflow: "hidden",
+}
 
-  const getPosition = () => {
-    navigator.geolocation.getCurrentPosition(function (location) {
-      setCoord([location.coords.latitude, location.coords.longitude])
-    })
-  }
+const imgStyle: {} = {
+  position: "absolute",
+  opacity: 0.35,
+  top: 0,
+  left: 0,
+  width: "100%",
+  zIndex: 10,
+}
+
+const contentArea = {
+  position: "relative",
+  height: "100%",
+  fontSize: "12vw",
+  opacity: "100%",
+  zIndex: 11,
+  wordBreak: "keep-all",
+  px: "15px",
+}
+
+const titles = [
+  "30년 이상 노포",
+  "인기 노포",
+  "유투버 추천 리스트",
+  "1등팀의 추천 리스트",
+]
+
+const getCard = (index: number) => {
+  const navigate = useNavigate()
 
   useEffect(() => {
-    // getPosition()
-    let container = document.getElementById("map") //지도를 담을 영역의 DOM 레퍼런스
-    let options = {
-      //지도를 생성할 때 필요한 기본 옵션
-      center: new kakao.maps.LatLng(coord[0], coord[1]), //지도의 중심좌표.
-      level: 3, //지도의 레벨(확대, 축소 정도)
-    }
+    window.scrollTo(0, 0)
+    sessionStorage.setItem("pageNum", "1")
+  })
+  return (
+    <PaperBackground>
+      <Box sx={cardStyle} onClick={() => navigate(`/search/${index}`)}>
+        <Grid
+          container
+          justifyContent="center"
+          alignContent={"center"}
+          sx={contentArea}
+        >
+          {titles[index]}
+        </Grid>
+        <img style={imgStyle} src={cardImg} />
+        <hr />
+      </Box>
+    </PaperBackground>
+  )
+}
 
-    let map = new kakao.maps.Map(container, options) //지도 생성 및 객체 리턴
-  }, [coord, getPosition])
-
+export default function SearchPage() {
   return (
     <>
-      <h1>나의 위치는?</h1>
-      <button onClick={() => getPosition()}>확인</button>
-      <p>X 좌표: {coord[0]}</p>
-      <p>Y 좌표: {coord[1]}</p>
+      <Box sx={{ fontSize: "15vw", color: "rgb(2 49 119)" }}>추-천 리스트</Box>
+
       <hr />
-      <h1>지도</h1>
-      <div id="map" style={{ width: "100%", height: "400px" }}></div>
+      {titles.map((title, index) => {
+        return (
+          <Box key={index} sx={{ mt: "24px" }}>
+            {getCard(index)}
+          </Box>
+        )
+      })}
     </>
   )
 }

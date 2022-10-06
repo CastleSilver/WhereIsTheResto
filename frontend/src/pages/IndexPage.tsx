@@ -8,6 +8,8 @@ import Bottombar from "./CommonComp/BottomBar"
 import RestoDetail from "./DetailPage/RestoDetail"
 import ReviewForm from "../Form/NewReviewForm"
 import MyInfoUpdate from "./MyPage/MyInfoUpdate"
+import SearchPage from "./SearchPage/SearchPage"
+import SearchComp from "./SearchPage/Components/SearchComp"
 
 export default function IndexPage() {
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth)
@@ -24,6 +26,8 @@ export default function IndexPage() {
         <Route path="my-page/update" element={<MyInfoUpdate />} />
         <Route path="restos/:restoId" element={<RestoDetail />} />
         <Route path="restos/:restoId/review" element={<ReviewForm />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/search/:searchNum" element={<SearchComp />} />
         {/* 실험실 */}
       </Routes>
       <Bottombar />

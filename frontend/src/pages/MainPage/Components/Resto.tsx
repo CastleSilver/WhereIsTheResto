@@ -1,7 +1,7 @@
 // React 시스템 Import
 
 // 기타 라이브러리 Import
-import { Box, Grid } from "@mui/material"
+import { Avatar, Box, Grid } from "@mui/material"
 import PinDropIcon from "@mui/icons-material/PinDrop"
 import LocalDiningIcon from "@mui/icons-material/LocalDining"
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled"
@@ -64,7 +64,11 @@ export default function Resto({ resto }: any) {
         </Grid>
 
         <Box sx={imgFrame}>
-          <img src={resto.thumbnail} style={imgStyle} />
+          <Avatar
+            src={resto.thumbnail}
+            sx={{ width: "100%", height: "100%" }}
+            variant="rounded"
+          />
         </Box>
 
         {/* 주소 정보 */}
@@ -78,7 +82,11 @@ export default function Resto({ resto }: any) {
           <Grid item xs={2}>
             <PinDropIcon sx={{ fontSize: "6vw", marginRight: "16px" }} />
           </Grid>
-          <Grid item xs={10} sx={{ ...fontOver, fontSize: "6vw" }}>
+          <Grid
+            item
+            xs={10}
+            sx={{ ...fontOver, fontSize: "6vw", textAlign: "left" }}
+          >
             {resto.address}
           </Grid>
         </Grid>
@@ -94,7 +102,11 @@ export default function Resto({ resto }: any) {
           <Grid item xs={2}>
             <LocalDiningIcon sx={{ fontSize: "6vw", marginRight: "16px" }} />
           </Grid>
-          <Grid item sx={{ ...fontOver, fontSize: "6vw" }}>
+          <Grid
+            item
+            xs={10}
+            sx={{ ...fontOver, fontSize: "6vw", textAlign: "left" }}
+          >
             {resto.menu1}, {resto.menu2}
           </Grid>
         </Grid>

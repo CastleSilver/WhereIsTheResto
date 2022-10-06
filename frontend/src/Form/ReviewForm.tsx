@@ -105,7 +105,6 @@ export default function ReviewForm() {
     const formD = new FormData()
     const baseInfo = JSON.stringify({ restoId, rating, content })
 
-    console.log("baseInfo", baseInfo)
     const reviewReq = new Blob([baseInfo], { type: "application/json" })
 
     // form-data에 데이터 넣기
@@ -114,14 +113,11 @@ export default function ReviewForm() {
       formD.append("multipartFiles", file)
     }
 
-    console.log("-----------------------Review 보내기 전")
     formD.forEach(async (f: any) => {
       const a = await f.text()
-      console.log(a)
     })
 
     const res = await review.create(formD)
-    console.log(res)
   }
 
   const backBtnStyle = {

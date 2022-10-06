@@ -72,8 +72,8 @@ export default function RestoDetail() {
   }, [restoId, dispatch])
 
   const getOtherResto = async () => {
-    const url = `http://localhost:8000/data/recommend/cf/${restoId}`
-    /** const url = `http://https://j7a401.p.ssafy.io/data/recommend/cf/${restoId}` */
+    // const url = `http://localhost:8000/data/recommend/cf/${restoId}`
+    const url = `http://j7a401.p.ssafy.io/data/recommend/cf/${restoId}`
     await axios
       .get(url)
       .then((res) => {

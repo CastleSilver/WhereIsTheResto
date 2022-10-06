@@ -7,5 +7,7 @@ urlpatterns = [
     path('cbf/<aztiType>', views.recommCbfList),
     path('cf/<int:restoId>', views.recommCfList),
     path('mf/<userId>', views.recommMfList),
-    path('resto/<userId>/<aztiType>/', views.restoList)
+    path('resto/<userId>/<aztiType>/', views.restoList),
+    path('resto/developer', views.developerList),
+    path('resto/youtuber', views.youtuberList)
 ]

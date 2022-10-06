@@ -206,4 +206,49 @@ def restoList(request, userId, aztiType):
         'recomList': answer
     }
 
-    return HttpResponse(json.dumps(data), content_type='application/json')  
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@api_view(['GET'])
+def developerList(request):
+    devList = selectDeveloper()
+    for devItem in devList:
+        try:
+            rating = selectRestoRating(devItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+        
+        try:
+            reviews = selectRestoReview(devItem['id'])
+        except:
+            reviews = []
+
+        devItem['rating'] = rating
+        devItem['review'] = reviews
+    
+    data = {
+        'devList' : devList
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@api_view(['GET'])
+def youtuberList(request):
+    youList = selectYoutuber()
+    for youItem in youList:
+        try:
+            rating = selectRestoRating(youItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+        
+        try:
+            reviews = selectRestoReview(youItem['id'])
+        except:
+            reviews = []
+
+        youItem['rating'] = rating
+        youItem['review'] = reviews
+    
+    data = {
+        'youList': youList
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')

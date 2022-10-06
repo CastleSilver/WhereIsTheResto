@@ -60,7 +60,7 @@ export default function Resto({ resto }: any) {
             xs={3}
             sx={{ fontSize: "6vw", textAlign: "center", color: "#E3B574" }}
           >
-            ★ {resto.rating ? resto.rating.toFixed(1) : 0}
+            ★ {resto.rating ? resto.rating.toFixed(1) : 3.0}
           </Grid>
         </Grid>
 

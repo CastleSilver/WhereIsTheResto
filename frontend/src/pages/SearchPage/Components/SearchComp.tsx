@@ -45,7 +45,7 @@ export default function SearchComp() {
         .then((res) => {
           wList = res.data.thirList
         })
-    } else if (num === "3") {
+    } else if (num === "1") {
       await axios
         // .get("http://127.0.0.1:8000/data/recommend/resto/liked")
         .get("http://j7a401.p.ssafy.io/data/recommend/resto/liked")
@@ -65,6 +65,7 @@ export default function SearchComp() {
           wList = res.data.devList
         })
     }
+
     setRestos(wList)
   }
 

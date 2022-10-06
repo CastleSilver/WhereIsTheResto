@@ -128,7 +128,7 @@ export default function RestoArea() {
                     xs={6}
                   >
                     <AccessTimeFilledIcon sx={iconStyle} />
-                    {resto.restoAge}
+                    {2022 - resto.restoAge}년
                   </Grid>
                 </Grid>
                 <Grid container sx={contentStyle}>

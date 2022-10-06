@@ -125,11 +125,13 @@ def recommCbfList(request, aztiType):
         cat_sim = cosine_similarity(cat_mat, cat_mat)
 
         def find_sim_resto(df, sim_matrix, title_name, top_n=10):
-            
             # 입력한 영화의 index
             title_movie = df[df['resto_name'] == title_name]
             title_index = title_movie.index.values
-            
+
+            if len(title_index) > 1:
+                title_index = title_index[0]
+
             # 입력한 영화의 유사도 데이터 프레임 추가
             df["similarity"] = sim_matrix[title_index, :].reshape(-1,1)
             
@@ -146,8 +148,7 @@ def recommCbfList(request, aztiType):
         similar_restos = find_sim_resto(restos_data, cat_sim, request_title, request_num)
 
         result = similar_restos.to_dict(orient='records')
-        print(result)
-        print(type(result))
+
         data = {
             'recommendCbfList': result,
         }

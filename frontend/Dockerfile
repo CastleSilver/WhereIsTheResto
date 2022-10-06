@@ -8,6 +8,8 @@ FROM nginx:stable-alpine as production-stage
 
 COPY --from=build-stage /var/jenkins_home/workspace/nopo/frontend/dist /usr/share/nginx/html
 COPY --from=build-stage /var/jenkins_home/workspace/nopo/frontend/deploy_conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /etc/letsencrypt
 COPY --from=build-stage /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt
 COPY --from=build-stage /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt
 COPY --from=build-stage /etc/letsencrypt/live/j7a401.p.ssafy.io /etc/letsencrypt/live/j7a401.p.ssafy.io

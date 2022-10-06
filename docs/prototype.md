@@ -1,0 +1,1 @@
+![그집어데고_프로토타입](prototype.assets/%EA%B7%B8%EC%A7%91%EC%96%B4%EB%8D%B0%EA%B3%A0_%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85.png)

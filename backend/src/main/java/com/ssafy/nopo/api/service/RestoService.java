@@ -11,5 +11,4 @@ public interface RestoService {
     RestoListRes getRestoLists();
     List<RestoRes> findAllByRestoGrade();
     List<RestoRes> orderByLikedCnt();
-    List<RestoRes> recommendList();
 }

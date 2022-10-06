@@ -79,7 +79,7 @@ def selectRestoReview(restoId):
 def selectDeveloper():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()
-    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE old_restaurant.id IN (994, 1098, 1431, 563, 666, 277, 616, 995, 1222, 1430, 363, 1401, 1358, 473, 684, 62, 1131, 1402)"
+    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE old_restaurant.id IN (1445, 994, 1098, 1431, 563, 666, 277, 616, 995, 1222, 1430, 363, 1401, 1358, 473, 684, 62, 1131, 1402)"
     cursor.execute(sql)
     
     result = cursor.fetchall()

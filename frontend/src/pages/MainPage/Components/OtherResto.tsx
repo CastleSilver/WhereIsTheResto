@@ -14,7 +14,7 @@ const RowContent = styled.div`
 const Content = styled.div`
   margin-right: 4vw;
   zindex: 60;
-  width: 100%;
+  width: 85%;
 `
 
 export default function OtherResto({ restos }: any) {

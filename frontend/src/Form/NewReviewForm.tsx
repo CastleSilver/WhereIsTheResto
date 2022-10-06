@@ -55,9 +55,6 @@ export default function NewReviewForm() {
       const msg = []
 
       if (cond2) {
-        msg.push("식당 ID가 없습니다")
-      }
-      if (cond2) {
         msg.push("리뷰 내용이 없습니다.")
       }
       const c = msg.join("<br/><br/>")
@@ -81,7 +78,6 @@ export default function NewReviewForm() {
     const reviewReq = new Blob([befData], { type: "application/json" })
     formD.append("reviewReq", reviewReq)
     for (let file in files) {
-      // console.log(files[file])
       formD.append("multipartFiles", files[file])
     }
 
@@ -91,18 +87,17 @@ export default function NewReviewForm() {
       navigate(-1)
       return
     } else {
-      Swal.fire(
-        "리뷰 작성에 실패 했습니다",
-        "해당 가게에 대한 리뷰를 작성하였거나, 잘못된 요청입니다."
-      )
+      Swal.fire("리뷰 작성에 실패 했습니다", `${res.response.statusText}`)
       return
     }
   }
 
   return (
     <>
-      <Box sx={backBtnStyle} onClick={() => navigate(-1)}>
-        <Button sx={backBtnStyle}>뒤로 가기</Button>
+      <Box sx={backBtnStyle}>
+        <Button sx={backBtnStyle} onClick={() => navigate(-1)}>
+          뒤로 가기
+        </Button>
       </Box>
       <FormControl>
         <PaperBackground>

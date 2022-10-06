@@ -11,10 +11,8 @@ import BlockPage from "./pages/CommonComp/blockPage"
 import StartPage from "./pages/StartPage/StartPage"
 import IndexPage from "./pages/IndexPage"
 import PrivateRoute from "./PrivateRoute"
-import NeedConfirm from "./needConfirm/NeedConfirm"
 
 import { createTheme, ThemeProvider } from "@mui/material"
-import SearchComp from "./needConfirm/SearchComp"
 
 function App() {
   const theme = createTheme({
@@ -39,8 +37,6 @@ function App() {
       {browserWidth > 450 && <BlockPage />}
       <Router>
         <Routes>
-          <Route path="/need-confirm" element={<NeedConfirm />} />
-          <Route path="/lab/:searchNum" element={<SearchComp />} />
           <Route path="/" element={<StartPage />} />
           <Route path="/azti" element={<Azti />} />
           <Route path="/oauth/kakao/callback" element={<Auth />} />

@@ -56,7 +56,7 @@ export default function LoadingPaper() {
                   }}
                 >
                   <Button variant="outlined" color="warning">
-                    to Main Page...
+                    이전 페이지로
                   </Button>
                 </Box>
               </Grid>

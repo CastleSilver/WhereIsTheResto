@@ -133,13 +133,13 @@ function AztiQuestion() {
   }
 
   // 오늘 식당 추천
-  const [todayRes, setTodayRes] = useState<string>("...")
-  const [todayMenu, setTodayMenu] = useState<string>("...")
+  const [todayRes, setTodayRes] = useState<string>("")
+  const [todayMenu, setTodayMenu] = useState<string>("")
 
   let sPick = Math.floor(Math.random() * 9)
   useEffect(() => {
     const recoFood = () => {
-      const url = `http://localhost:8000/data/recommend/cbf/${SelectUserAzti.user_azti}`
+      const url = `http://j7a401.p.ssafy.io/data/recommend/cbf/${SelectUserAzti.user_azti}`
       axios
         .get(url)
         .then((res) => {
@@ -240,7 +240,7 @@ function AztiQuestion() {
         <form onSubmit={handleSubmit}>
           <FormControl sx={{ m: 3 }} variant="standard">
             <FormLabel id="demo-error-radios">
-              <h1 className="text-orange-2">
+              <h1 className="text-orange-3">
                 {" "}
                 일을 하던 도중 비가오는 상황!
                 <br /> 다음 중 생각나는 것은?{" "}
@@ -571,7 +571,7 @@ function AztiQuestion() {
 
     const buttonToMain = () => {
       const hook = () => {
-        const url = "http://localhost:8080/api/user/azti"
+        const url = "http://j7a401.p.ssafy.io/api/user/azti"
         const data = {
           aztiType: `${SelectUserAzti.user_azti}`,
         }

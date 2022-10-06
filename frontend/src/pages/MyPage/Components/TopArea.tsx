@@ -45,6 +45,7 @@ export default function TopArea({ userInfo }: any) {
               <Grid item xs={5}>
                 <Avatar
                   src={userInfo.profileImageURL}
+                  variant="rounded"
                   sx={{ width: recLen, height: recLen, m: "auto" }}
                 />
               </Grid>

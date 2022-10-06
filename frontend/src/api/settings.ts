@@ -39,7 +39,7 @@ export const myAxios = async (req: any) => {
     res = temp.data
     console.log("AXIOS 성공", res)
   } catch (error: any) {
-    res = error.response.data
+    res = error
     console.log("AXIOS 실패", error)
   } finally {
     console.log("%c  axios 종료  RESPONSE ", "background: blue; color: white")

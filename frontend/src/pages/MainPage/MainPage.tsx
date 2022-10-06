@@ -36,6 +36,7 @@ const SideRLeft = styled.div`
 export default function MainPage() {
   const { pathname } = useLocation()
   const [recomList, setRecomList] = useState([])
+
   const isProgress = useAppSelector(selectRecomStatus)
   const dispatch = useAppDispatch()
 
@@ -50,7 +51,8 @@ export default function MainPage() {
   useEffect(() => {
     console.log("AXIOS 시작")
     axios({
-      url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
+      // url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
+      url: `http://https://j7a401.p.ssafy.io/data/recommend/resto/${userId}/${azti}/`,
       method: "GET",
     })
       .then((res: any) => {

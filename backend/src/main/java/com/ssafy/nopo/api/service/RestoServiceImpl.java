@@ -57,7 +57,7 @@ public class RestoServiceImpl implements RestoService{
 
     @Override
     public List<RestoRes> findAllByRestoGrade() {
-        List<RestoRes> restoResList = restoRepository.findAllByGrade(Grade.THIRTY)
+        List<RestoRes> restoResList = restoRepository.findTop20ByGrade(Grade.THIRTY)
                 .stream()
                 .map(RestoRes::new)
                 .collect(Collectors.toList());
@@ -73,10 +73,5 @@ public class RestoServiceImpl implements RestoService{
                 .collect(Collectors.toList());
         if(restoResList.isEmpty()) throw new CustomException(ErrorCode.RESTO_LiST_GET_ERROR);
         return restoResList;
-    }
-
-    @Override
-    public List<RestoRes> recommendList() {
-        return null;
     }
 }

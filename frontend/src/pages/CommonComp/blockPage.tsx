@@ -5,6 +5,7 @@ const boxStyle = {
   position: "fixed",
   width: "100vw",
   height: "100vh",
+  top: 0,
   left: 0,
   backgroundColor: "rgba(217, 217, 217, 0.9)",
   display: "flex",

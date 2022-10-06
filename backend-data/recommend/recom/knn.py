@@ -56,6 +56,46 @@ def selectReviewByUserId(userId):
     df = pd.DataFrame(result)
     return df
 
+def selectRestoRating(restoId):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT avg(rating) FROM nopo_db.review WHERE resto_id = {restoId}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
+def selectRestoReview(restoId):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT review.id, content, rating, resto_id, user_id, nickname, profile_image FROM nopo_db.review LEFT OUTER JOIN user ON review.user_id = user.id WHERE resto_id = {restoId}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
+def selectDeveloper():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE old_restaurant.id IN (994, 1098, 1431, 563, 666, 277, 616, 995, 1222, 1430, 363, 1401, 1358, 473, 684, 62, 1131, 1402)"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
+def selectYoutuber():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE old_restaurant.id IN (1428, 732, 133, 596, 828, 1080, 1189, 1000, 987, 764, 129, 814, 66, 806, 369, 1104, 1265, 646, 1380, 941, 386)"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
 def OldRestaurantRandom():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()

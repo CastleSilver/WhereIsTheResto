@@ -1,11 +1,26 @@
-import { Box, Button, Grid, Menu, MenuItem } from "@mui/material"
+import { Avatar, Box, Button, Grid, Menu, MenuItem } from "@mui/material"
 import React, { useEffect, useState } from "react"
 import PaperBackground from "./PaperBackground"
 import MenuIcon from "@mui/icons-material/Menu"
 
 import Swal from "sweetalert2"
 import { review as reviewAPI } from "../../api/index"
+import styled from "styled-components"
+const Slider = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+`
 
+const RowContent = styled.div`
+  display: flex;
+  overflow-x: scroll;
+  flex-column: column;
+  scroll-behavior: smooth;
+
+  width: 100%;
+  height: 60vw;
+`
 const titleText = {
   fontFamily: "BMEULJIRO",
   fontSize: "8vw",
@@ -149,9 +164,19 @@ export default function Review({ review }: any) {
             </Menu>
           </Grid>
           {Object.keys(review.imageUrl).length !== 0 && (
-            <Grid item sx={imgFrame}>
-              <img src={`${review.imageUrl[0]}`} style={imgArea} />
-            </Grid>
+            <Slider>
+              <RowContent className="kill-scroll">
+                {review.imageUrl.map((url: string) => {
+                  return (
+                    <Avatar
+                      src={url}
+                      sx={{ width: "100%", height: "100%" }}
+                      variant="rounded"
+                    />
+                  )
+                })}
+              </RowContent>
+            </Slider>
           )}
           <Grid item>
             <Button onClick={() => setToggle((prev) => !prev)} sx={btnStyle}>

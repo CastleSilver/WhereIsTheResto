@@ -36,11 +36,22 @@ export default function SearchComp() {
   const navigate = useNavigate()
 
   const getList = async (num: string) => {
-    let wList = []
+    let wList: any = []
 
-    if (num === "0" || num === "1") {
-      wList = await restoAPI.getOther()
-      setRestos(wList)
+    if (num === "0") {
+      await axios
+        // .get("http://127.0.0.1:8000/data/recommend/resto/thirty")
+        .get("http://j7a401.p.ssafy.io/data/recommend/resto/thirty")
+        .then((res) => {
+          wList = res.data.thirList
+        })
+    } else if (num === "3") {
+      await axios
+        // .get("http://127.0.0.1:8000/data/recommend/resto/liked")
+        .get("http://j7a401.p.ssafy.io/data/recommend/resto/liked")
+        .then((res) => {
+          wList = res.data.likeList
+        })
     } else if (num === "2") {
       await axios
         .get("http://j7a401.p.ssafy.io/data/recommend/resto/youtuber")

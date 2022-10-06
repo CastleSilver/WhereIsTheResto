@@ -6,8 +6,7 @@ import MyInfoUpdate from "../MyInfoUpdate"
 // STYLING CODE
 const nameStyle = {
   fontFamily: "BMEULJIRO",
-  fontSize: "7vw",
-
+  fontSize: "9vw",
   color: "rgb(2 49 119)",
 }
 

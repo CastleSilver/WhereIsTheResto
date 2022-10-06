@@ -55,7 +55,7 @@ export default function RestoInfo({ bestResto }: any) {
           {/* 가게 이름 */}
           <Grid container alignItems="end" sx={{ pb: "12px" }}>
             <Grid item xs={9} sx={{ ...titleStyle }}>
-              {resto.name}
+              {resto.resto_name}
             </Grid>
             <Grid
               item
@@ -63,7 +63,7 @@ export default function RestoInfo({ bestResto }: any) {
               xs={3}
               sx={{ fontSize: "6vw", textAlign: "center", color: "#E3B574" }}
             >
-              ★ {resto.rating.toFixed(1)}
+              ★ {4}
             </Grid>
           </Grid>
 

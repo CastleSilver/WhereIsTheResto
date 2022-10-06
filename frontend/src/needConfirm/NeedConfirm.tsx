@@ -2,6 +2,7 @@ import { Box, Avatar, Grid } from "@mui/material"
 import React from "react"
 import styled from "styled-components"
 import PaperBackground from "../pages/CommonComp/PaperBackground"
+
 const Slider = styled.div`
   position: relative;
   overflow: hidden;

@@ -9,6 +9,7 @@ import {
   like as likeAPI,
   visited as visitedAPI,
 } from "../../api/index"
+import { restoInfo } from "../../api/api/fakeData"
 
 export interface RestoState {
   value: restoResType | undefined
@@ -16,7 +17,7 @@ export interface RestoState {
 }
 
 const initialState: RestoState = {
-  value: undefined,
+  value: restoInfo,
   status: "idle",
 }
 

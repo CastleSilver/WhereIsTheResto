@@ -1,5 +1,5 @@
 // React 시스템 Import
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../userStore/hooks"
 import {
@@ -20,6 +20,10 @@ import OtherResto from "./Components/OtherResto"
 import LoadingPaper from "../CommonComp/LoadingPaper"
 import axios from "axios"
 
+// Styling
+import "../../style/style.css"
+import { CollectionsBookmarkRounded } from "@mui/icons-material"
+
 const sideLeftAnimation = keyframes`${slideInLeft}`
 
 const SideRLeft = styled.div`
@@ -31,50 +35,68 @@ const SideRLeft = styled.div`
 
 export default function MainPage() {
   const { pathname } = useLocation()
-
-  const recomList = useAppSelector(selectRecom)
+  const [recomList, setRecomList] = useState([])
   const isProgress = useAppSelector(selectRecomStatus)
   const dispatch = useAppDispatch()
+
+  // 장고 API 요청에 필요한 데이터들
+  const userId = 121
+  const azti = "mnhc"
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
   useEffect(() => {
-    dispatch(getRecomAsync())
-  }, [dispatch])
-
-  useEffect(() => {
-    sessionStorage.setItem("pageNum", "0")
+    console.log("AXIOS 시작")
     axios({
-      url: "http://j7a401.p.ssafy.io/recommend/aaaa",
+      url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
       method: "GET",
     })
       .then((res: any) => {
-        console.log(res)
+        console.log("AXIOS 끝")
+        const temp = res.data.recomList
+        setRecomList(temp)
+        console.log(temp)
       })
       .catch((e: any) => {
         console.log(e)
       })
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem("pageNum", "0")
   })
   return (
     <Box>
-      {isProgress === "pending" && <LoadingPaper />}
-      {isProgress !== "pending" && (
+      {Object.keys(recomList).length === 0 && <LoadingPaper />}
+      {Object.keys(recomList).length !== 0 && (
         <>
           <Banner />
           <SideRLeft>
             {/* 마진 */}
-            <Box sx={{ height: "200px" }}></Box>
+            <Box sx={{ height: "130px" }}></Box>
 
             {/* 제일 인기 많은 가게 추천 Area */}
-            <p className="title-text-lg" style={{ textAlign: "left" }}>
+            <p
+              // *******************************************
+              // className={"title1"}
+              className={"title-text-lg"}
+              style={{ textAlign: "left", fontSize: "10vw" }}
+              // *******************************************
+            >
               남바-원!
             </p>
             <BestResto bestResto={recomList[0]} />
 
             {/* 다른 추천 가게들 Carousel */}
-            <p className="title-text-lg" style={{ textAlign: "left" }}>
+            <p
+              // *******************************************
+              // className={"title1"}
+              className={"title-text-lg"}
+              style={{ textAlign: "left", fontSize: "8.5vw" }}
+              // *******************************************
+            >
               여기도 정-말 맛있는데
             </p>
             <OtherResto restos={recomList.slice(1, recomList.length)} />

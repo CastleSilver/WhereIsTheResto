@@ -14,14 +14,16 @@ import PaperBackground from "../../CommonComp/PaperBackground"
 const titleText = {
   fontFamily: "BMEULJIRO",
   fontSize: "8vw",
-  color: "rgb(228, 73, 39)",
   marginTop: "auto",
   marginBottom: "auto",
   textAlign: "left",
+  // color: "rgb(216 99 69)",
+  color: "rgb(2 49 119)",
 }
 
 const backArea = {
-  padding: "20px",
+  py: "20px",
+  px: "5vw",
   paddingBottom: 0,
 }
 
@@ -52,9 +54,8 @@ const contentArea = {
 }
 
 const btnStyle = {
-  fontSize: "5vw",
-  fontWeight: "bold",
-  color: "rgb(217 93 65)",
+  fontSize: "6vw",
+  color: "rgb(0 0 0)",
   width: "100%",
   py: "10px",
 }
@@ -117,19 +118,21 @@ export default function ReviewComp({ review }: any) {
             justifyContent={"space-between"}
             sx={{ marginBottom: "18px" }}
           >
-            <Grid item xs={10} sx={{ ...titleText, ...fontOver }}>
-              {review.restoName}
-            </Grid>
-            <Grid item xs={2}>
-              <Button
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <MenuIcon fontSize="large" color="warning" />
-              </Button>
+            <Grid container>
+              <Grid item xs={9} sx={{ ...titleText, ...fontOver }}>
+                {review.restoName}
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  <MenuIcon fontSize="large" sx={{ color: "rgb(0 0 0)" }} />
+                </Button>
+              </Grid>
             </Grid>
             <Menu
               id="basic-menu"

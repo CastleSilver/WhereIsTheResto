@@ -1,11 +1,12 @@
 import { Box, Grid, Avatar } from "@mui/material"
+import { useState } from "react"
 import PaperBackGround from "../../CommonComp/PaperBackground"
+import MyInfoUpdate from "../MyInfoUpdate"
 
 // STYLING CODE
 const nameStyle = {
   fontFamily: "BMEULJIRO",
-  fontSize: "6.2vw",
-  mb: "16px",
+  fontSize: "9vw",
   color: "rgb(2 49 119)",
 }
 
@@ -14,12 +15,16 @@ const aztiStyle = {
   fontSize: "10vw",
   m: "auto",
   color: "rgba(228, 115, 39, 0.973)",
+  wordBreak: "keep-all",
 }
 
 const recLen = "29vw"
 export default function TopArea({ userInfo }: any) {
   // AZTI 정보 편집
-  let azti = localStorage.getItem("userKoreanAzti") || "X"
+  let [azti, setAZTI] = useState(localStorage.getItem("userKoreanAzti"))
+  if (azti == "X" || azti === undefined) {
+    setAZTI("AZTI 정보가 없습니다")
+  }
 
   return (
     <>
@@ -27,7 +32,14 @@ export default function TopArea({ userInfo }: any) {
         <PaperBackGround>
           <Box sx={{ px: "2vw", py: "12px" }}>
             {/* 유저 닉네임 */}
-            <Box sx={nameStyle}>{userInfo.nickname}</Box>
+            <Grid container>
+              <Grid item xs={10} sx={nameStyle}>
+                {userInfo.nickname}
+              </Grid>
+              <Grid item xs={2}>
+                <MyInfoUpdate />
+              </Grid>
+            </Grid>
             <Grid container alignItems="center">
               {/* 유저 프로필 이미지 */}
               <Grid item xs={5}>

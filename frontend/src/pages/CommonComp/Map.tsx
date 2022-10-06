@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useAppSelector } from "../userStore/hooks"
 import { selectResto } from "../userStore/restoSlice"
 import PaperBackground from "./PaperBackground"
+
 const kakao = (window as any).kakao
 
 export default function Map() {
@@ -29,19 +30,9 @@ export default function Map() {
     // })
 
     // 지도 마커 대체 이미지 설정
-    const imageSrc =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMzX7Woa-ETtHYpRg9ydRD-nXpisEewpxwWg&usqp=CAU"
-    const imageSize = new kakao.maps.Size(30, 50)
-    const imageOption = { offset: new kakao.maps.Point(27, 69) }
-    const markerImage = new kakao.maps.MarkerImage(
-      imageSrc,
-      imageSize,
-      imageOption
-    )
 
     const marker = new kakao.maps.Marker({
       position: markerPosition,
-      image: markerImage,
     })
     marker.setMap(map)
   }, [resto])

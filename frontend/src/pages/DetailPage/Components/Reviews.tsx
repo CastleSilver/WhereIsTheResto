@@ -41,9 +41,9 @@ export default function Reviews() {
           </Grid>
           {Object.keys(reviews).length === 0 && <div>리뷰가 없습니다</div>}
           {Object.keys(reviews).length !== 0 &&
-            reviews.map((review, index) => {
+            reviews.map((review: any, index) => {
               return (
-                <Box sx={{ mb: "24px" }} key={index}>
+                <Box sx={{ mb: "24px" }} key={review.id}>
                   <Review review={review} />
                 </Box>
               )

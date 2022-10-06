@@ -46,13 +46,13 @@ export default function LoadingPaper() {
               <Grid>
                 <Grid>
                   <p>해당 페이지 접속이 지연되고 있습니다.</p>
-                  <p>메인 페이지로 돌아가고 싶다면 버튼을 눌러주세요</p>
+                  <p>이전 페이지로 돌아가고 싶다면 버튼을 눌러주세요</p>
                 </Grid>
                 <Box
                   style={{ textDecoration: "none" }}
                   onClick={() => {
                     sessionStorage.setItem("pageNum", "0")
-                    navigate("/main")
+                    navigate(-1)
                   }}
                 >
                   <Button variant="outlined" color="warning">

@@ -60,12 +60,21 @@
     -webkit-text-stroke: 0.01rem rgb(227 187 105);
     margin-bottom: 2vh;
     font-weight: bold;
+    margin-left : 1vh;
+    margin-right : 1vh;
   }
 
   .text-orange-4 {
     color: rgb(216, 99, 69);
     font-size: 1.3rem;
     /* text-shadow: 0.1rem 0.1rem 0.1em grey; */
+    font-weight: bold;
+  }
+  .text-orange-5 {
+    font-size: 20px;
+    color: rgb(228, 73, 39);
+    /* -webkit-text-stroke: 0.01rem rgb(228, 73, 39); */
+    margin-bottom: 2vh;
     font-weight: bold;
   }
   

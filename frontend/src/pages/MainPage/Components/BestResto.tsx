@@ -38,9 +38,10 @@ export default function RestoInfo({ bestResto }: any) {
 
   const titleStyle = {
     fontFamily: "BMEULJIRO",
-    fontSize: "11vw",
+    fontSize: "9vw",
     textAlign: "left",
-    color: "rgb(216 99 69)",
+    // color: "rgb(216 99 69)",
+    color: "rgb(2 49 119)",
     ...fontOver,
   }
 
@@ -53,8 +54,8 @@ export default function RestoInfo({ bestResto }: any) {
         <Box sx={wholeFrame}>
           {/* 가게 이름 */}
           <Grid container alignItems="end" sx={{ pb: "12px" }}>
-            <Grid item xs={9} sx={{ ...titleStyle, ...fontOver }}>
-              {resto.name}
+            <Grid item xs={9} sx={{ ...titleStyle }}>
+              {resto.resto_name}
             </Grid>
             <Grid
               item
@@ -62,7 +63,7 @@ export default function RestoInfo({ bestResto }: any) {
               xs={3}
               sx={{ fontSize: "6vw", textAlign: "center", color: "#E3B574" }}
             >
-              ★ {resto.rating.toFixed(1)}
+              ★ {4}
             </Grid>
           </Grid>
 

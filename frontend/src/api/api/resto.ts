@@ -13,6 +13,15 @@ const resto = {
     const res = await myAxios(req)
     return res
   },
+  getOther: async () => {
+    const reqData = {
+      uri: RESTO,
+      method: "GET",
+    }
+    const req = setRequest(reqData)
+    const res = await myAxios(req)
+    return res
+  },
 }
 
 export default resto

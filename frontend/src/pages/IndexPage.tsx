@@ -7,7 +7,6 @@ import MyPage from "./MyPage/MyPage"
 import Bottombar from "./CommonComp/BottomBar"
 import RestoDetail from "./DetailPage/RestoDetail"
 import ReviewForm from "../Form/NewReviewForm"
-import NeedConfirm from "../needConfirm/NeedConfirm"
 import MyInfoUpdate from "./MyPage/MyInfoUpdate"
 
 export default function IndexPage() {
@@ -26,7 +25,6 @@ export default function IndexPage() {
         <Route path="restos/:restoId" element={<RestoDetail />} />
         <Route path="restos/:restoId/review" element={<ReviewForm />} />
         {/* 실험실 */}
-        <Route path="need-confirm" element={<NeedConfirm />} />
       </Routes>
       <Bottombar />
     </>

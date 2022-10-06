@@ -96,6 +96,26 @@ def selectYoutuber():
     connection.close()
     return result
 
+def selectThirtyNopo():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE grade = 'THIRTY' ORDER BY RAND() LIMIT 20"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
+def selectLikedNopo():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT resto_id, count(*) as cnt FROM nopo_db.liked group by resto_id order by cnt desc limit 20"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
 def OldRestaurantRandom():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()

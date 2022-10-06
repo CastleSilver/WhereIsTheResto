@@ -253,3 +253,54 @@ def youtuberList(request):
         'youList': youList
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+@api_view(['GET'])
+def thirtyList(request):
+    thirList = selectThirtyNopo()
+    for thirItem in thirList:
+        try:
+            rating = selectRestoRating(thirItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+        
+        try:
+            reviews = selectRestoReview(thirItem['id'])
+        except:
+            reviews = []
+
+        thirItem['rating'] = rating
+        thirItem['review'] = reviews
+    
+    data = {
+        'thirList': thirList
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+@api_view(['GET'])
+def likedList(request):
+    likeList = selectLikedNopo()
+    restoList = []
+
+    for likeItem in likeList:
+        restoList.append(likeItem['resto_id'])
+
+    likeList = IdOldRestaurant(tuple(restoList))
+
+    for likeItem in likeList:
+        try:
+            rating = selectRestoRating(likeItem['id'])[0]['avg(rating)']
+        except:
+            rating = 0
+        
+        try:
+            reviews = selectRestoReview(likeItem['id'])
+        except:
+            reviews = []
+
+        likeItem['rating'] = rating
+        likeItem['review'] = reviews
+    
+    data = {
+        'likeList': likeList
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')

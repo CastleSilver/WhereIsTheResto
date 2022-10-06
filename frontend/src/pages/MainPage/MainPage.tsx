@@ -22,6 +22,7 @@ import axios from "axios"
 
 // Styling
 import "../../style/style.css"
+import { CollectionsBookmarkRounded } from "@mui/icons-material"
 
 const sideLeftAnimation = keyframes`${slideInLeft}`
 
@@ -34,35 +35,42 @@ const SideRLeft = styled.div`
 
 export default function MainPage() {
   const { pathname } = useLocation()
-  const recomList = useAppSelector(selectRecom)
+  const [recomList, setRecomList] = useState([])
   const isProgress = useAppSelector(selectRecomStatus)
   const dispatch = useAppDispatch()
+
+  // 장고 API 요청에 필요한 데이터들
+  const userId = 121
+  const azti = "mnhc"
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
   useEffect(() => {
-    dispatch(getRecomAsync())
-  }, [dispatch])
-
-  useEffect(() => {
-    sessionStorage.setItem("pageNum", "0")
+    console.log("AXIOS 시작")
     axios({
-      url: "http://j7a401.p.ssafy.io/recommend/aaaa",
+      url: `http://localhost:8000/data/recommend/resto/${userId}/${azti}/`,
       method: "GET",
     })
       .then((res: any) => {
-        console.log(res)
+        console.log("AXIOS 끝")
+        const temp = res.data.recomList
+        setRecomList(temp)
+        console.log(temp)
       })
       .catch((e: any) => {
         console.log(e)
       })
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem("pageNum", "0")
   })
   return (
     <Box>
-      {isProgress === "pending" && <LoadingPaper />}
-      {isProgress !== "pending" && (
+      {Object.keys(recomList).length === 0 && <LoadingPaper />}
+      {Object.keys(recomList).length !== 0 && (
         <>
           <Banner />
           <SideRLeft>

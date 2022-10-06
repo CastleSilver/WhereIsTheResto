@@ -11,4 +11,4 @@ COPY --from=build-stage /var/jenkins_home/workspace/nopo/frontend/deploy_conf/ng
 # COPY --from=build-stage /etc/letsencrypt/live/j7a401.p.ssafy.io /etc/letsencrypt/live/j7a401.p.ssafy.io
 
 EXPOSE 80
-CMD ["nginx", "-g","daemon off;"]
+#CMD ["nginx", "-g","daemon off;"]

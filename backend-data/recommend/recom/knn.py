@@ -96,6 +96,26 @@ def selectYoutuber():
     connection.close()
     return result
 
+def selectThirtyNopo():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT * FROM old_restaurant LEFT OUTER JOIN element ON old_restaurant.ele_id = element.id WHERE grade = 'THIRTY' ORDER BY RAND() LIMIT 20"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
+def selectLikedNopo():
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    sql = f"SELECT resto_id, count(*) as cnt FROM nopo_db.liked group by resto_id order by cnt desc limit 20"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
 def OldRestaurantRandom():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()
@@ -209,7 +229,6 @@ def makeReviewRestoVector():
 
 def mfRecomm(userId):
     resto_data = selectOldRestaurant()
-    print(userId)
     visited_data = selectVisitedRestos(userId)
     # userId 기준으로 평점 높은 순으로 정렬
     sorted_user_prediction = getSvdPred().loc[userId].sort_values(ascending=False)
@@ -223,10 +242,7 @@ def mfRecomm(userId):
     recommendation = resto_data[~resto_data['id'].isin(visited_data['resto_id'])]
     # 평점 높은 순으로 정렬한 데이터와 합치기
     recommendation = recommendation.merge(pd.DataFrame(sorted_user_prediction).reset_index(), left_on='id', right_on='resto_id')
-    print(recommendation.columns)
-    print(recommendation)
     sort_column = recommendation.columns[-1]
-    print(sort_column)
     recommendation = recommendation.sort_values(by=sort_column, ascending=False)
     result = recommendation['id'][:10]
     return result

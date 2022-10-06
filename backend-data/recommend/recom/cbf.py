@@ -11,8 +11,6 @@ warnings.filterwarnings('ignore')
 elements = ['terrace', 'drinking', 'meal', 'lunch', 'dinner', 'cost_effective', 'classy', 'mood', 'noisy', 'quiet', 'real_local']
 restos_data = pd.read_csv('restodata_list.csv')
 for i in range(len(restos_data)):
-    # print(restos_data.loc[i, 'etc'])
-    # print(type(restos_data.loc[i, 'etc']))
     try:
         restos_data.loc[i, 'etc'] = restos_data.loc[i, 'etc'].replace(' ' , '').replace(',', ' ')
     except:
@@ -28,8 +26,6 @@ count_vect = CountVectorizer(min_df=0, ngram_range=(1, 2))
 cat_mat = count_vect.fit_transform(restos_data['etc'])
 
 cat_sim = cosine_similarity(cat_mat, cat_mat)
-
-print(cat_sim.shape)
 
 def find_sim_resto(df, sim_matrix, title_name, top_n=10):
     
@@ -50,5 +46,3 @@ request_title = '황소곱창'
 request_num = 10
 
 similar_restos = find_sim_resto(restos_data, cat_sim, request_title, request_num)
-
-print(similar_restos)

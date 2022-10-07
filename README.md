@@ -1,5 +1,3 @@
-# <img src="README.assets/b2b6e1ea9d0f1443.png" alt="b2b6e1ea9d0f1443" style="zoom:25%;" />
-
 # 그 집 어데고
 
 ## 빅데이터 기반의 노포 추천 서비스

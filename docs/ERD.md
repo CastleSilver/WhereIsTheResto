@@ -1,0 +1,1 @@
+![그집어데고_ERD](ERD.assets/%EA%B7%B8%EC%A7%91%EC%96%B4%EB%8D%B0%EA%B3%A0_ERD.png)

@@ -68,7 +68,7 @@ export default function RestoDetail() {
   window.scrollTo(0, 0)
 
   useEffect(() => {
-    // dispatch(getInfoAsync(Number(restoId)))
+    dispatch(getInfoAsync(Number(restoId)))
   }, [restoId, dispatch])
 
   const getOtherResto = async () => {
@@ -91,7 +91,7 @@ export default function RestoDetail() {
 
   let age
   if (resto !== undefined) {
-    age = resto.restoAge
+    age = 2022 - resto.restoAge
   } else {
     age = 0
   }

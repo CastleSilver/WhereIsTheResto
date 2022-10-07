@@ -1,5 +1,6 @@
 import Resto from "./Resto"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
 
 const Slider = styled.div`
   position: relative;
@@ -18,12 +19,18 @@ const Content = styled.div`
 `
 
 export default function OtherResto({ restos }: any) {
+  const navigate = useNavigate()
   return (
     <Slider>
       <RowContent className="kill-scroll">
         {restos.map((resto: any, index: number) => {
           return (
-            <Content key={index}>
+            <Content
+              key={index}
+              onClick={() => {
+                navigate(`/restos/${resto.id}`)
+              }}
+            >
               <Resto resto={resto} />
             </Content>
           )

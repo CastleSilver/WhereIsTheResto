@@ -22,7 +22,6 @@ import axios from "axios"
 
 // Styling
 import "../../style/style.css"
-import { CollectionsBookmarkRounded } from "@mui/icons-material"
 
 const sideLeftAnimation = keyframes`${slideInLeft}`
 

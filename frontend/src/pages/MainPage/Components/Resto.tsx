@@ -45,6 +45,7 @@ export default function Resto({ resto }: any) {
   const undLine = {
     borderBottom: "solid 2px rgba(0, 0, 0, 0.9)",
   }
+
   return (
     <PaperBackground>
       <Box sx={wholeFrame}>
@@ -59,7 +60,7 @@ export default function Resto({ resto }: any) {
             xs={3}
             sx={{ fontSize: "6vw", textAlign: "center", color: "#E3B574" }}
           >
-            ★ {4.0}
+            ★ {resto.rating ? resto.rating.toFixed(1) : 3.0}
           </Grid>
         </Grid>
 

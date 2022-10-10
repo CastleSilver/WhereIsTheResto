@@ -116,6 +116,20 @@ def selectLikedNopo():
     connection.close()
     return result
 
+def selectLocationResto(locx, locy):
+    connection, cursor = connectMySQL()
+    cursor = connection.cursor()
+    min_x = locx - 0.054
+    max_x = locx + 0.054
+    min_y = locy - 0.054
+    max_y = locy + 0.054
+    sql = f"SELECT * FROM nopo_db.old_restaurant WHERE location_x < {max_x} and location_x > {min_x} and location_y < {max_y} and location_y > {min_y}"
+    cursor.execute(sql)
+    
+    result = cursor.fetchall()
+    connection.close()
+    return result
+
 def OldRestaurantRandom():
     connection, cursor = connectMySQL()
     cursor = connection.cursor()

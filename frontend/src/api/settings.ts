@@ -33,8 +33,8 @@ export const myAxios = async (req: any) => {
   } catch (error: any) {
     res = error
   } finally {
-    console.log(req)
-    console.log(res)
+    // console.log(req)
+    // console.log(res)
     return res
   }
 }

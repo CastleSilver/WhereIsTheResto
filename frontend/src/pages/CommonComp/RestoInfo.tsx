@@ -131,12 +131,16 @@ export default function RestoInfo1({ resto }: any) {
                   </Grid>
                 </Grid>
                 <Grid container sx={{ ...contentStyle }} alignContent="center">
-                  <Grid item xs={3}>
-                    <LocalDiningIcon sx={iconStyle} />
-                  </Grid>
-                  <Grid item xs={9} sx={fontOver}>
-                    {resto.menu2}
-                  </Grid>
+                  {resto.menu2 && (
+                    <>
+                      <Grid item xs={3}>
+                        <LocalDiningIcon sx={iconStyle} />
+                      </Grid>
+                      <Grid item xs={9} sx={fontOver}>
+                        {resto.menu2}
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

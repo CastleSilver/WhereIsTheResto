@@ -16,6 +16,8 @@ export interface AztiState {
   drinking: string
   user_azti: string
   user_azti_type: string
+  todayRes: string
+  todayMenu: string
 }
 
 export interface AztiTypeState {
@@ -52,6 +54,8 @@ const initialState: AztiState = {
   drinking: "",
   user_azti: "",
   user_azti_type: "",
+  todayRes: "",
+  todayMenu: "",
 }
 
 // AZTI = > 16개 타입
@@ -77,6 +81,7 @@ const aztiType: AztiTypeState = {
 interface aztiTt {
   [key: string]: string
 }
+
 export const koreanAztiType: aztiTt = {
   mcis: "감성 알뜰 인싸 주당",
   dcis: "현실 알뜰 인싸 주당",
@@ -100,6 +105,7 @@ export const userStateSlice = createSlice({
   initialState: userState,
   reducers: {
     userLogin: (state = userState, action: PayloadAction<any>) => {
+      console.log("here")
       return { ...state }
     },
   },
@@ -137,6 +143,8 @@ export const userSlice = createSlice({
                 drinking: action.payload.drinking,
                 user_azti: user,
                 user_azti_type: korean_azti,
+                todayRes: action.payload.todayRes,
+                todayMenu: action.payload.todayMenu,
               }
             }
           }

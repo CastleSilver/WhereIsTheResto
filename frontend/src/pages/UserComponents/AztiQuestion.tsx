@@ -1,3 +1,4 @@
+// MUI
 import Button from "@mui/material/Button"
 import Radio, { RadioProps } from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"
@@ -30,12 +31,12 @@ function AztiQuestion() {
   const navigate = useNavigate()
 
   // useEffect
-  useEffect(() => {
-    const sendUserAzti = () => {
-      dispatch(userinfo(user_status))
-    }
-    sendUserAzti()
-  }, [])
+  // useEffect(() => {
+  //     const sendUserAzti = () => {
+  //         dispatch(userinfo(user_status))
+  //     }
+  //     sendUserAzti()
+  // },[])
 
   useEffect(() => {
     const script = document.createElement("script")
@@ -46,8 +47,6 @@ function AztiQuestion() {
       document.body.removeChild(script)
     }
   }, [])
-
-  const SelectUserAzti = useSelector((state: RootState) => state.userazti)
 
   // Radio button style
   function BpRadio(props: RadioProps) {
@@ -61,18 +60,25 @@ function AztiQuestion() {
     mood: string
     place: string
     drinking: string
+    todayRes: string
+    todayMenu: string
   }
   const user_azti: azti = {
     cost_effective: "",
     mood: "",
     place: "",
     drinking: "",
+    todayRes: "",
+    todayMenu: "",
   }
 
   const [question_parameter, setParameter] = useState<number>(1)
   const [value, setValue] = React.useState("")
-  const [user_status, setUserazti] = useState<azti>(user_azti)
+  const [user_status, setUserStatus] = useState<azti>(user_azti)
   const [buttonCheck, setButtonCheck] = useState<number>(0)
+  // 오늘 식당 추천
+  const [todayRes, setTodayRes] = useState<string>("")
+  const [todayMenu, setTodayMenu] = useState<string>("")
 
   // radio button control
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,13 +114,16 @@ function AztiQuestion() {
       buttonClick()
       // buttonCheck 초기화
       setButtonCheck((event) => (event = 0))
-      dispatch(userinfo(user_status))
     } else if (question_parameter === 5) {
       buttonClick()
+      dispatch(userinfo(user_status))
+      // user_status.todayRes = todayRes
+      // user_status.todayMenu = todayMenu
       // buttonCheck 초기화
       setButtonCheck((event) => (event = 0))
     } else if (question_parameter === 6) {
       buttonClick()
+      // dispatch(userinfo(user_status))
       // buttonCheck 초기화
       setButtonCheck((event) => (event = 0))
     } else if (question_parameter === 7) {
@@ -131,11 +140,9 @@ function AztiQuestion() {
     setButtonCheck((event) => (event = 0))
   }
 
-  // 오늘 식당 추천
-  const [todayRes, setTodayRes] = useState<string>("")
-  const [todayMenu, setTodayMenu] = useState<string>("")
-
   let sPick = Math.floor(Math.random() * 9)
+
+  const SelectUserAzti = useSelector((state: RootState) => state.userazti)
   useEffect(() => {
     const recoFood = () => {
       const url = `http://j7a401.p.ssafy.io/data/recommend/cbf/${SelectUserAzti.user_azti}`
@@ -147,12 +154,18 @@ function AztiQuestion() {
           setTodayRes((event) => (event = today.resto_name))
           setTodayMenu((event) => (event = today.menu1))
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch((err) => {})
     }
-    recoFood()
+    if (SelectUserAzti.user_azti) {
+      recoFood()
+    }
   }, [question_parameter === 5 || question_parameter === 6])
+
+  useEffect(() => {
+    user_status.todayRes = todayRes
+    user_status.todayMenu = todayMenu
+    dispatch(userinfo(user_status))
+  }, [todayRes])
 
   // 현재 문제
   if (question_parameter === 1) {
@@ -563,6 +576,7 @@ function AztiQuestion() {
       </div>
     )
   } else if (question_parameter === 7) {
+    // recommendToday()
     localStorage.setItem("userKoreanAzti", SelectUserAzti.user_azti_type)
 
     const buttonToMain = () => {
@@ -577,8 +591,12 @@ function AztiQuestion() {
               Authorization: `${localStorage.getItem("login-kakao")}`,
             },
           })
-          .then((res) => {})
-          .then((err) => {})
+          .then((res) => {
+            console.log(res)
+          })
+          .then((err) => {
+            console.log(err)
+          })
       }
       hook()
 
@@ -588,18 +606,21 @@ function AztiQuestion() {
     return (
       <div>
         <h1 className="text-yellow-1">결과</h1>
-        <h3 className="text-orange-4"> 당신은 </h3>
-        <h3 className="text-orange-3">{SelectUserAzti.user_azti_type}</h3>
-        <img
-          src={
-            "https://aztipictures.s3.ap-northeast-2.amazonaws.com/azti_pic/" +
-            SelectUserAzti.user_azti +
-            ".png"
-          }
-          id="user-azti"
-          alt="user_azti"
-        />
-        <h6 color="secondary"> - 출저 : 그림왕 양치기 -</h6>
+        <div className="aztiContainer">
+          <br />
+          <h3 className="text-orange-6"> 당신은 </h3>
+          <h3 className="text-orange-3">{SelectUserAzti.user_azti_type}</h3>
+          <img
+            src={
+              "https://aztipictures.s3.ap-northeast-2.amazonaws.com/azti_pic/" +
+              SelectUserAzti.user_azti +
+              ".png"
+            }
+            id="user-azti"
+            alt="user_azti"
+          />
+          <h6 color="secondary"> - 출저 : 그림왕 양치기 -</h6>
+        </div>
         <Grid
           container
           display="flex"
@@ -609,7 +630,7 @@ function AztiQuestion() {
         >
           <span className="text-orange-5"> 오늘 </span>
           <p> </p>
-          <span className="text-orange-3"> {todayRes} </span>
+          <span className="text-orange-3"> {SelectUserAzti.todayRes} </span>
           <span className="text-orange-5">에서</span>
         </Grid>
         <Grid
@@ -619,7 +640,7 @@ function AztiQuestion() {
           alignItems="center"
           justifyContent="center"
         >
-          <span className="text-orange-3"> {todayMenu} </span>
+          <span className="text-orange-3"> {SelectUserAzti.todayMenu} </span>
           <span className="text-orange-5">어때요?</span>
         </Grid>
 
@@ -633,7 +654,7 @@ function AztiQuestion() {
           alignItems="center"
           justifyContent="center"
         >
-          <KakaoShareButton todayRes={todayRes} todayMenu={todayMenu} />
+          <KakaoShareButton />
           <Button color="secondary" onClick={resetButton}>
             <ReplayIcon />
           </Button>

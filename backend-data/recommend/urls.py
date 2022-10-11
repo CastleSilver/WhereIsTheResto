@@ -11,5 +11,6 @@ urlpatterns = [
     path('resto/developer', views.developerList),
     path('resto/youtuber', views.youtuberList),
     path('resto/thirty', views.thirtyList),
-    path('resto/liked', views.likedList)
+    path('resto/liked', views.likedList),
+    path('resto/location', views.locationList)
 ]

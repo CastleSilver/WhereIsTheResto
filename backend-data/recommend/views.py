@@ -378,3 +378,16 @@ def likedList(request):
         'likeList': likeList
     }
     return HttpResponse(json.dumps(data), content_type='application/json')
+
+
+@api_view(['POST'])
+def locationList(request):
+    locx = request.data.get('location_x')
+    locy = request.data.get('location_y')
+    locx = float(locx)
+    locy = float(locy)
+    locList = selectLocationResto(locx, locy)
+    data = {
+        'locList' : locList
+    }
+    return HttpResponse(json.dumps(data), content_type='application/json')

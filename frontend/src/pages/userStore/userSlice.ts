@@ -78,7 +78,11 @@ const aztiType: AztiTypeState = {
   dry_none_cost_effective_insider_coke: "dnic",
 }
 
-export const koreanAztiType = {
+interface aztiTt {
+  [key: string]: string
+}
+
+export const koreanAztiType: aztiTt = {
   mcis: "감성 알뜰 인싸 주당",
   dcis: "현실 알뜰 인싸 주당",
   mnis: "감성 호탕 인싸 주당",

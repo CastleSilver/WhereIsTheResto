@@ -105,7 +105,7 @@ export const userStateSlice = createSlice({
   initialState: userState,
   reducers: {
     userLogin: (state = userState, action: PayloadAction<any>) => {
-      console.log("here")
+      // console.log("here")
       return { ...state }
     },
   },

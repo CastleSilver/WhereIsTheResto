@@ -178,12 +178,13 @@ export default function ReviewComp({ review, onDelete }: any) {
           {Object.keys(review.imageUrl).length !== 0 && (
             <Slider>
               <RowContent className="kill-scroll">
-                {review.imageUrl.map((url: string) => {
+                {review.imageUrl.map((url: string, index: number) => {
                   return (
                     <Avatar
                       src={url}
                       sx={{ width: "100%", height: "100%" }}
                       variant="rounded"
+                      key={index}
                     />
                   )
                 })}

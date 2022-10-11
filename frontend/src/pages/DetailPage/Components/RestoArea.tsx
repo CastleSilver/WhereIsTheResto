@@ -156,7 +156,7 @@ export default function RestoArea() {
                       onClick={() => {
                         dispatch(likeRestoAsync(resto.id))
                         Swal.fire({
-                          title: "좋아요 등록/취소 완료",
+                          html: "<span style='font-size:6vw; margin: auto;'>좋아요 등록/취소 완료</span>",
                           timer: 900,
                           showConfirmButton: false,
                         })
@@ -180,7 +180,7 @@ export default function RestoArea() {
                       onClick={() => {
                         dispatch(vstRestoAsync(resto.id))
                         Swal.fire({
-                          title: "방문한 곳 등록/취소 완료",
+                          html: "<span style='font-size:6vw; margin: auto;'>방문한 곳 등록/취소 완료</span>",
                           timer: 900,
                           showConfirmButton: false,
                         })

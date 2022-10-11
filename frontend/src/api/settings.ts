@@ -1,7 +1,7 @@
 import axios from "axios"
 import { reqInfoType, reqType } from "./reqType"
 
-const BASE_URL = "https://j7a401.p.ssafy.io/api"
+const BASE_URL = "http://j7a401.p.ssafy.io/api"
 
 const key = localStorage.getItem("login-kakao")
 const Authorization = `Bearer ${key}`

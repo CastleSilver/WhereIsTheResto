@@ -30,7 +30,7 @@ export const userInfo = {
 }
 
 export const restoInfo = {
-  id: 1,
+  id: -1,
   restoAge: 2012,
   thumbnail: "https://t1.daumcdn.net/cfile/blog/9949953B5DAAD7792C",
   address: "서울특별시 종로구 대학로9길 12",

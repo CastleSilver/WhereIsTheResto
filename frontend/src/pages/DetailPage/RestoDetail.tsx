@@ -7,6 +7,8 @@ import {
   selectRestoStatus,
 } from "../userStore/restoSlice"
 
+import { Store } from "@reduxjs/toolkit"
+
 import CharTen from "../../assets/char10.png"
 import CharTwe from "../../assets/char20.png"
 import CharThr from "../../assets/char30.png"
@@ -111,8 +113,8 @@ export default function RestoDetail() {
     <>
       <img src={logos[gapInd]} width="25%" />
       {/* <LoadingPaper /> */}
-      {status !== "idle" || (simRestos.length === 0 && <LoadingPaper />)}
-      {status === "idle" && simRestos.length !== 0 && (
+      {resto?.id === -1 || (simRestos.length === 0 && <LoadingPaper />)}
+      {resto?.id !== -1 && simRestos.length !== 0 && (
         <Box>
           {/* 식당 정보 이름, 사진, 메뉴, 위치, 경력, 좋아요 수 */}
 

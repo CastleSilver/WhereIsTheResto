@@ -12,7 +12,7 @@ import {
 import { restoInfo } from "../../api/api/fakeData"
 
 export interface RestoState {
-  value: restoResType | undefined
+  value: restoResType
   status: "idle" | "pending" | "failed"
 }
 
@@ -26,7 +26,7 @@ export const restoSlice = createSlice({
   initialState,
   reducers: {
     goInit: (state) => {
-      state.value = undefined
+      state.value = restoInfo
     },
     // goLike: (state, action: any) => {
     //   console.log(action)

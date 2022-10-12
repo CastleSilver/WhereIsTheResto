@@ -23,7 +23,9 @@ const KakaoShareButton = () => {
       content: {
         title: `나는 ${SelectUserAzti.user_azti_type} 아재 입니다.`,
         // description : '#그집어데고 #노포 #아재 #그림왕양치기',
-        description: `나랑 ${SelectUserAzti.todayRes} 에서 ${SelectUserAzti.todayMenu} 먹으러 갈래?`,
+        description: SelectUserAzti.todayRes
+          ? `나랑 ${SelectUserAzti.todayRes} 에서 ${SelectUserAzti.todayMenu} 먹으러 갈래?`
+          : "",
         imageUrl:
           "https://aztipictures.s3.ap-northeast-2.amazonaws.com/azti_pic/" +
           SelectUserAzti.user_azti +

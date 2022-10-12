@@ -19,6 +19,8 @@ import BeenhereIcon from "@mui/icons-material/Beenhere"
 import PaperBackground from "../../CommonComp/PaperBackground"
 import "./RestoArea.scss"
 import Swal from "sweetalert2"
+import axios, { Axios } from "axios"
+import { useState } from "react"
 
 const recArea = {
   position: "relative",
@@ -76,17 +78,48 @@ const iconStyle = {
 export default function RestoArea() {
   const resto = useAppSelector(selectResto)
   const dispatch = useAppDispatch()
-  const address = resto?.address.split(" ").slice(1, -1).join(" ")
-
+  const [liked, setLiked] = useState(Boolean(resto.liked))
+  const [visited, setVisited] = useState(Boolean(resto.visited))
   const isLong = (word: string) => {
     return word.length >= 9
+  }
+  const likeAPI = async () => {
+    const reqData = {
+      url: "http://j7a401.p.ssafy.io/api/like",
+      method: "POST",
+      data: { restoId: resto?.id },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("login-kakao")}`,
+      },
+    }
+    if (liked) {
+      reqData.method = "DELETE"
+    }
+    setLiked((prev) => !prev)
+    await axios(reqData)
+  }
+
+  const vstAPI = async () => {
+    const reqData = {
+      url: "http://j7a401.p.ssafy.io/api/visited",
+      method: "POST",
+      data: { restoId: resto?.id },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("login-kakao")}`,
+      },
+    }
+    if (visited) {
+      reqData.method = "DELETE"
+    }
+    setVisited((prev) => !prev)
+    await axios(reqData)
   }
 
   return (
     <div>
       <PaperBackground>
-        {resto === undefined && <div>로딩 중</div>}
-        {resto !== undefined && (
+        {resto?.id === -1 && <div>로딩 중</div>}
+        {resto?.id !== -1 && (
           <Grid sx={{ px: "12px", py: "8px" }}>
             {/* 제목, 별점 */}
             <Grid container>
@@ -133,7 +166,7 @@ export default function RestoArea() {
                 </Grid>
                 <Grid container sx={contentStyle}>
                   <PinDropIcon sx={iconStyle} />
-                  {address}
+                  {resto?.address.split(" ").slice(1, -1).join(" ")}
                 </Grid>
                 <Grid container sx={contentStyle}>
                   <LocalDiningIcon sx={iconStyle} />
@@ -145,7 +178,8 @@ export default function RestoArea() {
                       width: "80%",
                     }}
                   >
-                    {resto.menu1}, {resto.menu2}
+                    {resto.menu1}
+                    {resto.menu2 ?? `, ${resto.menu2}`}
                   </Box>
                 </Grid>
 
@@ -154,15 +188,15 @@ export default function RestoArea() {
                   <Grid item xs={6}>
                     <Button
                       onClick={() => {
-                        dispatch(likeRestoAsync(resto.id))
+                        likeAPI()
                         Swal.fire({
-                          html: "<span style='font-size:6vw; margin: auto;'>좋아요 등록/취소 완료</span>",
+                          title: "좋아요 등록/취소 완료",
                           timer: 900,
                           showConfirmButton: false,
                         })
                       }}
                     >
-                      {resto.liked ? (
+                      {liked ? (
                         <FavoriteIcon
                           color="warning"
                           sx={{ fontSize: "11vw" }}
@@ -178,16 +212,16 @@ export default function RestoArea() {
                   <Grid item xs={6}>
                     <Button
                       onClick={() => {
-                        dispatch(vstRestoAsync(resto.id))
+                        vstAPI()
                         Swal.fire({
-                          html: "<span style='font-size:6vw; margin: auto;'>방문한 곳 등록/취소 완료</span>",
+                          title: "방문한 곳 등록/취소 완료",
                           timer: 900,
                           showConfirmButton: false,
                         })
                       }}
                     >
                       <BeenhereIcon
-                        color={resto.visited ? "warning" : "disabled"}
+                        color={visited ? "warning" : "disabled"}
                         sx={{ fontSize: "11vw" }}
                       />
                     </Button>

@@ -588,7 +588,7 @@ function AztiQuestion() {
         axios
           .patch(url, data, {
             headers: {
-              Authorization: `${localStorage.getItem("login-kakao")}`,
+              Authorization: `Bearer ${localStorage.getItem("login-kakao")}`,
             },
           })
           .then((res) => {

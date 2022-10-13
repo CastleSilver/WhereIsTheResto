@@ -338,3 +338,66 @@ FRONTEND
 - 프로토타입
 - 아키텍처
 - 컨벤션
+
+
+
+
+
+## 그집 어데고 화면
+
+
+
+- 로그인
+
+<img src="README.assets/%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif" alt="로그인" style="zoom: 80%;" />
+
+- AZTI 테스트
+
+<img src="README.assets/AZTI%ED%85%8C%EC%8A%A4%ED%8A%B8.gif" alt="AZTI테스트" style="zoom:80%;" />
+
+
+
+- 카카오톡 공유하기
+
+<img src="README.assets/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1%20%EA%B3%B5%EC%9C%A0%ED%95%98%EA%B8%B0.gif" alt="카카오톡 공유하기" style="zoom:80%;" />
+
+
+
+- 메인페이지
+
+<img src="README.assets/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif" alt="메인페이지" style="zoom:80%;" />
+
+- 써치페이지
+
+<img src="README.assets/%EC%8D%A8%EC%B9%98%ED%8E%98%EC%9D%B4%EC%A7%80.gif" alt="써치페이지" style="zoom:80%;" />
+
+- 마이페이지
+
+<img src="README.assets/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80.gif" alt="마이페이지" style="zoom:80%;" />
+
+- 써치페이지 디테일
+
+<img src="README.assets/%EC%8D%A8%EC%B9%98%ED%8E%98%EC%9D%B4%EC%A7%80%20%EB%94%94%ED%85%8C%EC%9D%BC.gif" alt="써치페이지 디테일" style="zoom:80%;" />
+
+- 노포디테일페이지
+
+<img src="README.assets/%EB%85%B8%ED%8F%AC%EB%94%94%ED%85%8C%EC%9D%BC%ED%8E%98%EC%9D%B4%EC%A7%80.gif" alt="노포디테일페이지" style="zoom:80%;" />
+
+
+
+- 좋아요 등록 취소
+
+<img src="README.assets/%EC%A2%8B%EC%95%84%EC%9A%94%20%EB%93%B1%EB%A1%9D%20%EC%B7%A8%EC%86%8C.gif" alt="좋아요 등록 취소" style="zoom:80%;" />
+
+- 방문한 곳 등록 취소
+
+<img src="README.assets/%EB%B0%A9%EB%AC%B8%ED%95%9C%EA%B3%B3%20%EB%93%B1%EB%A1%9D%20%EC%B7%A8%EC%86%8C.gif" alt="방문한곳 등록 취소" style="zoom:80%;" />
+
+- 리뷰 작성
+
+<img src="README.assets/%EB%A6%AC%EB%B7%B0%20%EC%9E%91%EC%84%B1.gif" alt="리뷰 작성" style="zoom:80%;" />
+
+- 리뷰 삭제
+
+<img src="README.assets/%EB%A6%AC%EB%B7%B0%EC%82%AD%EC%A0%9C.gif" alt="리뷰삭제" style="zoom:80%;" />
+
